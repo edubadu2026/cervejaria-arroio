@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SensorTech POA: Gestão de Crise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: #F4F6FB; color: #1E2235; display: flex; min-height: 100vh; }
+
+    /* ─── Sidebar ─── */
+    #sidebar {
+      width: 260px; min-height: 100vh; background: #1A1F2E; color: #CBD5E1;
+      position: fixed; top: 0; left: 0; display: flex; flex-direction: column;
+      z-index: 100; transition: transform 0.3s ease;
+    }
+    .sidebar-logo { padding: 28px 24px 20px; border-bottom: 1px solid #2D3448; }
+    .sidebar-logo .logo-badge {
+      background: #1C4ED8; color: #fff; font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px;
+      border-radius: 4px; display: inline-block; margin-bottom: 8px;
+    }
+    .sidebar-logo h2 { font-family: 'DM Serif Display', serif; font-size: 20px; color: #F1F5F9; line-height: 1.3; }
+    .sidebar-logo p { font-size: 12px; color: #64748B; margin-top: 4px; }
+    nav ul { list-style: none; padding: 16px 0; flex: 1; }
+    nav ul li a {
+      display: flex; align-items: center; gap: 10px; padding: 11px 24px;
+      color: #94A3B8; text-decoration: none; font-size: 14px; font-weight: 500;
+      border-left: 3px solid transparent; transition: all 0.2s;
+    }
+    nav ul li a:hover, nav ul li a.active { background: #232942; color: #E2E8F0; border-left-color: #3B82F6; }
+    nav ul li a .icon { font-size: 16px; width: 20px; text-align: center; }
+    .sidebar-footer { padding: 16px 24px; border-top: 1px solid #2D3448; font-size: 11px; color: #475569; }
+
+    /* ─── Main ─── */
+    #main { margin-left: 260px; padding: 40px 48px; flex: 1; max-width: calc(100vw - 260px); }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ─── Typography ─── */
+    h1 { font-family: 'DM Serif Display', serif; font-size: 38px; line-height: 1.2; color: #0F172A; }
+    h2 { font-family: 'DM Serif Display', serif; font-size: 26px; color: #0F172A; margin-bottom: 12px; }
+    h3 { font-size: 17px; font-weight: 600; color: #1E2235; margin-bottom: 8px; }
+    p { font-size: 15px; line-height: 1.7; color: #374151; }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: linear-gradient(135deg, #0F172A 0%, #1C4ED8 100%);
+      border-radius: 16px; padding: 52px 48px; color: white; margin-bottom: 36px;
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; right: -60px; top: -60px;
+      width: 300px; height: 300px; background: rgba(255,255,255,0.04); border-radius: 50%;
+    }
+    .hero .tag {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; display: inline-block; margin-bottom: 16px;
+    }
+    .hero h1 { color: white; font-size: 42px; margin-bottom: 16px; }
+    .hero p { color: rgba(255,255,255,0.80); font-size: 16px; max-width: 620px; }
+    .hero-meta { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
+    .hero-meta .meta-item { font-size: 13px; color: rgba(255,255,255,0.65); }
+    .hero-meta .meta-item strong { display: block; color: #fff; font-size: 22px; font-family: 'DM Serif Display', serif; }
+
+    /* ─── Cards grid ─── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 24px; }
+    .card {
+      background: white; border-radius: 12px; padding: 24px; border: 1px solid #E2E8F0;
+      cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.10); border-color: #3B82F6; }
+    .card .card-icon { font-size: 28px; margin-bottom: 12px; }
+    .card h3 { font-size: 16px; margin-bottom: 6px; }
+    .card p { font-size: 13px; color: #64748B; line-height: 1.5; }
+
+    /* ─── Section header ─── */
+    .section-header { margin-bottom: 32px; }
+    .section-header .label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #1C4ED8; margin-bottom: 6px; }
+    .divider { height: 1px; background: #E2E8F0; margin: 32px 0; }
+
+    /* ─── Narrative ─── */
+    .narrative { background: white; border-radius: 12px; padding: 32px; border: 1px solid #E2E8F0; margin-bottom: 24px; }
+    .narrative h2 { font-size: 22px; margin-bottom: 16px; }
+    .narrative p { margin-bottom: 14px; }
+    .narrative p:last-child { margin-bottom: 0; }
+
+    /* ─── Timeline ─── */
+    .timeline { position: relative; padding-left: 28px; margin: 24px 0; }
+    .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: #E2E8F0; }
+    .tl-item { position: relative; margin-bottom: 20px; }
+    .tl-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #1C4ED8; border: 2px solid white; box-shadow: 0 0 0 2px #1C4ED8; }
+    .tl-item .tl-year { font-size: 12px; font-weight: 700; color: #1C4ED8; margin-bottom: 2px; }
+    .tl-item p { font-size: 14px; color: #374151; margin: 0; }
+
+    /* ─── Stakeholder grid ─── */
+    .stakeholder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .stakeholder-card { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px; display: flex; gap: 14px; align-items: flex-start; }
+    .stakeholder-card .s-icon { width: 40px; height: 40px; border-radius: 8px; background: #EFF6FF; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .stakeholder-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #0F172A; }
+    .stakeholder-card p { font-size: 13px; color: #64748B; line-height: 1.5; margin: 0; }
+
+    /* ─── Status boxes ─── */
+    .box { border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; border-left: 4px solid; font-size: 14px; line-height: 1.6; }
+    .box-warn   { background: #FFFBEB; border-color: #F59E0B; color: #78350F; }
+    .box-danger { background: #FEF2F2; border-color: #EF4444; color: #7F1D1D; }
+    .box-info   { background: #EFF6FF; border-color: #3B82F6; color: #1E3A5F; }
+    .box-success{ background: #F0FDF4; border-color: #22C55E; color: #14532D; }
+    .box strong { display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+
+    /* ─── Dilemma ─── */
+    .dilemma { background: white; border-radius: 14px; border: 1px solid #E2E8F0; margin-bottom: 28px; overflow: hidden; }
+    .dilemma-header { background: #0F172A; color: white; padding: 20px 28px; display: flex; align-items: center; gap: 14px; }
+    .dilemma-number { width: 36px; height: 36px; background: #1C4ED8; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+    .dilemma-header h3 { font-size: 17px; font-weight: 600; margin: 0; color: white; }
+    .dilemma-body { padding: 28px; }
+    .dilemma-body p { margin-bottom: 12px; }
+    .dilemma-options { margin-top: 20px; }
+    .dilemma-options h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #64748B; margin-bottom: 12px; }
+    .option-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; background: #F8FAFC; border-radius: 8px; margin-bottom: 8px; font-size: 14px; line-height: 1.5; }
+    .option-item .opt-label { background: #1C4ED8; color: white; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
+    .discussion-qs { margin-top: 20px; background: #F8FAFC; border-radius: 10px; padding: 16px 20px; }
+    .discussion-qs h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #64748B; margin-bottom: 10px; }
+    .discussion-qs ol { padding-left: 18px; }
+    .discussion-qs ol li { font-size: 14px; color: #374151; margin-bottom: 6px; line-height: 1.5; }
+
+    /* ─── Governança scenario ─── */
+    .gov-scenario { background: white; border-radius: 12px; border: 1px solid #E2E8F0; padding: 28px; margin-bottom: 20px; }
+    .gov-scenario h3 { font-size: 18px; margin-bottom: 10px; }
+    .scenario-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
+    .tag-g { background: #DBEAFE; color: #1E40AF; }
+
+    /* ─── Table ─── */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: #F1F5F9; color: #374151; font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 2px solid #E2E8F0; }
+    td { padding: 10px 14px; border-bottom: 1px solid #F1F5F9; color: #374151; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #F8FAFC; }
+
+    /* ─── Compliance proposals ─── */
+    .proposals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+    @media (max-width: 1100px) { .proposals-grid { grid-template-columns: 1fr; } }
+
+    .proposal-card {
+      border-radius: 16px; border: 2px solid #E2E8F0; overflow: hidden;
+      display: flex; flex-direction: column; transition: box-shadow 0.2s;
+    }
+    .proposal-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+    .proposal-card.highlight { border-color: #1C4ED8; }
+
+    .pc-header { padding: 24px; }
+    .pc-header.lite    { background: #F8FAFC; }
+    .pc-header.pro     { background: #1C4ED8; color: white; }
+    .pc-header.total   { background: #0F172A; color: white; }
+    .pc-tier { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; opacity: 0.75; }
+    .pc-name { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 14px; }
+    .pc-price { font-size: 28px; font-weight: 700; }
+    .pc-price span { font-size: 13px; font-weight: 400; opacity: 0.7; }
+    .pc-pct { font-size: 13px; opacity: 0.7; margin-top: 2px; }
+    .pc-prazo { display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+    .pc-prazo.lite  { background: #E2E8F0; color: #475569; }
+    .pc-prazo.pro   { background: rgba(255,255,255,0.20); color: white; }
+    .pc-prazo.total { background: rgba(255,255,255,0.15); color: white; }
+
+    .pc-body { padding: 24px; flex: 1; background: white; }
+    .pc-body h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 14px; }
+    .pc-feature { display: flex; gap: 10px; margin-bottom: 10px; font-size: 14px; line-height: 1.4; color: #374151; }
+    .pc-feature .check { flex-shrink: 0; margin-top: 1px; }
+    .check-yes   { color: #16A34A; }
+    .check-no    { color: #D1D5DB; }
+    .check-pro   { color: #1C4ED8; }
+
+    .pc-footer { padding: 18px 24px; background: #F8FAFC; border-top: 1px solid #E2E8F0; }
+    .pc-footer .who-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 4px; }
+    .pc-footer p { font-size: 13px; color: #374151; margin: 0; line-height: 1.5; }
+
+    /* ─── Group activity ─── */
+    .activity-box { background: #0F172A; border-radius: 14px; padding: 32px; color: white; margin-bottom: 28px; }
+    .activity-box h3 { color: white; font-size: 20px; margin-bottom: 10px; }
+    .activity-box p { color: rgba(255,255,255,0.75); margin-bottom: 0; }
+    .group-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+    @media (max-width: 900px) { .group-cards { grid-template-columns: 1fr; } }
+    .group-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 16px; }
+    .group-card .g-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+    .group-card .g-name { font-size: 15px; font-weight: 600; color: white; margin-bottom: 6px; }
+    .group-card .g-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.4; }
+
+    .rubric-table th { background: #1C4ED8; color: white; }
+
+    /* ─── Home button ─── */
+    .btn-home {
+      display: inline-flex; align-items: center; gap: 7px; background: white;
+      border: 1px solid #E2E8F0; color: #475569; font-size: 13px; font-weight: 500;
+      padding: 7px 14px; border-radius: 8px; cursor: pointer; text-decoration: none;
+      margin-bottom: 24px; transition: all 0.2s;
+    }
+    .btn-home:hover { background: #F1F5F9; border-color: #CBD5E1; color: #1C4ED8; }
+
+    /* ─── Mobile ─── */
+    .hamburger {
+      display: none; position: fixed; top: 14px; left: 14px; z-index: 200;
+      background: #1A1F2E; border: none; color: white; width: 38px; height: 38px;
+      border-radius: 8px; font-size: 18px; cursor: pointer; align-items: center; justify-content: center;
+    }
+    @media (max-width: 900px) {
+      #sidebar { transform: translateX(-100%); }
+      #sidebar.open { transform: translateX(0); }
+      #main { margin-left: 0; padding: 24px 18px; max-width: 100vw; }
+      .hamburger { display: flex; }
+      .hero { padding: 36px 24px; }
+      .hero h1 { font-size: 28px; }
+      h1 { font-size: 26px; }
+    }
+
+    /* ─── Desafios Éticos ─── */
+    .group-landing { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 20px; margin-top: 8px; }
+    .gl-card { border-radius: 14px; overflow: hidden; cursor: pointer; text-decoration: none; color: inherit; display: block; transition: transform 0.2s, box-shadow 0.2s; }
+    .gl-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
+    .gl-card-top { padding: 28px 26px 18px; }
+    .gl-group { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.7; margin-bottom: 10px; color: white; }
+    .gl-valor { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 14px; background: rgba(255,255,255,0.2); color: white; }
+    .gl-title { font-family: 'DM Serif Display', serif; font-size: 19px; line-height: 1.35; color: white; }
+    .gl-card-bottom { background: white; padding: 16px 26px 20px; }
+    .gl-card-bottom p { font-size: 13px; color: #64748B; line-height: 1.5; margin: 0 0 10px; }
+    .gl-cta { font-size: 13px; font-weight: 700; }
+    .desafio-header { border-radius: 14px; padding: 36px 40px; margin-bottom: 28px; color: white; }
+    .desafio-valor-badge { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); display: inline-block; margin-bottom: 14px; }
+    .desafio-grupo-label { font-size: 12px; opacity: 0.65; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: block; color: white; }
+    .desafio-header h1 { color: white; font-size: 32px; margin-bottom: 0; }
+    .desafio-context { background: white; border-radius: 12px; border: 1px solid #E2E8F0; padding: 32px; margin-bottom: 22px; }
+    .desafio-context p { margin-bottom: 14px; }
+    .desafio-context p:last-child { margin-bottom: 0; }
+    .desafio-tensao { border-radius: 12px; padding: 26px 30px; margin-bottom: 28px; border-left: 5px solid rgba(0,0,0,0.15); }
+    .desafio-tensao strong { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; opacity: 0.75; }
+    .desafio-tensao p { font-size: 15px; line-height: 1.75; margin: 0; }
+    .desafio-pergunta { border-radius: 14px; padding: 36px 40px; text-align: center; margin-bottom: 8px; }
+    .desafio-pergunta .pq-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-bottom: 16px; display: block; color: white; }
+    .desafio-pergunta h2 { font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1.45; margin: 0; color: white; }
+    /* ─── Capítulos bloqueados ─── */
+    nav ul li a.locked { color:#475569; cursor:default; }
+    nav ul li a.locked:hover { background:transparent; color:#475569; border-left-color:transparent; }
+    .card.locked { cursor:default; opacity:0.55; position:relative; }
+    .card.locked:hover { transform:none; box-shadow:none; border-color:#E2E8F0; }
+    .card.locked img { filter:grayscale(1); }
+    .lock-badge { position:absolute; top:10px; right:10px; background:#0F172A; color:#fff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:20px; }
+    .card .aula-label { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#1C4ED8; margin-bottom:6px; }
+  </style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+<!-- Sidebar -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-badge">Case de Ensino</span>
+    <h2>SensorTech POA</h2>
+    <p>Gestão de Crise, Imagem e Reputação · Porto Alegre</p>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#" class="active" onclick="show('inicio',this)"><span class="icon">🏠</span> Início</a></li>
+      <li><a href="#" onclick="show('stakeholders',this)"><span class="icon">👥</span> Aula 1 · Stakeholders</a></li>
+      <li><a class="locked"><span class="icon">🔒</span> Aula 2 · em breve</a></li>
+      <li><a class="locked"><span class="icon">🔒</span> Aula 3 · em breve</a></li>
+      <li><a class="locked"><span class="icon">🔒</span> Aula 4 · em breve</a></li>
+    </ul>
+  </nav>
+  <div class="sidebar-footer">
+    Porto Alegre · RS<br><strong style="color:#94A3B8">MBA FGV · Gestão de Crise · 2026</strong>
+  </div>
+</aside>
+
+<!-- Main -->
+<main id="main">
+
+<!-- ════════════════════════════════════════
+     INÍCIO
+════════════════════════════════════════ -->
+<div id="inicio" class="page active">
+  <div class="hero">
+    <span class="tag">📍 Porto Alegre · RS</span>
+    <h1>SensorTech Soluções Industriais</h1>
+    <p>Um case em quatro capítulos sobre crise, imagem e reputação. A cada aula, a história avança um passo.</p>
+    <img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=900&q=80"
+         alt="SensorTech: IoT Industrial"
+         style="width:100%;max-width:680px;height:220px;object-fit:cover;border-radius:12px;margin:20px 0 0;display:block;opacity:0.88;" />
+  </div>
+
+  <div class="cards-grid">
+    <div class="card" onclick="show('stakeholders',null)" style="padding:0;overflow:hidden;">
+      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80"
+           alt="Stakeholders" style="width:100%;height:110px;object-fit:cover;display:block;" />
+      <div style="padding:18px 20px 20px;">
+        <div class="aula-label">Aula 1</div>
+        <h3>Gerenciando Stakeholders</h3>
+        <p>Os 11 atores que moldam a SensorTech e de quem depende sua reputação.</p>
+      </div>
+    </div>
+    <div class="card locked" style="padding:0;overflow:hidden;">
+      <span class="lock-badge">🔒 Em breve</span>
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80"
+           alt="Aula 2" style="width:100%;height:110px;object-fit:cover;display:block;" />
+      <div style="padding:18px 20px 20px;">
+        <div class="aula-label">Aula 2</div>
+        <h3>Capítulo 2</h3>
+        <p>Liberado na próxima aula.</p>
+      </div>
+    </div>
+    <div class="card locked" style="padding:0;overflow:hidden;">
+      <span class="lock-badge">🔒 Em breve</span>
+      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
+           alt="Aula 3" style="width:100%;height:110px;object-fit:cover;display:block;" />
+      <div style="padding:18px 20px 20px;">
+        <div class="aula-label">Aula 3</div>
+        <h3>Capítulo 3</h3>
+        <p>Liberado na aula 3.</p>
+      </div>
+    </div>
+    <div class="card locked" style="padding:0;overflow:hidden;">
+      <span class="lock-badge">🔒 Em breve</span>
+      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=500&q=80"
+           alt="Aula 4" style="width:100%;height:110px;object-fit:cover;display:block;" />
+      <div style="padding:18px 20px 20px;">
+        <div class="aula-label">Aula 4</div>
+        <h3>Capítulo 4</h3>
+        <p>Liberado na aula 4.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="narrative">
+    <h2>Por que começar pelos stakeholders?</h2>
+    <p>A SensorTech cresceu rápido demais para sua estrutura. Com R$ 9,8 M de receita, 42 funcionários e um investidor institucional (Criatec3) no cap table, a empresa opera ainda com processos informais herdados da fase de startup. Por fora, é uma história de sucesso: tecnologia gaúcha, cliente âncora na Petrobras, crescimento acelerado.</p>
+    <p>Mas reputação não é o que a empresa diz de si mesma. É o que cada pessoa e cada instituição que se relaciona com ela acredita que ela é, e o que espera que ela faça. Por isso, toda crise começa muito antes de estourar: começa no dia em que uma empresa deixa de saber quem depende dela, de quem ela depende e quanto cada um pode fazer quando a confiança se rompe.</p>
+    <p>A questão que atravessa este case é: <strong>quando a crise chegar, a SensorTech saberá com quem está falando?</strong></p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STAKEHOLDERS
+════════════════════════════════════════ -->
+<div id="stakeholders" class="page">
+  <a href="#" class="btn-home" onclick="show('inicio',null);return false;">🏠 Voltar ao Início</a>
+  <div class="section-header">
+    <div class="label">Aula 1 · Capítulo 1</div>
+    <h1>Gerenciando os Stakeholders da SensorTech</h1>
+  </div>
+
+  <div class="narrative">
+    <p>Em 2015, Rafael Costa e Thiago Mendes saíram da UFRGS com um protótipo de sensor IoT e R$ 80 mil de capital próprio. Instalaram-se num apartamento no bairro Petrópolis, em Porto Alegre, com um objetivo preciso: sensores de baixo custo para monitoramento preditivo de equipamentos industriais.</p>
+    <p>Um ano depois, assinaram o primeiro contrato com a Metalsul Automação, no Vale dos Sinos. Era pequeno, mas provava que o produto funcionava fora do laboratório. Em 2019, veio o salto: o contrato com a REFAP, refinaria da Petrobras em Canoas, transformou a empresa. De repente, a SensorTech tinha um cliente âncora que representava 65% da receita e um novo patamar de exigência técnica e operacional.</p>
+    <p>Em 2021, o Criatec3 entrou no quadro societário com R$ 3,5 milhões e 40% da participação societária. O capital acelerou o crescimento, mas trouxe junto uma exigência que os fundadores ainda não estavam prontos para atender.</p>
+    <p>Em 2024, com 42 funcionários, 18 clientes ativos e R$ 9,8 milhões de receita, Rafael percebeu que tomar decisões sem mapear quem seria afetado por elas estava se tornando um risco real. Um contrato mal comunicado com a REFAP. Uma demissão que gerou ruído na equipe técnica. Uma negociação com a ChipBrasil travada por falta de alinhamento interno.</p>
+    <p>Foi nesse contexto que <strong>Maria Fernanda Alves</strong> chegou à SensorTech. Com experiência consolidada em gestão e passagem pelo MBA da FGV, onde na disciplina de Gestão de Crise, Imagem e Reputação Corporativa havia aprendido que nenhuma empresa sobrevive a uma crise sem saber de quem depende, ela assumiu uma posição ainda em definição: algo entre diretora e sócia, com acesso direto aos fundadores e mandato para estruturar o que a empresa nunca havia estruturado. Uma de suas primeiras provocações abriu um debate que ninguém esperava: <em>"Vocês sabem, de verdade, quem são os stakeholders da SensorTech e quanto poder e interesse cada um tem sobre o negócio?"</em></p>
+    <p>A pergunta não tinha resposta imediata. E foi esse silêncio que deu início ao processo de mapeamento que você verá a seguir.</p>
+  </div>
+
+  <div class="divider"></div>
+  <h2 style="margin-bottom:8px;">Os 11 Stakeholders</h2>
+  <p style="margin-bottom:20px;color:#64748B;font-size:14px;">Para cada stakeholder, reflita: <strong>qual é o poder deste ator sobre a SensorTech?</strong> E <strong>qual é o seu nível de interesse nos resultados da empresa?</strong> Aloque-os na Matriz Poder x Interesse.</p>
+  <p style="margin-bottom:20px;color:#64748B;font-size:14px;">Lembre-se: o mapa de stakeholders é o primeiro instrumento de qualquer gestão de crise. É ele que diz quem precisa saber primeiro, quem pode derrubar a empresa e quem sofre as consequências sem ter voz.</p>
+  <div class="stakeholder-grid">
+
+    <div class="stakeholder-card">
+      <div class="s-icon">🏭</div>
+      <div>
+        <h4>REFAP: Petrobras (Canoas/RS)</h4>
+        <p>Representa 40% da receita da SensorTech. Os sensores monitoram equipamentos críticos em refinaria: ambiente de alto risco regulatório (NR-13). Substituir a SensorTech levaria meses de requalificação. Um cancelamento de contrato seria devastador para a empresa.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: confiabilidade operacional e segurança industrial contínua.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">🏢</div>
+      <div>
+        <h4>17 Clientes PME</h4>
+        <p>Indústrias gaúchas de metalurgia, celulose, agronegócio e manufatura. Cada um representa entre 2% e 8% da receita. Individualmente, nenhum move o ponteiro da empresa: mas dependem das soluções IoT para monitoramento preditivo de seus equipamentos, sem alternativa local equivalente no curto prazo.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: continuidade do monitoramento e redução de paradas não planejadas.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">💼</div>
+      <div>
+        <h4>Criatec3 (Fundo de VC)</h4>
+        <p>Detém 40% da equity e direito de veto em contratos acima de R$ 200 k. O retorno do fundo depende diretamente da valorização da SensorTech. Pressiona ativamente por governança, ESG e preparação para a próxima rodada. Pode bloquear decisões estratégicas.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: retorno financeiro do investimento de R$ 3,5 M.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">👨‍💻</div>
+      <div>
+        <h4>Rafael Costa (CEO)</h4>
+        <p>Co-fundador com 30% das quotas. Concentra as decisões comerciais e estratégicas. A empresa é seu projeto de vida e principal fonte de renda. Tem autonomia formal para assinar contratos e liderar a operação: mas enfrenta o empasse com Thiago em decisões críticas.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: patrimônio pessoal, legado profissional e controle do negócio.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">👨‍🔬</div>
+      <div>
+        <h4>Thiago Mendes (CTO)</h4>
+        <p>Co-fundador com 30% das quotas. Responsável pela arquitetura tecnológica: o produto só existe porque ele existe. Detentor do know-how mais crítico da empresa. Central nos conflitos de governança e no deadlock societário. Sua saída seria tecnicamente irreparável no curto prazo.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: controle tecnológico, equity e direção do produto.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">⚙️</div>
+      <div>
+        <h4>Equipe Técnica Sênior</h4>
+        <p>8 engenheiros que carregam o conhecimento operacional do produto. Alta rotatividade do mercado de TI gaúcho (28%/ano) significa que são assediados por concorrentes constantemente. Individualmente têm pouca influência formal, mas uma saída coletiva comprometeria projetos inteiros.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: carreira, remuneração e ambiente de trabalho.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">👷</div>
+      <div>
+        <h4>Funcionários Operacionais</h4>
+        <p>34 colaboradores em suporte técnico, vendas, financeiro e logística. A SensorTech representa o emprego e a renda familiar para todos eles. Individualmente têm baixo poder de barganha e poucas alternativas equivalentes no mercado regional. Mas são os primeiros a sentir: e a comunicar: quando a cultura falha.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: estabilidade de emprego e condições de trabalho.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">🔌</div>
+      <div>
+        <h4>ChipBrasil (Fornecedor Crítico)</h4>
+        <p>Único fornecedor qualificado dos microcontroladores utilizados nos sensores. Uma ruptura no fornecimento pararia a produção da SensorTech em semanas. No entanto, a SensorTech representa apenas uma fração do portfólio da ChipBrasil, que atende dezenas de empresas de médio porte em todo o Brasil.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: receita de um cliente de porte médio entre muitos.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">📦</div>
+      <div>
+        <h4>Demais Fornecedores</h4>
+        <p>Componentes, embalagens e logística. São substituíveis: há alternativas no mercado para cada categoria. A SensorTech é um cliente de pequeno porte na carteira de cada um deles. A relação é transacional: entrega-pagamento, sem dependência mútua relevante.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: receita pontual de um cliente pequeno.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">📡</div>
+      <div>
+        <h4>ANATEL</h4>
+        <p>Regulador federal de telecomunicações. A homologação dos sensores IoT é obrigatória para operar: sem ela, nenhum produto pode ser comercializado. A ANATEL pode suspender certificações e impor multas severas. Contudo, a SensorTech é apenas uma das milhares de empresas no universo regulado: não há relação diferenciada.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: conformidade regulatória de um agente entre milhares.</p>
+      </div>
+    </div>
+
+    <div class="stakeholder-card">
+      <div class="s-icon">🤝</div>
+      <div>
+        <h4>ABIoT</h4>
+        <p>Associação Brasileira de IoT. Representa o setor junto a órgãos públicos e oferece acesso a editais de P&amp;D (EMBRAPII, FINEP). A SensorTech é um dos centenas de membros. A entidade não tem poder direto sobre as operações da empresa: e para a ABIoT, cada membro tem peso similar.</p>
+        <p style="font-size:12px;color:#1C4ED8;margin-top:6px;font-weight:600;">💡 O que está em jogo: um membro entre centenas, com contribuição associativa regular.</p>
+      </div>
+    </div>
+
+  </div><!-- /stakeholder-grid -->
+
+  <div class="divider"></div>
+  <div style="text-align:center;padding:8px 0 4px;">
+    <a href="#" onclick="show('gabarito',null);return false;"
+       style="display:inline-flex;align-items:center;gap:10px;background:#1C4ED8;color:#F1F5F9;font-size:14px;font-weight:600;padding:14px 28px;border-radius:10px;text-decoration:none;letter-spacing:0.3px;">
+      ✅ Ver Gabarito da Matriz Poder x Interesse
+    </a>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     GABARITO (oculto da nav: uso do professor)
+════════════════════════════════════════ -->
+<div id="gabarito" class="page">
+  <a href="#" class="btn-home" onclick="show('stakeholders',null);return false;">← Voltar aos Stakeholders</a>
+  <div class="section-header">
+    <div class="label">Gabarito</div>
+    <h1>Matriz Poder x Interesse: Resposta</h1>
+  </div>
+  <p style="margin-bottom:28px;color:#64748B;">Posicionamento dos 11 stakeholders da SensorTech na matriz, com justificativa para cada alocação.</p>
+
+  <!-- Matriz visual -->
+  <div style="background:white;border-radius:16px;border:1px solid #E2E8F0;padding:32px;margin-bottom:32px;">
+    <div style="display:grid;grid-template-columns:32px 1fr;gap:0;align-items:center;">
+      <!-- Eixo Y label -->
+      <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:13px;font-weight:700;color:#475569;letter-spacing:1px;text-transform:uppercase;text-align:center;grid-row:1/3;">PODER</div>
+      <!-- Quadrantes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;">
+        <!-- Alto Poder + Baixo Interesse -->
+        <div style="background:#BFDBFE;border-radius:12px;padding:20px;min-height:160px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1E3A5F;margin-bottom:12px;">Alto Poder · Baixo Interesse</div>
+          <div style="font-size:13px;color:#1E3A5F;line-height:1.6;">
+            🔌 <strong>ChipBrasil</strong><br>
+            📡 <strong>ANATEL</strong>
+          </div>
+        </div>
+        <!-- Alto Poder + Alto Interesse -->
+        <div style="background:#0F172A;border-radius:12px;padding:20px;min-height:160px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#94A3B8;margin-bottom:12px;">Alto Poder · Alto Interesse</div>
+          <div style="font-size:13px;color:#F1F5F9;line-height:1.6;">
+            🏭 <strong>REFAP: Petrobras</strong><br>
+            💼 <strong>Criatec3</strong><br>
+            👨‍💻 <strong>Rafael Costa</strong><br>
+            👨‍🔬 <strong>Thiago Mendes</strong>
+          </div>
+        </div>
+        <!-- Baixo Poder + Baixo Interesse -->
+        <div style="background:#DBEAFE;border-radius:12px;padding:20px;min-height:160px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1E3A5F;margin-bottom:12px;">Baixo Poder · Baixo Interesse</div>
+          <div style="font-size:13px;color:#1E3A5F;line-height:1.6;">
+            📦 <strong>Demais Fornecedores</strong><br>
+            🤝 <strong>ABIoT</strong>
+          </div>
+        </div>
+        <!-- Baixo Poder + Alto Interesse -->
+        <div style="background:#3B82F6;border-radius:12px;padding:20px;min-height:160px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#DBEAFE;margin-bottom:12px;">Baixo Poder · Alto Interesse</div>
+          <div style="font-size:13px;color:white;line-height:1.6;">
+            🏢 <strong>17 Clientes PME</strong><br>
+            ⚙️ <strong>Equipe Técnica Sênior</strong><br>
+            👷 <strong>Funcionários Operacionais</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Eixo X label -->
+    <div style="text-align:center;margin-top:12px;padding-left:32px;font-size:13px;font-weight:700;color:#475569;letter-spacing:1px;text-transform:uppercase;">INTERESSE →</div>
+  </div>
+
+  <!-- Justificativas -->
+  <h2 style="margin-bottom:20px;">Justificativas por Stakeholder</h2>
+  <div style="display:grid;gap:14px;">
+
+    <div class="box box-danger">
+      <strong>🏭 REFAP: Alto Poder · Alto Interesse</strong>
+      Representa 40% da receita. Seu cancelamento seria potencialmente fatal para a SensorTech (alto poder). Para a REFAP, os sensores monitoram equipamentos críticos em refinaria: substituir o fornecedor levaria meses e exporia a empresa a riscos regulatórios (NR-13), portanto tem alto interesse na continuidade do serviço.
+    </div>
+
+    <div class="box box-danger">
+      <strong>💼 Criatec3: Alto Poder · Alto Interesse</strong>
+      Detém 40% da equity com direito de veto em contratos acima de R$ 200 k (alto poder). O retorno do fundo depende integralmente do sucesso da SensorTech: há interesse financeiro direto e contínuo em cada decisão da empresa.
+    </div>
+
+    <div class="box box-danger">
+      <strong>👨‍💻 Rafael Costa: Alto Poder · Alto Interesse</strong>
+      Co-fundador com 30% das quotas e controle operacional. A empresa é sua principal fonte de renda e projeto de vida. Máximo poder e máximo interesse.
+    </div>
+
+    <div class="box box-danger">
+      <strong>👨‍🔬 Thiago Mendes: Alto Poder · Alto Interesse</strong>
+      Co-fundador com 30% das quotas e detentor do know-how tecnológico central. Sua saída seria tecnicamente irreparável no curto prazo (alto poder). A empresa é também seu projeto de vida (alto interesse).
+    </div>
+
+    <div class="box box-info">
+      <strong>🔌 ChipBrasil: Alto Poder · Baixo Interesse</strong>
+      Único fornecedor qualificado dos microcontroladores: uma ruptura pararia a produção em semanas (alto poder). Contudo, a SensorTech representa apenas uma fração pequena do portfólio da ChipBrasil, que atende dezenas de empresas. Interesse baixo: é mais um cliente de porte médio.
+    </div>
+
+    <div class="box box-info">
+      <strong>📡 ANATEL: Alto Poder · Baixo Interesse</strong>
+      Pode suspender a homologação dos sensores e inviabilizar as vendas (alto poder). Para a ANATEL, a SensorTech é apenas uma das milhares de empresas reguladas: não há interesse diferenciado nem relação próxima.
+    </div>
+
+    <div class="box box-success">
+      <strong>🏢 17 Clientes PME: Baixo Poder · Alto Interesse</strong>
+      Individualmente, nenhum representa mais de 8% da receita e há base diversificada (baixo poder individual). Mas dependem do monitoramento IoT para eficiência operacional e redução de paradas: sem alternativa local equivalente no curto prazo (alto interesse).
+    </div>
+
+    <div class="box box-success">
+      <strong>⚙️ Equipe Técnica Sênior: Baixo Poder · Alto Interesse</strong>
+      Individualmente têm baixo poder formal na estrutura de decisão. Mas a empresa é sua principal fonte de renda em um mercado de alta rotatividade (28%/ano): alto interesse na estabilidade e nas condições de trabalho.
+    </div>
+
+    <div class="box box-success">
+      <strong>👷 Funcionários Operacionais: Baixo Poder · Alto Interesse</strong>
+      Baixo poder de barganha individual e poucas alternativas equivalentes no mercado regional. A SensorTech representa emprego e renda familiar: alto interesse nos resultados e na saúde da empresa.
+    </div>
+
+    <div class="box box-warn">
+      <strong>📦 Demais Fornecedores: Baixo Poder · Baixo Interesse</strong>
+      Substituíveis por alternativas de mercado (baixo poder). A SensorTech é um cliente pequeno entre muitos: relação puramente transacional, sem dependência relevante de nenhum dos lados.
+    </div>
+
+    <div class="box box-warn">
+      <strong>🤝 ABIoT: Baixo Poder · Baixo Interesse</strong>
+      Sem poder executivo sobre as operações da empresa. A SensorTech é um membro entre centenas, com contribuição associativa regular: sem protagonismo nem dependência diferenciada.
+    </div>
+
+  </div>
+</div>
+
+
+
+</main>
+<script>
+  function show(pageId, linkEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    if (linkEl) {
+      linkEl.classList.add('active');
+    } else {
+      document.querySelectorAll('nav a').forEach(a => {
+        if (a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + pageId + "'")) {
+          a.classList.add('active');
+        }
+      });
+    }
+    if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open');
+    window.scrollTo(0, 0);
+    return false;
+  }
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
