@@ -112,6 +112,14 @@
     .key-link a { font-size: 14px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; }
     .key-link a:hover { color: var(--blue); border-color: var(--blue); }
 
+    .actor { padding: 0 !important; }
+    .actor .ph { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #E3E7EE; }
+    .actor .body { padding: 22px 26px 24px; display: flex; flex-direction: column; flex: 1; }
+    .beat.has-ph { grid-template-columns: 96px minmax(0, 1fr) 260px; }
+    .beat .ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px; background: #E3E7EE; margin-top: 6px; }
+    .band { width: 100%; height: 300px; object-fit: cover; display: block; border-radius: 4px; margin: 32px 0 8px; background: #E3E7EE; }
+    .credit { font-size: 12.5px; color: var(--muted); }
+
     /* ─── Gabarito ─── */
     .matrix-wrap { background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 36px; margin: 36px 0 56px; }
     .matrix { display: grid; grid-template-columns: 28px 1fr; }
@@ -153,7 +161,9 @@
       .hero h1 { font-size: 34px; }
       .hero p, .lede { font-size: 18px; }
       .prose p, .beat p, .after { font-size: 17.5px; }
-      .beat { grid-template-columns: 1fr; gap: 2px; }
+      .beat, .beat.has-ph { grid-template-columns: 1fr; gap: 2px; }
+      .beat .ph { margin: 10px 0 4px; }
+      .band { height: 200px; }
       .beat .year { text-align: left; font-size: 18px; }
       .quote, .after { margin-left: 0; }
       .quote blockquote { font-size: 25px; }
@@ -222,11 +232,14 @@
   <h1>Gerenciando os stakeholders da SensorTech</h1>
   <p class="lede">Dez anos de crescimento, um cliente que vale 40% da receita, um fundo com poder de veto e dois sócios que nem sempre concordam.</p>
 
+  <img class="band" src="https://images.unsplash.com/photo-1632516654640-adc4c3681255?auto=format&fit=crop&w=1600&h=600&q=75" alt="O Guaíba e os prédios do centro de Porto Alegre" loading="lazy" />
+  <div class="credit">Porto Alegre, onde a SensorTech nasceu.</div>
+
   <div class="story">
-    <div class="beat"><div class="year">2015</div><p>Rafael Costa e Thiago Mendes saíram da UFRGS com um protótipo de sensor IoT e R$ 80 mil de capital próprio. Instalaram-se num apartamento no bairro Petrópolis, em Porto Alegre, com um objetivo preciso: sensores de baixo custo para monitoramento preditivo de equipamentos industriais.</p></div>
+    <div class="beat has-ph"><div class="year">2015</div><p>Rafael Costa e Thiago Mendes saíram da UFRGS com um protótipo de sensor IoT e R$ 80 mil de capital próprio. Instalaram-se num apartamento no bairro Petrópolis, em Porto Alegre, com um objetivo preciso: sensores de baixo custo para monitoramento preditivo de equipamentos industriais.</p><img class="ph" src="https://images.unsplash.com/photo-1648073819207-ae3f8e6b4914?auto=format&fit=crop&w=520&h=390&q=75" alt="Barco no Guaíba ao lado da cidade de Porto Alegre" loading="lazy" /></div>
     <div class="beat"><div class="year">2016</div><p>Um ano depois, assinaram o primeiro contrato com a Metalsul Automação, no Vale dos Sinos. Era pequeno, mas provava que o produto funcionava fora do laboratório.</p></div>
-    <div class="beat"><div class="year">2019</div><p>Veio o salto: o contrato com a REFAP, refinaria da Petrobras em Canoas, transformou a empresa. De repente, a SensorTech tinha um cliente âncora que representava 65% da receita e um novo patamar de exigência técnica e operacional.</p></div>
-    <div class="beat"><div class="year">2021</div><p>O Criatec3 entrou no quadro societário com R$ 3,5 milhões e 40% da participação. O capital acelerou o crescimento, mas trouxe junto uma exigência que os fundadores ainda não estavam prontos para atender.</p></div>
+    <div class="beat has-ph"><div class="year">2019</div><p>Veio o salto: o contrato com a REFAP, refinaria da Petrobras em Canoas, transformou a empresa. De repente, a SensorTech tinha um cliente âncora que representava 65% da receita e um novo patamar de exigência técnica e operacional.</p><img class="ph" src="https://images.unsplash.com/photo-1620203853151-496c7228306c?auto=format&fit=crop&w=520&h=390&q=75" alt="Tubos e válvulas industriais de uma refinaria" loading="lazy" /></div>
+    <div class="beat has-ph"><div class="year">2021</div><p>O Criatec3 entrou no quadro societário com R$ 3,5 milhões e 40% da participação. O capital acelerou o crescimento, mas trouxe junto uma exigência que os fundadores ainda não estavam prontos para atender.</p><img class="ph" src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=520&h=390&q=75" alt="Dois homens apertando as mãos numa reunião de negócios" loading="lazy" /></div>
     <div class="beat"><div class="year">2024</div><p>Com 42 funcionários, 18 clientes ativos e R$ 9,8 milhões de receita, Rafael percebeu que tomar decisões sem mapear quem seria afetado por elas estava se tornando um risco real. Um contrato mal comunicado com a REFAP. Uma demissão que gerou ruído na equipe técnica. Uma negociação com a ChipBrasil travada por falta de alinhamento interno.</p></div>
     <div class="beat"><div class="year"></div><p>Foi nesse contexto que Maria Fernanda Alves chegou à SensorTech. Com experiência consolidada em gestão e passagem pelo MBA da FGV, onde na disciplina de Gestão de Crise, Imagem e Reputação Corporativa havia aprendido que nenhuma empresa sobrevive a uma crise sem saber de quem depende, ela assumiu uma posição ainda em definição: algo entre diretora e sócia, com acesso direto aos fundadores e mandato para estruturar o que a empresa nunca havia estruturado. Numa das primeiras reuniões, fez uma pergunta que ninguém esperava.</p></div>
   </div>
@@ -247,70 +260,103 @@
 
   <div class="roster">
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1786532852011-443cba5dc9fe?auto=format&fit=crop&w=640&h=360&q=75" alt="Refinaria com tanques e tubulações" loading="lazy" />
+      <div class="body">
       <div class="rel">Cliente âncora</div>
       <h3>REFAP, refinaria da Petrobras em Canoas</h3>
       <p>Representa 40% da receita da SensorTech. Os sensores monitoram equipamentos críticos em refinaria, um ambiente de alto risco regulatório (NR-13). Substituir a SensorTech levaria meses de requalificação. Um cancelamento de contrato seria devastador para a empresa.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> confiabilidade operacional e segurança industrial contínua.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?auto=format&fit=crop&w=640&h=360&q=75" alt="Fábrica com máquinas industriais" loading="lazy" />
+      <div class="body">
       <div class="rel">Clientes</div>
       <h3>17 clientes de pequeno e médio porte</h3>
       <p>Indústrias gaúchas de metalurgia, celulose, agronegócio e manufatura. Cada um representa entre 2% e 8% da receita. Individualmente, nenhum move o ponteiro da empresa, mas todos dependem do monitoramento preditivo de seus equipamentos, sem alternativa local equivalente no curto prazo.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> continuidade do monitoramento e redução de paradas não planejadas.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=640&h=360&q=75" alt="Reunião em torno de uma mesa" loading="lazy" />
+      <div class="body">
       <div class="rel">Investidor</div>
       <h3>Criatec3, fundo de venture capital</h3>
       <p>Detém 40% da empresa e direito de veto em contratos acima de R$ 200 mil. O retorno do fundo depende diretamente da valorização da SensorTech. Pressiona ativamente por governança, ESG e preparação para a próxima rodada. Pode bloquear decisões estratégicas.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> retorno financeiro do investimento de R$ 3,5 milhões.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1611677806845-363fccca2c51?auto=format&fit=crop&w=640&h=360&q=75" alt="Notebook sobre uma mesa de madeira" loading="lazy" />
+      <div class="body">
       <div class="rel">Sócio fundador</div>
       <h3>Rafael Costa, CEO</h3>
       <p>Cofundador com 30% das quotas. Concentra as decisões comerciais e estratégicas. A empresa é seu projeto de vida e principal fonte de renda. Tem autonomia formal para assinar contratos e liderar a operação, mas enfrenta o impasse com Thiago em decisões críticas.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> patrimônio pessoal, legado profissional e controle do negócio.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1494083306499-e22e4a457632?auto=format&fit=crop&w=640&h=360&q=75" alt="Processador segurado por uma pinça" loading="lazy" />
+      <div class="body">
       <div class="rel">Sócio fundador</div>
       <h3>Thiago Mendes, CTO</h3>
       <p>Cofundador com 30% das quotas. Responsável pela arquitetura tecnológica: o produto só existe porque ele existe. Detém o know-how mais crítico da empresa e está no centro dos conflitos societários. Sua saída seria tecnicamente irreparável no curto prazo.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> controle tecnológico, participação na empresa e direção do produto.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1581094488379-6a10d04c0f04?auto=format&fit=crop&w=640&h=360&q=75" alt="Dois técnicos de uniforme azul examinando um equipamento" loading="lazy" />
+      <div class="body">
       <div class="rel">Colaboradores</div>
       <h3>Equipe técnica sênior</h3>
       <p>Oito engenheiros que carregam o conhecimento operacional do produto. A alta rotatividade do mercado de TI gaúcho (28% ao ano) faz com que sejam assediados por concorrentes constantemente. Individualmente têm pouca influência formal, mas uma saída coletiva comprometeria projetos inteiros.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> carreira, remuneração e ambiente de trabalho.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=640&h=360&q=75" alt="Pessoas trabalhando em mesas num escritório aberto" loading="lazy" />
+      <div class="body">
       <div class="rel">Colaboradores</div>
       <h3>Funcionários operacionais</h3>
       <p>34 pessoas em suporte técnico, vendas, financeiro e logística. A SensorTech representa o emprego e a renda familiar de todas elas. Individualmente têm baixo poder de barganha e poucas alternativas no mercado regional. Mas são as primeiras a sentir, e a comentar, quando a cultura falha.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> estabilidade de emprego e condições de trabalho.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1782338938777-908f4e1db3be?auto=format&fit=crop&w=640&h=360&q=75" alt="Placa de circuito com microchip" loading="lazy" />
+      <div class="body">
       <div class="rel">Fornecedor crítico</div>
       <h3>ChipBrasil</h3>
       <p>Único fornecedor qualificado dos microcontroladores usados nos sensores. Uma ruptura no fornecimento pararia a produção da SensorTech em semanas. No entanto, a SensorTech é apenas uma fração do portfólio da ChipBrasil, que atende dezenas de empresas de médio porte em todo o Brasil.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> a receita de um cliente de porte médio entre muitos.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=640&h=360&q=75" alt="Caixas de papelão em prateleiras de um depósito" loading="lazy" />
+      <div class="body">
       <div class="rel">Fornecedores</div>
       <h3>Demais fornecedores</h3>
       <p>Componentes, embalagens e logística. São substituíveis: há alternativas no mercado para cada categoria. A SensorTech é um cliente pequeno na carteira de cada um deles. A relação é transacional, entrega e pagamento, sem dependência mútua relevante.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> receita pontual de um cliente pequeno.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1676781316568-feffeb4ab4e5?auto=format&fit=crop&w=640&h=360&q=75" alt="Torre de telecomunicações com antenas" loading="lazy" />
+      <div class="body">
       <div class="rel">Regulador</div>
       <h3>ANATEL</h3>
       <p>Regulador federal de telecomunicações. A homologação dos sensores IoT é obrigatória: sem ela, nenhum produto pode ser comercializado. A ANATEL pode suspender certificações e impor multas severas. Contudo, a SensorTech é apenas uma entre milhares de empresas reguladas, sem relação diferenciada.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> a conformidade regulatória de um agente entre milhares.</span></div>
+      </div>
     </article>
     <article class="actor">
+      <img class="ph" src="https://images.unsplash.com/photo-1775314054195-85f31de0c944?auto=format&fit=crop&w=640&h=360&q=75" alt="Salão de exposições com estandes" loading="lazy" />
+      <div class="body">
       <div class="rel">Associação setorial</div>
       <h3>ABIoT</h3>
       <p>Associação Brasileira de IoT. Representa o setor junto a órgãos públicos e dá acesso a editais de P&amp;D (EMBRAPII, FINEP). A SensorTech é um entre centenas de membros. A entidade não tem poder direto sobre as operações da empresa, e para ela cada membro tem peso semelhante.</p>
       <div class="stake"><span><strong>O que está em jogo:</strong> um membro entre centenas, com contribuição associativa regular.</span></div>
+      </div>
     </article>
   </div>
 
