@@ -6,412 +6,404 @@
   <title>SensorTech POA: Gestão de Crise</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
+      --night: #0D1830;
       --ink: #14213D;
-      --ink-soft: #2B3A5C;
       --blue: #1C4ED8;
-      --blue-deep: #16359A;
-      --blue-pale: #E8EEFC;
-      --page: #F5F6F8;
+      --signal: #F2B441;
       --paper: #FFFFFF;
+      --page: #F3F4F7;
       --text: #1F2533;
       --muted: #5B6475;
-      --rule: #DDE1E8;
-      --side: #121B30;
-      --side-text: #A9B4C6;
+      --rule: #D9DEE7;
       --serif: 'Source Serif 4', Georgia, serif;
       --sans: 'IBM Plex Sans', system-ui, sans-serif;
+      --wrap: 1120px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
-    body { font-family: var(--sans); background: var(--page); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
-    :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
+    img { display: block; }
+    :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 40px; }
 
-    /* ─── Sidebar ─── */
-    #sidebar {
-      width: 248px; height: 100vh; background: var(--side); color: var(--side-text);
-      position: fixed; top: 0; left: 0; display: flex; flex-direction: column;
-      z-index: 100; transition: transform 0.3s ease;
-    }
-    .brand { padding: 32px 28px 28px; }
-    .brand .kind { font-size: 12px; color: #7D8AA3; margin-bottom: 10px; }
-    .brand h2 { font-family: var(--serif); font-weight: 600; font-size: 24px; color: #F3F5F9; line-height: 1.15; }
-    .brand p { font-size: 13px; color: #7D8AA3; margin-top: 8px; line-height: 1.45; }
-    nav ul { list-style: none; padding: 8px 16px; flex: 1; }
-    nav a {
-      display: block; padding: 10px 12px; border-radius: 6px; margin-bottom: 2px;
-      color: var(--side-text); text-decoration: none; font-size: 14.5px; font-weight: 500;
-    }
-    nav a:hover { color: #E6EAF2; background: rgba(255,255,255,0.04); }
-    nav a.active { color: #FFFFFF; background: rgba(28,78,216,0.28); box-shadow: inset 2px 0 0 #5B86F5; }
-    .side-foot { padding: 20px 28px 28px; font-size: 12px; color: #66728A; line-height: 1.6; }
+    /* ─── Duotone: todas as fotos passam por aqui ─── */
+    .duo { position: relative; overflow: hidden; background: var(--blue); }
+    .duo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(1.05); mix-blend-mode: multiply; transition: filter .5s ease; }
+    .duo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,24,48,0.10), rgba(13,24,48,0.45)); pointer-events: none; transition: opacity .5s ease; }
+    a:hover .duo img, .duo.live:hover img { filter: none; mix-blend-mode: normal; }
+    a:hover .duo::after, .duo.live:hover::after { opacity: 0; }
 
-    /* ─── Main ─── */
-    #main { margin-left: 248px; padding: 48px 56px 96px; }
-    .page { display: none; max-width: 1060px; }
+    /* ─── Navegação ─── */
+    .topnav { position: absolute; top: 0; left: 0; right: 0; z-index: 50; }
+    .topnav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+    .logo { font-family: var(--serif); font-weight: 600; font-size: 20px; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .logo i { width: 9px; height: 9px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px rgba(242,180,65,0.22); }
+    .topnav ul { list-style: none; display: flex; gap: 28px; }
+    .topnav a.link { color: rgba(255,255,255,0.78); text-decoration: none; font-size: 15px; font-weight: 500; padding: 6px 0; border-bottom: 1px solid transparent; }
+    .topnav a.link:hover { color: #fff; }
+    .topnav a.link.active { color: #fff; border-bottom-color: var(--signal); }
+
+    .page { display: none; }
     .page.active { display: block; }
-    .back { display: inline-block; font-size: 14px; color: var(--muted); text-decoration: none; margin-bottom: 36px; }
-    .back:hover { color: var(--blue); }
 
-    h1 { font-family: var(--serif); font-weight: 600; font-size: 44px; line-height: 1.1; color: var(--ink); letter-spacing: -0.01em; }
-    h2 { font-family: var(--serif); font-weight: 600; font-size: 28px; line-height: 1.2; color: var(--ink); }
-    .lede { font-family: var(--serif); font-size: 21px; line-height: 1.5; color: var(--ink-soft); max-width: 62ch; margin-top: 16px; }
+    /* ─── Abertura das páginas ─── */
+    .opening { position: relative; min-height: 78vh; display: flex; align-items: flex-end; color: #fff; background: var(--night); }
+    .opening .duo { position: absolute; inset: 0; }
+    .opening .duo::after { background: linear-gradient(180deg, rgba(13,24,48,0.55) 0%, rgba(13,24,48,0.25) 35%, rgba(13,24,48,0.92) 100%); }
+    .opening .duo:hover img { filter: grayscale(1) contrast(1.15) brightness(1.05); mix-blend-mode: multiply; }
+    .opening .wrap { position: relative; z-index: 2; padding-bottom: 72px; padding-top: 140px; width: 100%; }
+    .place { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .place::before { content: ''; width: 36px; height: 2px; background: var(--signal); }
+    .opening h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(40px, 6vw, 86px); line-height: 1.02; letter-spacing: -0.02em; max-width: 15ch; }
+    .opening .sub { font-family: var(--serif); font-size: clamp(18px, 1.7vw, 23px); line-height: 1.5; color: rgba(255,255,255,0.86); max-width: 52ch; margin-top: 24px; }
+    .opening.home { min-height: 100vh; }
+    .opening.home h1 { font-size: clamp(56px, 9vw, 132px); }
+    .opening.home h1 span { display: block; font-size: 0.36em; font-weight: 400; font-style: italic; letter-spacing: 0; margin-top: 12px; color: rgba(255,255,255,0.82); }
+    .cta { display: inline-block; margin-top: 36px; background: #fff; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15.5px; padding: 15px 24px; border-radius: 2px; }
+    .cta:hover { background: var(--signal); }
+    @media (prefers-reduced-motion: no-preference) {
+      .opening.home .duo img { animation: drift 18s ease-out both; }
+      @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+    }
 
-    /* ─── Hero ─── */
-    .hero { position: relative; border-radius: 4px; overflow: hidden; background: var(--ink); min-height: 420px; display: flex; align-items: flex-end; margin-bottom: 64px; }
-    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
-    .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,33,61,0) 20%, rgba(20,33,61,0.92) 100%); z-index: 1; }
-    .hero-text { position: relative; z-index: 2; padding: 48px 52px; max-width: 760px; }
-    .hero .place { font-size: 14px; color: #C7D3EE; margin-bottom: 14px; }
-    .hero h1 { color: #FFFFFF; font-size: 56px; }
-    .hero p { color: #D9E1F2; font-family: var(--serif); font-size: 20px; line-height: 1.5; margin-top: 18px; max-width: 54ch; }
+    /* ─── Texto corrido ─── */
+    section.block { padding: 112px 0; }
+    .statement { display: grid; grid-template-columns: 5fr 6fr; gap: 72px; align-items: start; }
+    .statement h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.15; color: var(--ink); letter-spacing: -0.01em; }
+    .prose p { font-family: var(--serif); font-size: 19.5px; line-height: 1.72; color: var(--text); margin-bottom: 22px; max-width: 62ch; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose .ask { font-style: italic; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.3; color: var(--ink); max-width: 30ch; padding-top: 28px; margin-top: 40px; border-top: 2px solid var(--ink); }
 
-    /* ─── Home intro ─── */
-    .intro { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: start; }
-    .prose p { font-family: var(--serif); font-size: 19px; line-height: 1.7; color: var(--text); max-width: 64ch; margin-bottom: 20px; }
-    .prose h2 { margin-bottom: 20px; }
-    .closing { font-family: var(--serif); font-size: 24px; line-height: 1.4; color: var(--ink); border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 8px; max-width: 30ch; }
-    .entry { display: block; text-decoration: none; background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; position: sticky; top: 48px; }
-    .entry img { width: 100%; height: 150px; object-fit: cover; display: block; }
-    .entry div { padding: 20px 22px 24px; }
-    .entry h3 { font-family: var(--serif); font-size: 21px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-    .entry p { font-size: 14.5px; line-height: 1.55; color: var(--muted); margin-bottom: 16px; }
-    .entry .go { font-size: 14.5px; font-weight: 600; color: var(--blue); }
-    .entry:hover { border-color: var(--blue); }
-    .entry:hover .go { text-decoration: underline; }
+    /* ─── Porta de entrada ─── */
+    .door { display: grid; grid-template-columns: 7fr 5fr; text-decoration: none; background: var(--night); color: #fff; min-height: 440px; }
+    .door .duo { min-height: 320px; }
+    .door .txt { padding: 56px 52px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .door .kicker { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 14px; }
+    .door h3 { font-family: var(--serif); font-weight: 600; font-size: 38px; line-height: 1.1; }
+    .door p { color: rgba(255,255,255,0.75); font-size: 16px; line-height: 1.6; margin-top: 16px; max-width: 40ch; }
+    .door .go { margin-top: 28px; font-weight: 600; color: var(--signal); }
+    .door:hover .go { text-decoration: underline; text-underline-offset: 5px; }
 
-    /* ─── Story with years in the margin ─── */
-    .story { margin: 48px 0 0; }
-    .beat { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 32px; margin-bottom: 22px; }
-    .beat .year { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--blue); line-height: 1.5; text-align: right; }
-    .beat p { font-family: var(--serif); font-size: 19px; line-height: 1.7; max-width: 64ch; }
+    /* ─── Cronologia ─── */
+    .chrono { list-style: none; }
+    .beat { display: grid; grid-template-columns: 120px minmax(0, 1fr) 300px; gap: 40px; padding: 36px 0; border-top: 1px solid var(--rule); align-items: start; }
+    .beat:last-child { border-bottom: 1px solid var(--rule); }
+    .beat .year { font-family: var(--serif); font-size: 40px; font-weight: 600; line-height: 1; color: var(--blue); }
+    .beat p { font-family: var(--serif); font-size: 19px; line-height: 1.7; max-width: 60ch; }
+    .beat .duo { aspect-ratio: 4 / 3; border-radius: 2px; }
+    .beat.plain { grid-template-columns: 120px minmax(0, 1fr); }
 
-    .quote { margin: 56px 0 56px 128px; max-width: 760px; }
-    .quote blockquote { font-family: var(--serif); font-style: italic; font-size: 34px; line-height: 1.3; color: var(--ink); text-indent: -0.4em; }
-    .quote figcaption { font-size: 15px; color: var(--muted); margin-top: 18px; }
-    .after { margin-left: 128px; font-family: var(--serif); font-size: 19px; line-height: 1.7; max-width: 64ch; }
+    /* ─── A pergunta ─── */
+    .question { position: relative; color: #fff; padding: 150px 0; background: var(--night); }
+    .question .duo { position: absolute; inset: 0; }
+    .question .duo::after { background: rgba(13,24,48,0.78); }
+    .question .wrap { position: relative; z-index: 2; }
+    .question blockquote { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(30px, 4vw, 54px); line-height: 1.18; max-width: 22ch; letter-spacing: -0.01em; }
+    .question blockquote::before { content: '“'; display: block; font-size: 1.8em; line-height: 0.6; color: var(--signal); font-style: normal; margin-bottom: 12px; }
+    .question .who { margin-top: 32px; font-size: 16px; color: rgba(255,255,255,0.72); }
+    .question .then { margin-top: 56px; font-family: var(--serif); font-size: 20px; line-height: 1.6; color: rgba(255,255,255,0.88); max-width: 52ch; }
 
     /* ─── Stakeholders ─── */
-    .task { margin: 72px 0 32px; padding-top: 40px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
-    .task p { font-size: 16px; line-height: 1.65; color: var(--text); max-width: 56ch; }
-    .task p + p { margin-top: 12px; color: var(--muted); }
-    .roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
-    .actor { background: var(--paper); padding: 26px 26px 24px; display: flex; flex-direction: column; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-    .actor .rel { font-size: 13px; font-weight: 500; color: var(--blue); margin-bottom: 8px; }
-    .actor h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.2; color: var(--ink); margin-bottom: 12px; }
-    .actor p { font-size: 14.5px; line-height: 1.6; color: var(--text); }
-    .actor .stake { margin-top: auto; padding-top: 16px; }
-    .actor .stake span { display: block; border-top: 1px solid var(--rule); padding-top: 14px; font-size: 14px; line-height: 1.5; color: var(--muted); }
-    .actor .stake strong { color: var(--ink); font-weight: 600; }
-
-    .key-link { margin-top: 40px; text-align: right; }
-    .key-link a { font-size: 14px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; }
-    .key-link a:hover { color: var(--blue); border-color: var(--blue); }
-
-    .actor { padding: 0 !important; }
-    .actor .ph { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #E3E7EE; }
-    .actor .body { padding: 22px 26px 24px; display: flex; flex-direction: column; flex: 1; }
-    .beat.has-ph { grid-template-columns: 96px minmax(0, 1fr) 260px; }
-    .beat .ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px; background: #E3E7EE; margin-top: 6px; }
-    .band { width: 100%; height: 300px; object-fit: cover; display: block; border-radius: 4px; margin: 32px 0 8px; background: #E3E7EE; }
-    .credit { font-size: 12.5px; color: var(--muted); }
+    .task { display: grid; grid-template-columns: 5fr 6fr; gap: 72px; margin-bottom: 64px; align-items: end; }
+    .task h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(34px, 3.6vw, 50px); line-height: 1.05; color: var(--ink); }
+    .task p { font-size: 17px; line-height: 1.65; max-width: 56ch; }
+    .task p + p { margin-top: 14px; color: var(--muted); }
+    .dossier { display: grid; grid-template-columns: 1fr 1fr; column-gap: 64px; }
+    .file { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 26px; padding: 34px 0; border-top: 1px solid var(--rule); align-items: start; }
+    .file .duo { aspect-ratio: 1; border-radius: 2px; }
+    .file .rel { font-size: 13.5px; font-weight: 500; color: var(--blue); margin-bottom: 6px; }
+    .file h3 { font-family: var(--serif); font-size: 23px; font-weight: 600; line-height: 1.2; color: var(--ink); margin-bottom: 12px; }
+    .file p { font-size: 15px; line-height: 1.62; }
+    .file .stake { margin-top: 14px; font-size: 14.5px; line-height: 1.5; color: var(--muted); padding-left: 14px; border-left: 2px solid var(--signal); }
+    .file .stake strong { color: var(--ink); font-weight: 600; }
+    .key-link { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--rule); text-align: right; }
+    .key-link a { font-size: 14px; color: var(--muted); text-decoration: none; }
+    .key-link a:hover { color: var(--blue); text-decoration: underline; }
 
     /* ─── Gabarito ─── */
-    .matrix-wrap { background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 36px; margin: 36px 0 56px; }
+    .matrix-wrap { margin-bottom: 88px; }
     .matrix { display: grid; grid-template-columns: 28px 1fr; }
     .axis-y { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 14px; font-weight: 600; color: var(--muted); text-align: center; }
-    .quads { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; }
-    .quad { padding: 22px 24px; min-height: 170px; border-radius: 3px; }
-    .quad h4 { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+    .quads { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .quad { padding: 28px 30px; min-height: 200px; }
+    .quad h4 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
     .quad ul { list-style: none; }
-    .quad li { font-family: var(--serif); font-size: 18px; line-height: 1.55; }
-    .q-hl { background: var(--blue-pale); color: var(--blue-deep); }
-    .q-hh { background: var(--ink); color: #FFFFFF; }
-    .q-hh h4 { color: #A9B4C6; }
-    .q-ll { background: #F0F2F5; color: var(--muted); }
-    .q-lh { background: var(--blue); color: #FFFFFF; }
+    .quad li { font-family: var(--serif); font-size: 21px; line-height: 1.5; }
+    .q-hl { background: #E5ECFC; color: #16359A; }
+    .q-hh { background: var(--night); color: #fff; }
+    .q-hh h4 { color: var(--signal); }
+    .q-ll { background: var(--page); color: var(--muted); }
+    .q-lh { background: var(--blue); color: #fff; }
     .q-lh h4 { color: #CFDBFB; }
-    .axis-x { text-align: center; margin-top: 12px; padding-left: 28px; font-size: 14px; font-weight: 600; color: var(--muted); }
+    .axis-x { text-align: center; margin-top: 14px; padding-left: 28px; font-size: 14px; font-weight: 600; color: var(--muted); }
+    h2.sec { font-family: var(--serif); font-weight: 600; font-size: 36px; color: var(--ink); margin-bottom: 32px; }
+    .why { list-style: none; }
+    .why li { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 40px; padding: 26px 0; border-top: 1px solid var(--rule); }
+    .why li:last-child { border-bottom: 1px solid var(--rule); }
+    .why .who { font-family: var(--serif); font-size: 21px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .why .who small { display: block; font-family: var(--sans); font-size: 13.5px; font-weight: 500; color: var(--blue); margin-top: 6px; }
+    .why p { font-size: 16px; line-height: 1.65; max-width: 68ch; }
 
-    .why { list-style: none; border-top: 1px solid var(--rule); }
-    .why li { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 32px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
-    .why .who { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.35; }
-    .why .who small { display: block; font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--blue); margin-top: 4px; }
-    .why p { font-size: 15.5px; line-height: 1.65; max-width: 70ch; }
+    footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14px; padding: 40px 0; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
-    /* ─── Mobile ─── */
-    .hamburger { display: none; position: fixed; top: 14px; left: 14px; z-index: 200; background: var(--side); border: none; color: #fff; width: 40px; height: 40px; border-radius: 6px; font-size: 18px; cursor: pointer; align-items: center; justify-content: center; }
-    @media (max-width: 1100px) {
-      .intro { grid-template-columns: 1fr; gap: 40px; }
-      .entry { position: static; max-width: 420px; }
-      .task { grid-template-columns: 1fr; gap: 16px; }
+    /* ─── Responsivo ─── */
+    @media (max-width: 1000px) {
+      .statement, .task { grid-template-columns: 1fr; gap: 28px; }
+      .door { grid-template-columns: 1fr; }
+      .beat { grid-template-columns: 90px minmax(0, 1fr); }
+      .beat .duo { grid-column: 2; max-width: 420px; }
+      .dossier { grid-template-columns: 1fr; }
     }
-    @media (max-width: 900px) {
-      #sidebar { transform: translateX(-100%); }
-      #sidebar.open { transform: translateX(0); }
-      #main { margin-left: 0; padding: 72px 16px 64px; }
-      .hamburger { display: flex; }
-      h1 { font-size: 32px; }
-      .hero { min-height: 360px; margin-bottom: 40px; }
-      .hero-text { padding: 28px 22px; }
-      .hero h1 { font-size: 34px; }
-      .hero p, .lede { font-size: 18px; }
-      .prose p, .beat p, .after { font-size: 17.5px; }
-      .beat, .beat.has-ph { grid-template-columns: 1fr; gap: 2px; }
-      .beat .ph { margin: 10px 0 4px; }
-      .band { height: 200px; }
-      .beat .year { text-align: left; font-size: 18px; }
-      .quote, .after { margin-left: 0; }
-      .quote blockquote { font-size: 25px; }
-      .roster { grid-template-columns: 1fr; }
-      .matrix-wrap { padding: 16px; }
-      .quad { padding: 14px; min-height: 120px; }
-      .quad li { font-size: 15px; }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 18px; }
+      .topnav .wrap { height: 64px; }
+      .topnav ul { gap: 18px; }
+      .logo { font-size: 17px; }
+      .opening .wrap { padding-bottom: 48px; padding-top: 110px; }
+      section.block { padding: 72px 0; }
+      .prose p, .beat p { font-size: 17.5px; }
+      .beat, .beat.plain { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+      .beat .year { font-size: 30px; }
+      .beat .duo { grid-column: 1; }
+      .door .txt { padding: 36px 22px; }
+      .door h3 { font-size: 30px; }
+      .question { padding: 96px 0; }
+      .file { grid-template-columns: 92px minmax(0, 1fr); gap: 16px; }
+      .file h3 { font-size: 20px; }
+      .quad { padding: 16px; min-height: 130px; }
+      .quad li { font-size: 16px; }
       .why li { grid-template-columns: 1fr; gap: 8px; }
     }
+    @media (prefers-reduced-motion: reduce) { .duo img, .duo::after { transition: none; } }
   </style>
 </head>
 <body>
 
-<button class="hamburger" onclick="toggleSidebar()" aria-label="Abrir menu">☰</button>
-
-<aside id="sidebar">
-  <div class="brand">
-    <div class="kind">Case de ensino</div>
-    <h2>SensorTech POA</h2>
-    <p>Gestão de Crise, Imagem e Reputação Corporativa</p>
+<header class="topnav">
+  <div class="wrap">
+    <a href="#" class="logo" onclick="return show('inicio')"><i></i>SensorTech POA</a>
+    <nav aria-label="Seções do case">
+      <ul>
+        <li><a href="#" class="link active" data-page="inicio" onclick="return show('inicio')">Início</a></li>
+        <li><a href="#" class="link" data-page="stakeholders" onclick="return show('stakeholders')">Stakeholders</a></li>
+      </ul>
+    </nav>
   </div>
-  <nav aria-label="Seções do case">
-    <ul>
-      <li><a href="#" class="active" onclick="return show('inicio',this)">Início</a></li>
-      <li><a href="#" onclick="return show('stakeholders',this)">Stakeholders</a></li>
-    </ul>
-  </nav>
-  <div class="side-foot">MBA FGV<br>Porto Alegre, 2026</div>
-</aside>
-
-<main id="main">
+</header>
 
 <!-- ═════════ INÍCIO ═════════ -->
-<div id="inicio" class="page active">
-  <header class="hero">
-    <img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=1600&q=80" alt="" />
-    <div class="hero-text">
+<main id="inicio" class="page active">
+  <header class="opening home">
+    <div class="duo"><img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
+    <div class="wrap">
       <div class="place">Porto Alegre, Rio Grande do Sul</div>
-      <h1>SensorTech Soluções Industriais</h1>
-      <p>Sensores de monitoramento preditivo para a indústria gaúcha. Uma empresa que cresceu rápido, tem um cliente que vale 40% da receita e ainda não sabe direito com quem está falando.</p>
+      <h1>SensorTech <span>Soluções Industriais</span></h1>
+      <p class="sub">Sensores de monitoramento preditivo para a indústria gaúcha. Uma empresa que cresceu rápido, tem um cliente que vale 40% da receita e ainda não sabe direito com quem está falando.</p>
+      <a href="#" class="cta" onclick="return show('stakeholders')">Conhecer a empresa e seus stakeholders</a>
     </div>
   </header>
 
-  <div class="intro">
-    <div class="prose">
-      <h2>Por que começar pelos stakeholders?</h2>
-      <p>A SensorTech cresceu rápido demais para sua estrutura. Com R$ 9,8 milhões de receita, 42 funcionários e um investidor institucional no quadro societário, a empresa ainda opera com processos informais herdados da fase de startup. Por fora, é uma história de sucesso: tecnologia gaúcha, cliente âncora na Petrobras, crescimento acelerado.</p>
-      <p>Mas reputação não é o que a empresa diz de si mesma. É o que cada pessoa e cada instituição que se relaciona com ela acredita que ela é, e o que espera que ela faça. Por isso, toda crise começa muito antes de estourar: começa no dia em que uma empresa deixa de saber quem depende dela, de quem ela depende e quanto cada um pode fazer quando a confiança se rompe.</p>
-      <p class="closing">Quando a crise chegar, a SensorTech saberá com quem está falando?</p>
-    </div>
-
-    <a href="#" class="entry" onclick="return show('stakeholders',null)">
-      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=80" alt="" />
-      <div>
-        <h3>Gerenciando os stakeholders</h3>
-        <p>A história da empresa e os onze atores de quem depende sua reputação.</p>
-        <span class="go">Abrir o mapa de stakeholders</span>
+  <section class="block">
+    <div class="wrap statement">
+      <h2>Reputação não é o que a empresa diz de si mesma.</h2>
+      <div class="prose">
+        <p>É o que cada pessoa e cada instituição que se relaciona com ela acredita que ela é, e o que espera que ela faça. Por isso, toda crise começa muito antes de estourar: começa no dia em que uma empresa deixa de saber quem depende dela, de quem ela depende e quanto cada um pode fazer quando a confiança se rompe.</p>
+        <p>A SensorTech cresceu rápido demais para sua estrutura. Com R$ 9,8 milhões de receita, 42 funcionários e um investidor institucional no quadro societário, ainda opera com processos informais herdados da fase de startup. Por fora, é uma história de sucesso: tecnologia gaúcha, cliente âncora na Petrobras, crescimento acelerado.</p>
+        <p class="ask">Quando a crise chegar, a SensorTech saberá com quem está falando?</p>
       </div>
-    </a>
-  </div>
-</div>
-
-<!-- ═════════ STAKEHOLDERS ═════════ -->
-<div id="stakeholders" class="page">
-  <a href="#" class="back" onclick="return show('inicio',null)">← Início</a>
-  <h1>Gerenciando os stakeholders da SensorTech</h1>
-  <p class="lede">Dez anos de crescimento, um cliente que vale 40% da receita, um fundo com poder de veto e dois sócios que nem sempre concordam.</p>
-
-  <img class="band" src="https://images.unsplash.com/photo-1632516654640-adc4c3681255?auto=format&fit=crop&w=1600&h=600&q=75" alt="O Guaíba e os prédios do centro de Porto Alegre" loading="lazy" />
-  <div class="credit">Porto Alegre, onde a SensorTech nasceu.</div>
-
-  <div class="story">
-    <div class="beat has-ph"><div class="year">2015</div><p>Rafael Costa e Thiago Mendes saíram da UFRGS com um protótipo de sensor IoT e R$ 80 mil de capital próprio. Instalaram-se num apartamento no bairro Petrópolis, em Porto Alegre, com um objetivo preciso: sensores de baixo custo para monitoramento preditivo de equipamentos industriais.</p><img class="ph" src="https://images.unsplash.com/photo-1648073819207-ae3f8e6b4914?auto=format&fit=crop&w=520&h=390&q=75" alt="Barco no Guaíba ao lado da cidade de Porto Alegre" loading="lazy" /></div>
-    <div class="beat"><div class="year">2016</div><p>Um ano depois, assinaram o primeiro contrato com a Metalsul Automação, no Vale dos Sinos. Era pequeno, mas provava que o produto funcionava fora do laboratório.</p></div>
-    <div class="beat has-ph"><div class="year">2019</div><p>Veio o salto: o contrato com a REFAP, refinaria da Petrobras em Canoas, transformou a empresa. De repente, a SensorTech tinha um cliente âncora que representava 65% da receita e um novo patamar de exigência técnica e operacional.</p><img class="ph" src="https://images.unsplash.com/photo-1620203853151-496c7228306c?auto=format&fit=crop&w=520&h=390&q=75" alt="Tubos e válvulas industriais de uma refinaria" loading="lazy" /></div>
-    <div class="beat has-ph"><div class="year">2021</div><p>O Criatec3 entrou no quadro societário com R$ 3,5 milhões e 40% da participação. O capital acelerou o crescimento, mas trouxe junto uma exigência que os fundadores ainda não estavam prontos para atender.</p><img class="ph" src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=520&h=390&q=75" alt="Dois homens apertando as mãos numa reunião de negócios" loading="lazy" /></div>
-    <div class="beat"><div class="year">2024</div><p>Com 42 funcionários, 18 clientes ativos e R$ 9,8 milhões de receita, Rafael percebeu que tomar decisões sem mapear quem seria afetado por elas estava se tornando um risco real. Um contrato mal comunicado com a REFAP. Uma demissão que gerou ruído na equipe técnica. Uma negociação com a ChipBrasil travada por falta de alinhamento interno.</p></div>
-    <div class="beat"><div class="year"></div><p>Foi nesse contexto que Maria Fernanda Alves chegou à SensorTech. Com experiência consolidada em gestão e passagem pelo MBA da FGV, onde na disciplina de Gestão de Crise, Imagem e Reputação Corporativa havia aprendido que nenhuma empresa sobrevive a uma crise sem saber de quem depende, ela assumiu uma posição ainda em definição: algo entre diretora e sócia, com acesso direto aos fundadores e mandato para estruturar o que a empresa nunca havia estruturado. Numa das primeiras reuniões, fez uma pergunta que ninguém esperava.</p></div>
-  </div>
-
-  <figure class="quote">
-    <blockquote>“Vocês sabem, de verdade, quem são os stakeholders da SensorTech e quanto poder e interesse cada um tem sobre o negócio?”</blockquote>
-    <figcaption>Maria Fernanda Alves</figcaption>
-  </figure>
-  <p class="after">A pergunta não tinha resposta imediata. E foi esse silêncio que deu início ao mapeamento que você fará a seguir.</p>
-
-  <section class="task" aria-labelledby="t-onze">
-    <h2 id="t-onze">Os onze stakeholders</h2>
-    <div>
-      <p>Para cada ator, pergunte: qual é o poder dele sobre a SensorTech? E qual é o seu interesse nos resultados da empresa? Depois, posicione todos na Matriz Poder × Interesse.</p>
-      <p>O mapa de stakeholders é o primeiro instrumento de qualquer gestão de crise. É ele que diz quem precisa saber primeiro, quem pode derrubar a empresa e quem sofre as consequências sem ter voz.</p>
     </div>
   </section>
 
-  <div class="roster">
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1786532852011-443cba5dc9fe?auto=format&fit=crop&w=640&h=360&q=75" alt="Refinaria com tanques e tubulações" loading="lazy" />
-      <div class="body">
-      <div class="rel">Cliente âncora</div>
-      <h3>REFAP, refinaria da Petrobras em Canoas</h3>
-      <p>Representa 40% da receita da SensorTech. Os sensores monitoram equipamentos críticos em refinaria, um ambiente de alto risco regulatório (NR-13). Substituir a SensorTech levaria meses de requalificação. Um cancelamento de contrato seria devastador para a empresa.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> confiabilidade operacional e segurança industrial contínua.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?auto=format&fit=crop&w=640&h=360&q=75" alt="Fábrica com máquinas industriais" loading="lazy" />
-      <div class="body">
-      <div class="rel">Clientes</div>
-      <h3>17 clientes de pequeno e médio porte</h3>
-      <p>Indústrias gaúchas de metalurgia, celulose, agronegócio e manufatura. Cada um representa entre 2% e 8% da receita. Individualmente, nenhum move o ponteiro da empresa, mas todos dependem do monitoramento preditivo de seus equipamentos, sem alternativa local equivalente no curto prazo.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> continuidade do monitoramento e redução de paradas não planejadas.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=640&h=360&q=75" alt="Reunião em torno de uma mesa" loading="lazy" />
-      <div class="body">
-      <div class="rel">Investidor</div>
-      <h3>Criatec3, fundo de venture capital</h3>
-      <p>Detém 40% da empresa e direito de veto em contratos acima de R$ 200 mil. O retorno do fundo depende diretamente da valorização da SensorTech. Pressiona ativamente por governança, ESG e preparação para a próxima rodada. Pode bloquear decisões estratégicas.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> retorno financeiro do investimento de R$ 3,5 milhões.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1611677806845-363fccca2c51?auto=format&fit=crop&w=640&h=360&q=75" alt="Notebook sobre uma mesa de madeira" loading="lazy" />
-      <div class="body">
-      <div class="rel">Sócio fundador</div>
-      <h3>Rafael Costa, CEO</h3>
-      <p>Cofundador com 30% das quotas. Concentra as decisões comerciais e estratégicas. A empresa é seu projeto de vida e principal fonte de renda. Tem autonomia formal para assinar contratos e liderar a operação, mas enfrenta o impasse com Thiago em decisões críticas.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> patrimônio pessoal, legado profissional e controle do negócio.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1494083306499-e22e4a457632?auto=format&fit=crop&w=640&h=360&q=75" alt="Processador segurado por uma pinça" loading="lazy" />
-      <div class="body">
-      <div class="rel">Sócio fundador</div>
-      <h3>Thiago Mendes, CTO</h3>
-      <p>Cofundador com 30% das quotas. Responsável pela arquitetura tecnológica: o produto só existe porque ele existe. Detém o know-how mais crítico da empresa e está no centro dos conflitos societários. Sua saída seria tecnicamente irreparável no curto prazo.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> controle tecnológico, participação na empresa e direção do produto.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1581094488379-6a10d04c0f04?auto=format&fit=crop&w=640&h=360&q=75" alt="Dois técnicos de uniforme azul examinando um equipamento" loading="lazy" />
-      <div class="body">
-      <div class="rel">Colaboradores</div>
-      <h3>Equipe técnica sênior</h3>
-      <p>Oito engenheiros que carregam o conhecimento operacional do produto. A alta rotatividade do mercado de TI gaúcho (28% ao ano) faz com que sejam assediados por concorrentes constantemente. Individualmente têm pouca influência formal, mas uma saída coletiva comprometeria projetos inteiros.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> carreira, remuneração e ambiente de trabalho.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=640&h=360&q=75" alt="Pessoas trabalhando em mesas num escritório aberto" loading="lazy" />
-      <div class="body">
-      <div class="rel">Colaboradores</div>
-      <h3>Funcionários operacionais</h3>
-      <p>34 pessoas em suporte técnico, vendas, financeiro e logística. A SensorTech representa o emprego e a renda familiar de todas elas. Individualmente têm baixo poder de barganha e poucas alternativas no mercado regional. Mas são as primeiras a sentir, e a comentar, quando a cultura falha.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> estabilidade de emprego e condições de trabalho.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1782338938777-908f4e1db3be?auto=format&fit=crop&w=640&h=360&q=75" alt="Placa de circuito com microchip" loading="lazy" />
-      <div class="body">
-      <div class="rel">Fornecedor crítico</div>
-      <h3>ChipBrasil</h3>
-      <p>Único fornecedor qualificado dos microcontroladores usados nos sensores. Uma ruptura no fornecimento pararia a produção da SensorTech em semanas. No entanto, a SensorTech é apenas uma fração do portfólio da ChipBrasil, que atende dezenas de empresas de médio porte em todo o Brasil.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> a receita de um cliente de porte médio entre muitos.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=640&h=360&q=75" alt="Caixas de papelão em prateleiras de um depósito" loading="lazy" />
-      <div class="body">
-      <div class="rel">Fornecedores</div>
-      <h3>Demais fornecedores</h3>
-      <p>Componentes, embalagens e logística. São substituíveis: há alternativas no mercado para cada categoria. A SensorTech é um cliente pequeno na carteira de cada um deles. A relação é transacional, entrega e pagamento, sem dependência mútua relevante.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> receita pontual de um cliente pequeno.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1676781316568-feffeb4ab4e5?auto=format&fit=crop&w=640&h=360&q=75" alt="Torre de telecomunicações com antenas" loading="lazy" />
-      <div class="body">
-      <div class="rel">Regulador</div>
-      <h3>ANATEL</h3>
-      <p>Regulador federal de telecomunicações. A homologação dos sensores IoT é obrigatória: sem ela, nenhum produto pode ser comercializado. A ANATEL pode suspender certificações e impor multas severas. Contudo, a SensorTech é apenas uma entre milhares de empresas reguladas, sem relação diferenciada.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> a conformidade regulatória de um agente entre milhares.</span></div>
-      </div>
-    </article>
-    <article class="actor">
-      <img class="ph" src="https://images.unsplash.com/photo-1775314054195-85f31de0c944?auto=format&fit=crop&w=640&h=360&q=75" alt="Salão de exposições com estandes" loading="lazy" />
-      <div class="body">
-      <div class="rel">Associação setorial</div>
-      <h3>ABIoT</h3>
-      <p>Associação Brasileira de IoT. Representa o setor junto a órgãos públicos e dá acesso a editais de P&amp;D (EMBRAPII, FINEP). A SensorTech é um entre centenas de membros. A entidade não tem poder direto sobre as operações da empresa, e para ela cada membro tem peso semelhante.</p>
-      <div class="stake"><span><strong>O que está em jogo:</strong> um membro entre centenas, com contribuição associativa regular.</span></div>
-      </div>
-    </article>
-  </div>
-
-  <div class="key-link"><a href="#" onclick="return show('gabarito',null)">Ver o gabarito da matriz</a></div>
-</div>
-
-<!-- ═════════ GABARITO (fora do menu: uso do professor) ═════════ -->
-<div id="gabarito" class="page">
-  <a href="#" class="back" onclick="return show('stakeholders',null)">← Stakeholders</a>
-  <h1>Matriz Poder × Interesse: gabarito</h1>
-  <p class="lede">Onde cada um dos onze stakeholders da SensorTech se posiciona, e por quê.</p>
-
-  <div class="matrix-wrap">
-    <div class="matrix">
-      <div class="axis-y">Poder ↑</div>
-      <div class="quads">
-        <div class="quad q-hl"><h4>Alto poder, baixo interesse</h4><ul><li>ChipBrasil</li><li>ANATEL</li></ul></div>
-        <div class="quad q-hh"><h4>Alto poder, alto interesse</h4><ul><li>REFAP</li><li>Criatec3</li><li>Rafael Costa</li><li>Thiago Mendes</li></ul></div>
-        <div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4><ul><li>Demais fornecedores</li><li>ABIoT</li></ul></div>
-        <div class="quad q-lh"><h4>Baixo poder, alto interesse</h4><ul><li>17 clientes PME</li><li>Equipe técnica sênior</li><li>Funcionários operacionais</li></ul></div>
-      </div>
+  <a href="#" class="door" onclick="return show('stakeholders')">
+    <div class="duo"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy" /></div>
+    <div class="txt">
+      <div class="kicker">Por onde começar</div>
+      <h3>Gerenciando os stakeholders</h3>
+      <p>A história da empresa, de um apartamento no bairro Petrópolis a uma refinaria em Canoas, e os onze atores de quem depende sua reputação.</p>
+      <span class="go">Abrir</span>
     </div>
-    <div class="axis-x">Interesse →</div>
-  </div>
-
-  <h2 style="margin-bottom:20px;">Justificativas</h2>
-  <ul class="why">
-    <li><div class="who">REFAP<small>Alto poder, alto interesse</small></div><p>Representa 40% da receita. Seu cancelamento seria potencialmente fatal para a SensorTech (alto poder). Para a REFAP, os sensores monitoram equipamentos críticos em refinaria: substituir o fornecedor levaria meses e exporia a empresa a riscos regulatórios (NR-13), portanto tem alto interesse na continuidade do serviço.</p></li>
-    <li><div class="who">Criatec3<small>Alto poder, alto interesse</small></div><p>Detém 40% da empresa, com direito de veto em contratos acima de R$ 200 mil (alto poder). O retorno do fundo depende integralmente do sucesso da SensorTech: há interesse financeiro direto e contínuo em cada decisão da empresa.</p></li>
-    <li><div class="who">Rafael Costa<small>Alto poder, alto interesse</small></div><p>Cofundador com 30% das quotas e controle operacional. A empresa é sua principal fonte de renda e projeto de vida. Máximo poder e máximo interesse.</p></li>
-    <li><div class="who">Thiago Mendes<small>Alto poder, alto interesse</small></div><p>Cofundador com 30% das quotas e detentor do know-how tecnológico central. Sua saída seria tecnicamente irreparável no curto prazo (alto poder). A empresa é também seu projeto de vida (alto interesse).</p></li>
-    <li><div class="who">ChipBrasil<small>Alto poder, baixo interesse</small></div><p>Único fornecedor qualificado dos microcontroladores: uma ruptura pararia a produção em semanas (alto poder). Contudo, a SensorTech é uma fração pequena do portfólio da ChipBrasil, que atende dezenas de empresas. Interesse baixo: é mais um cliente de porte médio.</p></li>
-    <li><div class="who">ANATEL<small>Alto poder, baixo interesse</small></div><p>Pode suspender a homologação dos sensores e inviabilizar as vendas (alto poder). Para a ANATEL, a SensorTech é apenas uma entre milhares de empresas reguladas: não há interesse diferenciado nem relação próxima.</p></li>
-    <li><div class="who">17 clientes PME<small>Baixo poder, alto interesse</small></div><p>Individualmente, nenhum representa mais de 8% da receita e a base é diversificada (baixo poder individual). Mas dependem do monitoramento IoT para eficiência operacional e redução de paradas, sem alternativa local equivalente no curto prazo (alto interesse).</p></li>
-    <li><div class="who">Equipe técnica sênior<small>Baixo poder, alto interesse</small></div><p>Individualmente têm baixo poder formal na estrutura de decisão. Mas a empresa é sua principal fonte de renda num mercado de alta rotatividade (28% ao ano): alto interesse na estabilidade e nas condições de trabalho.</p></li>
-    <li><div class="who">Funcionários operacionais<small>Baixo poder, alto interesse</small></div><p>Baixo poder de barganha individual e poucas alternativas no mercado regional. A SensorTech representa emprego e renda familiar: alto interesse nos resultados e na saúde da empresa.</p></li>
-    <li><div class="who">Demais fornecedores<small>Baixo poder, baixo interesse</small></div><p>Substituíveis por alternativas de mercado (baixo poder). A SensorTech é um cliente pequeno entre muitos: relação puramente transacional, sem dependência relevante de nenhum dos lados.</p></li>
-    <li><div class="who">ABIoT<small>Baixo poder, baixo interesse</small></div><p>Sem poder executivo sobre as operações da empresa. A SensorTech é um membro entre centenas, com contribuição associativa regular: sem protagonismo nem dependência diferenciada.</p></li>
-  </ul>
-</div>
-
+  </a>
 </main>
 
+<!-- ═════════ STAKEHOLDERS ═════════ -->
+<main id="stakeholders" class="page">
+  <header class="opening">
+    <div class="duo"><img src="https://images.unsplash.com/photo-1632516654640-adc4c3681255?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
+    <div class="wrap">
+      <div class="place">Porto Alegre, de 2015 a 2024</div>
+      <h1>Gerenciando os stakeholders da SensorTech</h1>
+      <p class="sub">Dez anos de crescimento, um cliente que vale 40% da receita, um fundo com poder de veto e dois sócios que nem sempre concordam.</p>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="wrap">
+      <ol class="chrono">
+        <li class="beat"><div class="year">2015</div><p>Rafael Costa e Thiago Mendes saíram da UFRGS com um protótipo de sensor IoT e R$ 80 mil de capital próprio. Instalaram-se num apartamento no bairro Petrópolis, em Porto Alegre, com um objetivo preciso: sensores de baixo custo para monitoramento preditivo de equipamentos industriais.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1648073819207-ae3f8e6b4914?auto=format&fit=crop&w=640&h=480&q=75" alt="Barco no Guaíba ao lado da cidade de Porto Alegre" loading="lazy" /></div></li>
+        <li class="beat plain"><div class="year">2016</div><p>Um ano depois, assinaram o primeiro contrato com a Metalsul Automação, no Vale dos Sinos. Era pequeno, mas provava que o produto funcionava fora do laboratório.</p></li>
+        <li class="beat"><div class="year">2019</div><p>Veio o salto: o contrato com a REFAP, refinaria da Petrobras em Canoas, transformou a empresa. De repente, a SensorTech tinha um cliente âncora que representava 65% da receita e um novo patamar de exigência técnica e operacional.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1620203853151-496c7228306c?auto=format&fit=crop&w=640&h=480&q=75" alt="Tubos e válvulas industriais de uma refinaria" loading="lazy" /></div></li>
+        <li class="beat"><div class="year">2021</div><p>O Criatec3 entrou no quadro societário com R$ 3,5 milhões e 40% da participação. O capital acelerou o crescimento, mas trouxe junto uma exigência que os fundadores ainda não estavam prontos para atender.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=640&h=480&q=75" alt="Aperto de mãos numa reunião de negócios" loading="lazy" /></div></li>
+        <li class="beat plain"><div class="year">2024</div><p>Com 42 funcionários, 18 clientes ativos e R$ 9,8 milhões de receita, Rafael percebeu que tomar decisões sem mapear quem seria afetado por elas estava se tornando um risco real. Um contrato mal comunicado com a REFAP. Uma demissão que gerou ruído na equipe técnica. Uma negociação com a ChipBrasil travada por falta de alinhamento interno.</p></li>
+        <li class="beat plain"><div class="year"></div><p>Foi nesse contexto que Maria Fernanda Alves chegou à SensorTech. Com experiência consolidada em gestão e passagem pelo MBA da FGV, onde na disciplina de Gestão de Crise, Imagem e Reputação Corporativa havia aprendido que nenhuma empresa sobrevive a uma crise sem saber de quem depende, ela assumiu uma posição ainda em definição: algo entre diretora e sócia, com acesso direto aos fundadores e mandato para estruturar o que a empresa nunca havia estruturado. Numa das primeiras reuniões, fez uma pergunta que ninguém esperava.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="question">
+    <div class="duo"><img src="https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?auto=format&fit=crop&w=2000&q=75" alt="" loading="lazy" /></div>
+    <div class="wrap">
+      <blockquote>Vocês sabem, de verdade, quem são os stakeholders da SensorTech e quanto poder e interesse cada um tem sobre o negócio?</blockquote>
+      <div class="who">Maria Fernanda Alves</div>
+      <p class="then">A pergunta não tinha resposta imediata. E foi esse silêncio que deu início ao mapeamento que você fará a seguir.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="task">
+        <h2>Os onze stakeholders</h2>
+        <div>
+          <p>Para cada ator, pergunte: qual é o poder dele sobre a SensorTech? E qual é o seu interesse nos resultados da empresa? Depois, posicione todos na Matriz Poder × Interesse.</p>
+          <p>O mapa de stakeholders é o primeiro instrumento de qualquer gestão de crise. É ele que diz quem precisa saber primeiro, quem pode derrubar a empresa e quem sofre as consequências sem ter voz.</p>
+        </div>
+      </div>
+
+      <div class="dossier">
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1786532852011-443cba5dc9fe?auto=format&fit=crop&w=320&h=320&q=75" alt="Refinaria com tanques e tubulações" loading="lazy" /></div>
+          <div><div class="rel">Cliente âncora</div><h3>REFAP, refinaria da Petrobras em Canoas</h3>
+          <p>Representa 40% da receita da SensorTech. Os sensores monitoram equipamentos críticos em refinaria, um ambiente de alto risco regulatório (NR-13). Substituir a SensorTech levaria meses de requalificação. Um cancelamento de contrato seria devastador para a empresa.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> confiabilidade operacional e segurança industrial contínua.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?auto=format&fit=crop&w=320&h=320&q=75" alt="Fábrica com máquinas industriais" loading="lazy" /></div>
+          <div><div class="rel">Clientes</div><h3>17 clientes de pequeno e médio porte</h3>
+          <p>Indústrias gaúchas de metalurgia, celulose, agronegócio e manufatura. Cada um representa entre 2% e 8% da receita. Individualmente, nenhum move o ponteiro da empresa, mas todos dependem do monitoramento preditivo de seus equipamentos, sem alternativa local equivalente no curto prazo.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> continuidade do monitoramento e redução de paradas não planejadas.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=320&h=320&q=75" alt="Reunião em torno de uma mesa" loading="lazy" /></div>
+          <div><div class="rel">Investidor</div><h3>Criatec3, fundo de venture capital</h3>
+          <p>Detém 40% da empresa e direito de veto em contratos acima de R$ 200 mil. O retorno do fundo depende diretamente da valorização da SensorTech. Pressiona ativamente por governança, ESG e preparação para a próxima rodada. Pode bloquear decisões estratégicas.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> retorno financeiro do investimento de R$ 3,5 milhões.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1611677806845-363fccca2c51?auto=format&fit=crop&w=320&h=320&q=75" alt="Notebook sobre uma mesa de madeira" loading="lazy" /></div>
+          <div><div class="rel">Sócio fundador</div><h3>Rafael Costa, CEO</h3>
+          <p>Cofundador com 30% das quotas. Concentra as decisões comerciais e estratégicas. A empresa é seu projeto de vida e principal fonte de renda. Tem autonomia formal para assinar contratos e liderar a operação, mas enfrenta o impasse com Thiago em decisões críticas.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> patrimônio pessoal, legado profissional e controle do negócio.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1494083306499-e22e4a457632?auto=format&fit=crop&w=320&h=320&q=75" alt="Processador segurado por uma pinça" loading="lazy" /></div>
+          <div><div class="rel">Sócio fundador</div><h3>Thiago Mendes, CTO</h3>
+          <p>Cofundador com 30% das quotas. Responsável pela arquitetura tecnológica: o produto só existe porque ele existe. Detém o know-how mais crítico da empresa e está no centro dos conflitos societários. Sua saída seria tecnicamente irreparável no curto prazo.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> controle tecnológico, participação na empresa e direção do produto.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1581094488379-6a10d04c0f04?auto=format&fit=crop&w=320&h=320&q=75" alt="Dois técnicos de uniforme azul examinando um equipamento" loading="lazy" /></div>
+          <div><div class="rel">Colaboradores</div><h3>Equipe técnica sênior</h3>
+          <p>Oito engenheiros que carregam o conhecimento operacional do produto. A alta rotatividade do mercado de TI gaúcho (28% ao ano) faz com que sejam assediados por concorrentes constantemente. Individualmente têm pouca influência formal, mas uma saída coletiva comprometeria projetos inteiros.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> carreira, remuneração e ambiente de trabalho.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=320&h=320&q=75" alt="Pessoas trabalhando em mesas num escritório aberto" loading="lazy" /></div>
+          <div><div class="rel">Colaboradores</div><h3>Funcionários operacionais</h3>
+          <p>34 pessoas em suporte técnico, vendas, financeiro e logística. A SensorTech representa o emprego e a renda familiar de todas elas. Individualmente têm baixo poder de barganha e poucas alternativas no mercado regional. Mas são as primeiras a sentir, e a comentar, quando a cultura falha.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> estabilidade de emprego e condições de trabalho.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1782338938777-908f4e1db3be?auto=format&fit=crop&w=320&h=320&q=75" alt="Placa de circuito com microchip" loading="lazy" /></div>
+          <div><div class="rel">Fornecedor crítico</div><h3>ChipBrasil</h3>
+          <p>Único fornecedor qualificado dos microcontroladores usados nos sensores. Uma ruptura no fornecimento pararia a produção da SensorTech em semanas. No entanto, a SensorTech é apenas uma fração do portfólio da ChipBrasil, que atende dezenas de empresas de médio porte em todo o Brasil.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> a receita de um cliente de porte médio entre muitos.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=320&h=320&q=75" alt="Caixas de papelão em prateleiras de um depósito" loading="lazy" /></div>
+          <div><div class="rel">Fornecedores</div><h3>Demais fornecedores</h3>
+          <p>Componentes, embalagens e logística. São substituíveis: há alternativas no mercado para cada categoria. A SensorTech é um cliente pequeno na carteira de cada um deles. A relação é transacional, entrega e pagamento, sem dependência mútua relevante.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> receita pontual de um cliente pequeno.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1676781316568-feffeb4ab4e5?auto=format&fit=crop&w=320&h=320&q=75" alt="Torre de telecomunicações com antenas" loading="lazy" /></div>
+          <div><div class="rel">Regulador</div><h3>ANATEL</h3>
+          <p>Regulador federal de telecomunicações. A homologação dos sensores IoT é obrigatória: sem ela, nenhum produto pode ser comercializado. A ANATEL pode suspender certificações e impor multas severas. Contudo, a SensorTech é apenas uma entre milhares de empresas reguladas, sem relação diferenciada.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> a conformidade regulatória de um agente entre milhares.</div></div>
+        </article>
+        <article class="file">
+          <div class="duo live"><img src="https://images.unsplash.com/photo-1775314054195-85f31de0c944?auto=format&fit=crop&w=320&h=320&q=75" alt="Salão de exposições com estandes" loading="lazy" /></div>
+          <div><div class="rel">Associação setorial</div><h3>ABIoT</h3>
+          <p>Associação Brasileira de IoT. Representa o setor junto a órgãos públicos e dá acesso a editais de P&amp;D (EMBRAPII, FINEP). A SensorTech é um entre centenas de membros. A entidade não tem poder direto sobre as operações da empresa, e para ela cada membro tem peso semelhante.</p>
+          <div class="stake"><strong>O que está em jogo:</strong> um membro entre centenas, com contribuição associativa regular.</div></div>
+        </article>
+      </div>
+
+      <div class="key-link"><a href="#" onclick="return show('gabarito')">Gabarito da matriz</a></div>
+    </div>
+  </section>
+</main>
+
+<!-- ═════════ GABARITO (fora do menu: uso do professor) ═════════ -->
+<main id="gabarito" class="page">
+  <header class="opening">
+    <div class="duo"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=2000&q=75" alt="" /></div>
+    <div class="wrap">
+      <div class="place">Gabarito</div>
+      <h1>Matriz Poder × Interesse</h1>
+      <p class="sub">Onde cada um dos onze stakeholders da SensorTech se posiciona, e por quê.</p>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="matrix-wrap">
+        <div class="matrix">
+          <div class="axis-y">Poder ↑</div>
+          <div class="quads">
+            <div class="quad q-hl"><h4>Alto poder, baixo interesse</h4><ul><li>ChipBrasil</li><li>ANATEL</li></ul></div>
+            <div class="quad q-hh"><h4>Alto poder, alto interesse</h4><ul><li>REFAP</li><li>Criatec3</li><li>Rafael Costa</li><li>Thiago Mendes</li></ul></div>
+            <div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4><ul><li>Demais fornecedores</li><li>ABIoT</li></ul></div>
+            <div class="quad q-lh"><h4>Baixo poder, alto interesse</h4><ul><li>17 clientes PME</li><li>Equipe técnica sênior</li><li>Funcionários operacionais</li></ul></div>
+          </div>
+        </div>
+        <div class="axis-x">Interesse →</div>
+      </div>
+
+      <h2 class="sec">Justificativas</h2>
+      <ul class="why">
+        <li><div class="who">REFAP<small>Alto poder, alto interesse</small></div><p>Representa 40% da receita. Seu cancelamento seria potencialmente fatal para a SensorTech (alto poder). Para a REFAP, os sensores monitoram equipamentos críticos em refinaria: substituir o fornecedor levaria meses e exporia a empresa a riscos regulatórios (NR-13), portanto tem alto interesse na continuidade do serviço.</p></li>
+        <li><div class="who">Criatec3<small>Alto poder, alto interesse</small></div><p>Detém 40% da empresa, com direito de veto em contratos acima de R$ 200 mil (alto poder). O retorno do fundo depende integralmente do sucesso da SensorTech: há interesse financeiro direto e contínuo em cada decisão da empresa.</p></li>
+        <li><div class="who">Rafael Costa<small>Alto poder, alto interesse</small></div><p>Cofundador com 30% das quotas e controle operacional. A empresa é sua principal fonte de renda e projeto de vida. Máximo poder e máximo interesse.</p></li>
+        <li><div class="who">Thiago Mendes<small>Alto poder, alto interesse</small></div><p>Cofundador com 30% das quotas e detentor do know-how tecnológico central. Sua saída seria tecnicamente irreparável no curto prazo (alto poder). A empresa é também seu projeto de vida (alto interesse).</p></li>
+        <li><div class="who">ChipBrasil<small>Alto poder, baixo interesse</small></div><p>Único fornecedor qualificado dos microcontroladores: uma ruptura pararia a produção em semanas (alto poder). Contudo, a SensorTech é uma fração pequena do portfólio da ChipBrasil, que atende dezenas de empresas. Interesse baixo: é mais um cliente de porte médio.</p></li>
+        <li><div class="who">ANATEL<small>Alto poder, baixo interesse</small></div><p>Pode suspender a homologação dos sensores e inviabilizar as vendas (alto poder). Para a ANATEL, a SensorTech é apenas uma entre milhares de empresas reguladas: não há interesse diferenciado nem relação próxima.</p></li>
+        <li><div class="who">17 clientes PME<small>Baixo poder, alto interesse</small></div><p>Individualmente, nenhum representa mais de 8% da receita e a base é diversificada (baixo poder individual). Mas dependem do monitoramento IoT para eficiência operacional e redução de paradas, sem alternativa local equivalente no curto prazo (alto interesse).</p></li>
+        <li><div class="who">Equipe técnica sênior<small>Baixo poder, alto interesse</small></div><p>Individualmente têm baixo poder formal na estrutura de decisão. Mas a empresa é sua principal fonte de renda num mercado de alta rotatividade (28% ao ano): alto interesse na estabilidade e nas condições de trabalho.</p></li>
+        <li><div class="who">Funcionários operacionais<small>Baixo poder, alto interesse</small></div><p>Baixo poder de barganha individual e poucas alternativas no mercado regional. A SensorTech representa emprego e renda familiar: alto interesse nos resultados e na saúde da empresa.</p></li>
+        <li><div class="who">Demais fornecedores<small>Baixo poder, baixo interesse</small></div><p>Substituíveis por alternativas de mercado (baixo poder). A SensorTech é um cliente pequeno entre muitos: relação puramente transacional, sem dependência relevante de nenhum dos lados.</p></li>
+        <li><div class="who">ABIoT<small>Baixo poder, baixo interesse</small></div><p>Sem poder executivo sobre as operações da empresa. A SensorTech é um membro entre centenas, com contribuição associativa regular: sem protagonismo nem dependência diferenciada.</p></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>SensorTech POA é uma empresa fictícia, criada para fins de ensino.</span>
+    <span>MBA FGV, Porto Alegre, 2026</span>
+  </div>
+</footer>
+
 <script>
-  function show(pageId, linkEl) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    document.querySelectorAll('nav a').forEach(a => {
-      a.classList.toggle('active', linkEl ? a === linkEl : (a.getAttribute('onclick') || '').includes("'" + pageId + "'"));
-    });
-    if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open');
+  function show(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === pageId));
+    document.querySelectorAll('.topnav a.link').forEach(a => a.classList.toggle('active', a.dataset.page === pageId));
     window.scrollTo(0, 0);
     return false;
   }
-  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 </script>
 </body>
 </html>
