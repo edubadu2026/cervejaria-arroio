@@ -241,14 +241,6 @@
     .desafio-pergunta { border-radius: 14px; padding: 36px 40px; text-align: center; margin-bottom: 8px; }
     .desafio-pergunta .pq-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-bottom: 16px; display: block; color: white; }
     .desafio-pergunta h2 { font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1.45; margin: 0; color: white; }
-    /* ─── Capítulos bloqueados ─── */
-    nav ul li a.locked { color:#475569; cursor:default; }
-    nav ul li a.locked:hover { background:transparent; color:#475569; border-left-color:transparent; }
-    .card.locked { cursor:default; opacity:0.55; position:relative; }
-    .card.locked:hover { transform:none; box-shadow:none; border-color:#E2E8F0; }
-    .card.locked img { filter:grayscale(1); }
-    .lock-badge { position:absolute; top:10px; right:10px; background:#0F172A; color:#fff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:20px; }
-    .card .aula-label { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#1C4ED8; margin-bottom:6px; }
   </style>
 </head>
 <body>
@@ -265,10 +257,7 @@
   <nav>
     <ul>
       <li><a href="#" class="active" onclick="show('inicio',this)"><span class="icon">🏠</span> Início</a></li>
-      <li><a href="#" onclick="show('stakeholders',this)"><span class="icon">👥</span> Aula 1 · Stakeholders</a></li>
-      <li><a class="locked"><span class="icon">🔒</span> Aula 2 · em breve</a></li>
-      <li><a class="locked"><span class="icon">🔒</span> Aula 3 · em breve</a></li>
-      <li><a class="locked"><span class="icon">🔒</span> Aula 4 · em breve</a></li>
+      <li><a href="#" onclick="show('stakeholders',this)"><span class="icon">👥</span> Stakeholders</a></li>
     </ul>
   </nav>
   <div class="sidebar-footer">
@@ -286,7 +275,6 @@
   <div class="hero">
     <span class="tag">📍 Porto Alegre · RS</span>
     <h1>SensorTech Soluções Industriais</h1>
-    <p>Um case em quatro capítulos sobre crise, imagem e reputação. A cada aula, a história avança um passo.</p>
     <img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=900&q=80"
          alt="SensorTech: IoT Industrial"
          style="width:100%;max-width:680px;height:220px;object-fit:cover;border-radius:12px;margin:20px 0 0;display:block;opacity:0.88;" />
@@ -297,39 +285,8 @@
       <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80"
            alt="Stakeholders" style="width:100%;height:110px;object-fit:cover;display:block;" />
       <div style="padding:18px 20px 20px;">
-        <div class="aula-label">Aula 1</div>
         <h3>Gerenciando Stakeholders</h3>
         <p>Os 11 atores que moldam a SensorTech e de quem depende sua reputação.</p>
-      </div>
-    </div>
-    <div class="card locked" style="padding:0;overflow:hidden;">
-      <span class="lock-badge">🔒 Em breve</span>
-      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80"
-           alt="Aula 2" style="width:100%;height:110px;object-fit:cover;display:block;" />
-      <div style="padding:18px 20px 20px;">
-        <div class="aula-label">Aula 2</div>
-        <h3>Capítulo 2</h3>
-        <p>Liberado na próxima aula.</p>
-      </div>
-    </div>
-    <div class="card locked" style="padding:0;overflow:hidden;">
-      <span class="lock-badge">🔒 Em breve</span>
-      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
-           alt="Aula 3" style="width:100%;height:110px;object-fit:cover;display:block;" />
-      <div style="padding:18px 20px 20px;">
-        <div class="aula-label">Aula 3</div>
-        <h3>Capítulo 3</h3>
-        <p>Liberado na aula 3.</p>
-      </div>
-    </div>
-    <div class="card locked" style="padding:0;overflow:hidden;">
-      <span class="lock-badge">🔒 Em breve</span>
-      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=500&q=80"
-           alt="Aula 4" style="width:100%;height:110px;object-fit:cover;display:block;" />
-      <div style="padding:18px 20px 20px;">
-        <div class="aula-label">Aula 4</div>
-        <h3>Capítulo 4</h3>
-        <p>Liberado na aula 4.</p>
       </div>
     </div>
   </div>
@@ -349,7 +306,7 @@
 <div id="stakeholders" class="page">
   <a href="#" class="btn-home" onclick="show('inicio',null);return false;">🏠 Voltar ao Início</a>
   <div class="section-header">
-    <div class="label">Aula 1 · Capítulo 1</div>
+    <div class="label">SensorTech · Porto Alegre</div>
     <h1>Gerenciando os Stakeholders da SensorTech</h1>
   </div>
 
