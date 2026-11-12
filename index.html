@@ -190,6 +190,14 @@
 .legend { margin-top: 18px; padding-left: 28px; font-size: 14.5px; color: var(--muted); }
 .chapters { padding: 0 0 112px; }
 .chapters .door { margin-bottom: 4px; }
+.classify { margin-top: 96px; padding-top: 56px; border-top: 2px solid var(--ink); }
+.classify .task { margin-bottom: 40px; }
+.crit { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
+.crit > div { background: var(--page); padding: 22px 26px; border-left: 3px solid var(--signal); }
+.crit .k { font-size: 14px; font-weight: 600; color: var(--blue); }
+.crit p { font-family: var(--serif); font-size: 21px; line-height: 1.4; color: var(--ink); margin-top: 6px; }
+.matrix.blank .quad { min-height: 170px; }
+@media (max-width: 640px) { .crit { grid-template-columns: 1fr; } .crit p { font-size: 18px; } }
 footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14px; padding: 40px 0; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
@@ -406,6 +414,30 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <p>Criador do podcast e do perfil “Lúpulo Gaúcho”, com 80 mil seguidores, a principal referência de cerveja artesanal no estado. Suas avaliações movem as vendas de lançamentos e esvaziam ou lotam festivais. Não tem contrato com nenhuma cervejaria, e a Arroio é uma das muitas marcas que ele comenta.</p>
 <div class="stake"><strong>O que está em jogo:</strong> a própria credibilidade como crítico independente.</div></div>
 </article>
+</div>
+
+<div class="classify">
+<div class="task">
+<h2>A classificação</h2>
+<div>
+<p>A turma se divide em cinco grupos. Cada grupo posiciona os doze stakeholders na Matriz Poder × Interesse e anota, para cada um, uma frase que justifique a posição.</p>
+<p>Depois, os grupos comparam suas matrizes. Onde vocês discordaram, e por quê?</p>
+</div>
+</div>
+<div class="crit">
+<div><span class="k">Poder</span><p>Quanto a Arroio depende deste stakeholder?</p></div>
+<div><span class="k">Interesse</span><p>Quanto este stakeholder depende da Arroio?</p></div>
+</div>
+<div class="matrix blank">
+<div class="axis-y">Poder ↑</div>
+<div class="quads">
+<div class="quad q-hl"><h4>Alto poder, baixo interesse</h4></div>
+<div class="quad q-hh"><h4>Alto poder, alto interesse</h4></div>
+<div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4></div>
+<div class="quad q-lh"><h4>Baixo poder, alto interesse</h4></div>
+</div>
+</div>
+<div class="axis-x">Interesse →</div>
 </div>
 
 <a href="#" class="next" onclick="return show('envelopes')">
