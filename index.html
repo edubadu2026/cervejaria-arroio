@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SensorTech POA: Gestão de Crise</title>
+  <title>Cervejaria Arroio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --night: #0D1830;
-      --ink: #14213D;
-      --blue: #1C4ED8;
-      --signal: #F2B441;
+      --night: #1C130C;
+      --ink: #2B1B10;
+      --blue: #A0521C;
+      --signal: #E9B03B;
       --paper: #FFFFFF;
-      --page: #F3F4F7;
-      --text: #1F2533;
-      --muted: #5B6475;
-      --rule: #D9DEE7;
+      --page: #F6F0E7;
+      --text: #2A221C;
+      --muted: #6E6156;
+      --rule: #E4D9CA;
       --serif: 'Source Serif 4', Georgia, serif;
       --sans: 'IBM Plex Sans', system-ui, sans-serif;
       --wrap: 1120px;
@@ -32,7 +32,7 @@
     /* ─── Duotone: todas as fotos passam por aqui ─── */
     .duo { position: relative; overflow: hidden; background: var(--blue); }
     .duo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(1.05); mix-blend-mode: multiply; transition: filter .5s ease; }
-    .duo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,24,48,0.10), rgba(13,24,48,0.45)); pointer-events: none; transition: opacity .5s ease; }
+    .duo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,19,12,0.10), rgba(28,19,12,0.45)); pointer-events: none; transition: opacity .5s ease; }
     a:hover .duo img, .duo.live:hover img { filter: none; mix-blend-mode: normal; }
     a:hover .duo::after, .duo.live:hover::after { opacity: 0; }
 
@@ -52,7 +52,7 @@
     /* ─── Abertura das páginas ─── */
     .opening { position: relative; min-height: 78vh; display: flex; align-items: flex-end; color: #fff; background: var(--night); }
     .opening .duo { position: absolute; inset: 0; }
-    .opening .duo::after { background: linear-gradient(180deg, rgba(13,24,48,0.55) 0%, rgba(13,24,48,0.25) 35%, rgba(13,24,48,0.92) 100%); }
+    .opening .duo::after { background: linear-gradient(180deg, rgba(28,19,12,0.55) 0%, rgba(28,19,12,0.25) 35%, rgba(28,19,12,0.92) 100%); }
     .opening .duo:hover img { filter: grayscale(1) contrast(1.15) brightness(1.05); mix-blend-mode: multiply; }
     .opening .wrap { position: relative; z-index: 2; padding-bottom: 72px; padding-top: 140px; width: 100%; }
     .place { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
@@ -99,7 +99,7 @@
     /* ─── A pergunta ─── */
     .question { position: relative; color: #fff; padding: 150px 0; background: var(--night); }
     .question .duo { position: absolute; inset: 0; }
-    .question .duo::after { background: rgba(13,24,48,0.78); }
+    .question .duo::after { background: rgba(28,19,12,0.78); }
     .question .wrap { position: relative; z-index: 2; }
     .question blockquote { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(30px, 4vw, 54px); line-height: 1.18; max-width: 22ch; letter-spacing: -0.01em; }
     .question blockquote::before { content: '“'; display: block; font-size: 1.8em; line-height: 0.6; color: var(--signal); font-style: normal; margin-bottom: 12px; }
@@ -132,12 +132,12 @@
     .quad h4 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
     .quad ul { list-style: none; }
     .quad li { font-family: var(--serif); font-size: 21px; line-height: 1.5; }
-    .q-hl { background: #E5ECFC; color: #16359A; }
+    .q-hl { background: #F5E4CF; color: #7A3A10; }
     .q-hh { background: var(--night); color: #fff; }
     .q-hh h4 { color: var(--signal); }
     .q-ll { background: var(--page); color: var(--muted); }
     .q-lh { background: var(--blue); color: #fff; }
-    .q-lh h4 { color: #CFDBFB; }
+    .q-lh h4 { color: #F7DDBF; }
     .axis-x { text-align: center; margin-top: 14px; padding-left: 28px; font-size: 14px; font-weight: 600; color: var(--muted); }
     h2.sec { font-family: var(--serif); font-weight: 600; font-size: 36px; color: var(--ink); margin-bottom: 32px; }
     .why { list-style: none; }
@@ -167,7 +167,7 @@
     .env.armed { border-color: var(--signal); box-shadow: 0 0 0 2px var(--signal); }
     .env.armed .env-state { color: var(--ink); font-weight: 600; }
     .env.open { background: var(--page); cursor: default; }
-    .env.open .flap { transform: rotateX(180deg); background: #C9D2E3; }
+    .env.open .flap { transform: rotateX(180deg); background: #DCCBB5; }
     .env.open .seal { opacity: 0; }
     .events { margin-top: 56px; }
     .event { border-top: 2px solid var(--ink); padding: 40px 0 48px; display: grid; grid-template-columns: 5fr 7fr; gap: 56px; }
@@ -184,7 +184,11 @@
     .prof-note { font-family: var(--serif); font-size: 19px; line-height: 1.6; color: var(--ink); max-width: 62ch; margin-top: 32px; padding: 24px 28px; background: var(--page); border-left: 3px solid var(--signal); }
     @media (prefers-reduced-motion: reduce) { .env .flap, .env .seal { transition: none; } }
 
-    footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14px; padding: 40px 0; }
+    .event .ev-marcelo { margin-top: 24px; background: var(--night); color: #fff; padding: 22px 28px; border-left: 3px solid #C2412D; }
+.event .ev-marcelo h4 { font-size: 13.5px; font-weight: 600; color: #F0A08F; margin-bottom: 8px; letter-spacing: .02em; }
+.event .ev-marcelo p { font-family: var(--serif); font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.9); }
+.legend { margin-top: 18px; padding-left: 28px; font-size: 14.5px; color: var(--muted); }
+footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14px; padding: 40px 0; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
     /* ─── Responsivo ─── */
@@ -234,404 +238,387 @@
 <body>
 
 <header class="topnav">
-  <div class="wrap">
-    <a href="#" class="logo" onclick="return show('inicio')"><i></i><span>SensorTech<span class="full"> POA</span></span></a>
-    <nav aria-label="Seções do case">
-      <ul>
-        <li><a href="#" class="link active" data-page="inicio" onclick="return show('inicio')">Início</a></li>
-        <li><a href="#" class="link" data-page="stakeholders" onclick="return show('stakeholders')">Stakeholders</a></li>
-        <li><a href="#" class="link" data-page="envelopes" onclick="return show('envelopes')">Envelopes</a></li>
-      </ul>
-    </nav>
-  </div>
+<div class="wrap">
+<a href="#" class="logo" onclick="return show('inicio')"><i></i><span>Arroio<span class="full"> Cervejaria</span></span></a>
+<nav aria-label="Seções do case">
+<ul>
+<li><a href="#" class="link active" data-page="inicio" onclick="return show('inicio')">Início</a></li>
+<li><a href="#" class="link" data-page="stakeholders" onclick="return show('stakeholders')">Stakeholders</a></li>
+<li><a href="#" class="link" data-page="envelopes" onclick="return show('envelopes')">Envelopes</a></li>
+</ul>
+</nav>
+</div>
 </header>
 
 <!-- ═════════ INÍCIO ═════════ -->
 <main id="inicio" class="page active">
-  <header class="opening home">
-    <div class="duo"><img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
-    <div class="wrap">
-      <div class="place">Porto Alegre, Rio Grande do Sul</div>
-      <h1>SensorTech <span>Soluções Industriais</span></h1>
-      <p class="sub">Sensores de monitoramento preditivo para a indústria gaúcha. Uma empresa que cresceu rápido, tem um cliente que vale 40% da receita e ainda não sabe direito com quem está falando.</p>
-      <a href="#" class="cta" onclick="return show('stakeholders')">Conhecer a empresa e seus stakeholders</a>
-    </div>
-  </header>
+<header class="opening home">
+<div class="duo"><img src="https://images.unsplash.com/photo-1792955104636-be03d0fb1756?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
+<div class="wrap">
+<div class="place">Porto Alegre, Rio Grande do Sul</div>
+<h1>Arroio <span>Cervejaria Artesanal</span></h1>
+<p class="sub">Uma cerveja que nasceu numa garagem do bairro Floresta, virou orgulho da cidade e cresceu mais rápido do que a sua capacidade de olhar para quem estava em volta.</p>
+<a href="#" class="cta" onclick="return show('stakeholders')">Conhecer a empresa e seus stakeholders</a>
+</div>
+</header>
 
-  <section class="block">
-    <div class="wrap statement">
-      <h2>Reputação não é o que a empresa diz de si mesma.</h2>
-      <div class="prose">
-        <p>É o que cada pessoa e cada instituição que se relaciona com ela acredita que ela é, e o que espera que ela faça. Por isso, toda crise começa muito antes de estourar: começa no dia em que uma empresa deixa de saber quem depende dela, de quem ela depende e quanto cada um pode fazer quando a confiança se rompe.</p>
-        <p>A SensorTech cresceu rápido demais para sua estrutura. Com R$ 9,8 milhões de receita, 42 funcionários e um investidor institucional no quadro societário, ainda opera com processos informais herdados da fase de startup. Por fora, é uma história de sucesso: tecnologia gaúcha, cliente âncora na Petrobras, crescimento acelerado.</p>
-        <p class="ask">Quando a crise chegar, a SensorTech saberá com quem está falando?</p>
-      </div>
-    </div>
-  </section>
+<section class="block">
+<div class="wrap statement">
+<h2>Uma garagem, três sócios e uma cerveja chamada Floresta.</h2>
+<div class="prose">
+<p>Tudo começou em 2014, numa garagem da rua Voluntários da Pátria, no bairro Floresta, a poucas quadras do Guaíba. Luana Becker era engenheira de alimentos formada pela UFRGS e trabalhava no controle de qualidade de um frigorífico em Montenegro. Nos fins de semana, fazia cerveja em panelas de 50 litros, com a obsessão de quem passou anos medindo pH e temperatura de linha de produção. Diego Sartori, amigo dos tempos de faculdade, era designer e não entendia nada de malte. Mas entendia de gente: criou o nome, desenhou os rótulos e transformou cada nova receita num pequeno evento para amigos, vizinhos e conhecidos de conhecidos. A primeira cerveja, uma American Pale Ale batizada de Floresta, rodava de mão em mão em garrafas sem registro. Começou a ser pedida por gente que os dois nunca tinham visto.</p>
+<p>Durante dois anos, a Arroio foi mais hobby do que empresa. O que mudou o rumo foi a chegada de Marcelo Fagundes, cunhado de um cliente fiel, com quinze anos de experiência como gerente comercial de uma distribuidora de bebidas. Marcelo provou a Floresta numa dessas noites de garagem e fez as contas em voz alta: com uma fábrica pequena, licença do Ministério da Agricultura e três pontos de venda bem escolhidos, aquilo se pagava em dezoito meses. Entrou com R$ 150 mil, a carteira de contatos e um terço da sociedade. Luana ficou com a produção, Diego com a marca e Marcelo com tudo o que envolvesse vender, negociar e cobrar. Em 2016, a cervejaria ganhou CNPJ, uma pequena fábrica alugada no bairro São Geraldo e seus primeiros cinco funcionários.</p>
+<p>Os primeiros anos foram de crescimento lento e orgulhoso. A Arroio entrou em bares do Bom Fim e da Cidade Baixa, apareceu em festivais de cerveja na Serra e virou presença garantida nas feiras do 4º Distrito. Diego cultivava uma comunidade fiel nas redes, que tratava a marca como coisa da cidade: “cerveja de Porto Alegre, feita por gente de Porto Alegre”. Luana recusava atalhos na produção, mesmo quando custavam caro. Marcelo, que ninguém desgostava, tinha um jeito próprio de resolver problemas. Quando a fiscalização municipal questionou o descarte da água de lavagem dos tanques, que escorria para o pluvial e daí para o arroio, ele disse aos sócios que tinha “acertado com o pessoal” e que não precisavam se preocupar. Quando um bar atrasou pagamentos, cortou o fornecimento no meio de um festival e deixou o dono exposto diante do público. Luana e Diego estranharam, mas a empresa crescia, as contas fechavam e ninguém queria ser o sócio que atrapalha.</p>
+<p class="ask">Quando a crise chegar, a Arroio saberá de quem depende, e quem depende dela?</p>
+</div>
+</div>
+</section>
 
-  <a href="#" class="door" onclick="return show('stakeholders')">
-    <div class="duo"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy" /></div>
-    <div class="txt">
-      <div class="kicker">Por onde começar</div>
-      <h3>Gerenciando os stakeholders</h3>
-      <p>A história da empresa, de um apartamento no bairro Petrópolis a uma refinaria em Canoas, e os onze atores de quem depende sua reputação.</p>
-      <span class="go">Abrir</span>
-    </div>
-  </a>
+<a href="#" class="door" onclick="return show('stakeholders')">
+<div class="duo"><img src="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy" /></div>
+<div class="txt">
+<div class="kicker">Por onde começar</div>
+<h3>Gerenciando os stakeholders</h3>
+<p>Da garagem no Floresta ao bar-fábrica no 4º Distrito e às gôndolas do supermercado, e os doze atores de quem depende a reputação da marca.</p>
+<span class="go">Abrir</span>
+</div>
+</a>
 </main>
 
 <!-- ═════════ STAKEHOLDERS ═════════ -->
 <main id="stakeholders" class="page">
-  <header class="opening">
-    <div class="duo"><img src="https://images.unsplash.com/photo-1632516654640-adc4c3681255?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
-    <div class="wrap">
-      <div class="place">Porto Alegre, de 2015 a 2024</div>
-      <h1>Gerenciando os stakeholders da SensorTech</h1>
-      <p class="sub">Dez anos de crescimento, um cliente que vale 40% da receita, um fundo com poder de veto e dois sócios que nem sempre concordam.</p>
-    </div>
-  </header>
+<header class="opening">
+<div class="duo"><img src="https://images.unsplash.com/photo-1632516654640-adc4c3681255?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
+<div class="wrap">
+<div class="place">Porto Alegre, de 2014 a 2023</div>
+<h1>Gerenciando os stakeholders da Arroio</h1>
+<p class="sub">Nove anos de crescimento, uma rede de supermercados que vale 35% da receita, três sócios com um terço cada e um deles sempre com uma solução rápida.</p>
+</div>
+</header>
 
-  <section class="block">
-    <div class="wrap">
-      <ol class="chrono">
-        <li class="beat"><div class="year">2015</div><p>Rafael Costa e Thiago Mendes saíram da UFRGS com um protótipo de sensor IoT e R$ 80 mil de capital próprio. Instalaram-se num apartamento no bairro Petrópolis, em Porto Alegre, com um objetivo preciso: sensores de baixo custo para monitoramento preditivo de equipamentos industriais.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1648073819207-ae3f8e6b4914?auto=format&fit=crop&w=640&h=480&q=75" alt="Barco no Guaíba ao lado da cidade de Porto Alegre" loading="lazy" /></div></li>
-        <li class="beat plain"><div class="year">2016</div><p>Um ano depois, assinaram o primeiro contrato com a Metalsul Automação, no Vale dos Sinos. Era pequeno, mas provava que o produto funcionava fora do laboratório.</p></li>
-        <li class="beat"><div class="year">2019</div><p>Veio o salto: o contrato com a REFAP, refinaria da Petrobras em Canoas, transformou a empresa. De repente, a SensorTech tinha um cliente âncora que representava 65% da receita e um novo patamar de exigência técnica e operacional.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1620203853151-496c7228306c?auto=format&fit=crop&w=640&h=480&q=75" alt="Tubos e válvulas industriais de uma refinaria" loading="lazy" /></div></li>
-        <li class="beat"><div class="year">2021</div><p>O Criatec3 entrou no quadro societário com R$ 3,5 milhões e 40% da participação. O capital acelerou o crescimento, mas trouxe junto uma exigência que os fundadores ainda não estavam prontos para atender.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=640&h=480&q=75" alt="Aperto de mãos numa reunião de negócios" loading="lazy" /></div></li>
-        <li class="beat plain"><div class="year">2024</div><p>Com 42 funcionários, 18 clientes ativos e R$ 9,8 milhões de receita, Rafael percebeu que tomar decisões sem mapear quem seria afetado por elas estava se tornando um risco real. Um contrato mal comunicado com a REFAP. Uma demissão que gerou ruído na equipe técnica. Uma negociação com a ChipBrasil travada por falta de alinhamento interno.</p></li>
-        <li class="beat plain"><div class="year"></div><p>Foi nesse contexto que Maria Fernanda Alves chegou à SensorTech. Com experiência consolidada em gestão e passagem pelo MBA da FGV, onde na disciplina de Gestão de Crise, Imagem e Reputação Corporativa havia aprendido que nenhuma empresa sobrevive a uma crise sem saber de quem depende, ela assumiu uma posição ainda em definição: algo entre diretora e sócia, com acesso direto aos fundadores e mandato para estruturar o que a empresa nunca havia estruturado. Numa das primeiras reuniões, fez uma pergunta que ninguém esperava.</p></li>
-      </ol>
-    </div>
-  </section>
+<section class="block">
+<div class="wrap">
+<ol class="chrono">
+<li class="beat"><div class="year">2014</div><p>Luana Becker e Diego Sartori começam a fazer cerveja numa garagem da rua Voluntários da Pátria, no bairro Floresta. A primeira receita, uma American Pale Ale chamada Floresta, circula em garrafas sem rótulo oficial e passa a ser pedida por desconhecidos.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1644940642314-a310d49a4750?auto=format&fit=crop&w=640&h=480&q=75" alt="Mosto sendo despejado numa panela sobre o fogão" loading="lazy" /></div></li>
+<li class="beat"><div class="year">2016</div><p>Marcelo Fagundes entra na sociedade com R$ 150 mil e quinze anos de experiência comercial em bebidas. Cada sócio fica com um terço. A Arroio ganha CNPJ, licença do Ministério da Agricultura, uma pequena fábrica alugada no São Geraldo e cinco funcionários.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1545287072-469f3761413c?auto=format&fit=crop&w=640&h=480&q=75" alt="Tanque de aço inoxidável numa pequena fábrica" loading="lazy" /></div></li>
+<li class="beat plain"><div class="year">2017</div><p>A fiscalização ambiental municipal questiona o descarte da água de lavagem dos tanques, que escorre para o pluvial e daí para o arroio. Marcelo diz aos sócios que “acertou com o pessoal”. O assunto não volta à reunião de sócios.</p></li>
+<li class="beat"><div class="year">2019</div><p>A Arroio deixa o São Geraldo e inaugura o bar-fábrica num antigo galpão do 4º Distrito: tanques à vista, mesas compridas e música ao vivo às quintas. O lugar vira ponto de encontro da cidade.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1673901035157-850dde83663b?auto=format&fit=crop&w=640&h=480&q=75" alt="Fachada de um antigo galpão de tijolos" loading="lazy" /></div></li>
+<li class="beat"><div class="year">2021</div><p>Marcelo fecha o contrato que muda a escala da empresa: as latas da Arroio entram nas 46 lojas da Rede Pampa, a maior rede de supermercados regional do estado.</p><div class="duo live"><img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=640&h=480&q=75" alt="Corredor de supermercado com prateleiras cheias" loading="lazy" /></div></li>
+<li class="beat plain"><div class="year">2023</div><p>A cervejaria chega a 38 funcionários, cerca de 120 bares parceiros, 45 mil seguidores nas redes e R$ 7,4 milhões de receita, 35% dela vinda da Rede Pampa. Nesse ano, Diego se matricula no MBA de Gestão Empresarial da FGV, em Porto Alegre.</p></li>
+<li class="beat plain"><div class="year"></div><p>Na disciplina de Gestão de Crise, Imagem e Reputação Corporativa, Diego ouviu uma frase que não saiu mais da cabeça: a reputação de uma empresa não está nela, está em cada pessoa e instituição que se relaciona com ela. Na reunião de sócios seguinte, levou a pergunta para a mesa.</p></li>
+</ol>
+</div>
+</section>
 
-  <section class="question">
-    <div class="duo"><img src="https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?auto=format&fit=crop&w=2000&q=75" alt="" loading="lazy" /></div>
-    <div class="wrap">
-      <blockquote>Vocês sabem, de verdade, quem são os stakeholders da SensorTech e quanto poder e interesse cada um tem sobre o negócio?</blockquote>
-      <div class="who">Maria Fernanda Alves</div>
-      <p class="then">A pergunta não tinha resposta imediata. E foi esse silêncio que deu início ao mapeamento que você fará a seguir.</p>
-    </div>
-  </section>
+<section class="question">
+<div class="duo"><img src="https://images.unsplash.com/photo-1558210598-89ba75b1724e?auto=format&fit=crop&w=2000&q=75" alt="" loading="lazy" /></div>
+<div class="wrap">
+<blockquote>A gente sabe, de verdade, quem são os stakeholders da Arroio, de quem a gente depende e quem depende da gente?</blockquote>
+<div class="who">Diego Sartori</div>
+<p class="then">Luana achou a pergunta boa e não soube responder. Marcelo riu: “Stakeholder é quem paga a conta, Diego. O resto é conversa de MBA.” Diego decidiu fazer o mapa assim mesmo. É esse mapa que você fará a seguir.</p>
+</div>
+</section>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="task">
-        <h2>Os onze stakeholders</h2>
-        <div>
-          <p>Para cada ator, pergunte: qual é o poder dele sobre a SensorTech? E qual é o seu interesse nos resultados da empresa? Depois, posicione todos na Matriz Poder × Interesse.</p>
-          <p>O mapa de stakeholders é o primeiro instrumento de qualquer gestão de crise. É ele que diz quem precisa saber primeiro, quem pode derrubar a empresa e quem sofre as consequências sem ter voz.</p>
-        </div>
-      </div>
+<section class="block">
+<div class="wrap">
+<div class="task">
+<h2>Os doze stakeholders</h2>
+<div>
+<p>Para cada ator, pergunte: quanto a Arroio depende dele? Isso mede o seu poder. E quanto ele depende da Arroio? Isso mede o seu interesse. Depois, posicione todos na Matriz Poder × Interesse.</p>
+<p>O mapa de stakeholders é o primeiro instrumento de qualquer gestão de reputação. É ele que diz quem precisa saber primeiro, quem pode derrubar a marca e quem sofre as consequências sem ser ouvido.</p>
+</div>
+</div>
 
-      <div class="dossier">
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1786532852011-443cba5dc9fe?auto=format&fit=crop&w=320&h=320&q=75" alt="Refinaria com tanques e tubulações" loading="lazy" /></div>
-          <div><div class="rel">Cliente âncora</div><h3>REFAP, refinaria da Petrobras em Canoas</h3>
-          <p>Representa 40% da receita da SensorTech. Os sensores monitoram equipamentos críticos em refinaria, um ambiente de alto risco regulatório (NR-13). Substituir a SensorTech levaria meses de requalificação. Um cancelamento de contrato seria devastador para a empresa.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> confiabilidade operacional e segurança industrial contínua.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?auto=format&fit=crop&w=320&h=320&q=75" alt="Fábrica com máquinas industriais" loading="lazy" /></div>
-          <div><div class="rel">Clientes</div><h3>17 clientes de pequeno e médio porte</h3>
-          <p>Indústrias gaúchas de metalurgia, celulose, agronegócio e manufatura. Cada um representa entre 2% e 8% da receita. Individualmente, nenhum move o ponteiro da empresa, mas todos dependem do monitoramento preditivo de seus equipamentos, sem alternativa local equivalente no curto prazo.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> continuidade do monitoramento e redução de paradas não planejadas.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=320&h=320&q=75" alt="Reunião em torno de uma mesa" loading="lazy" /></div>
-          <div><div class="rel">Investidor</div><h3>Criatec3, fundo de venture capital</h3>
-          <p>Detém 40% da empresa e direito de veto em contratos acima de R$ 200 mil. O retorno do fundo depende diretamente da valorização da SensorTech. Pressiona ativamente por governança, ESG e preparação para a próxima rodada. Pode bloquear decisões estratégicas.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> retorno financeiro do investimento de R$ 3,5 milhões.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1611677806845-363fccca2c51?auto=format&fit=crop&w=320&h=320&q=75" alt="Notebook sobre uma mesa de madeira" loading="lazy" /></div>
-          <div><div class="rel">Sócio fundador</div><h3>Rafael Costa, CEO</h3>
-          <p>Cofundador com 30% das quotas. Concentra as decisões comerciais e estratégicas. A empresa é seu projeto de vida e principal fonte de renda. Tem autonomia formal para assinar contratos e liderar a operação, mas enfrenta o impasse com Thiago em decisões críticas.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> patrimônio pessoal, legado profissional e controle do negócio.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1494083306499-e22e4a457632?auto=format&fit=crop&w=320&h=320&q=75" alt="Processador segurado por uma pinça" loading="lazy" /></div>
-          <div><div class="rel">Sócio fundador</div><h3>Thiago Mendes, CTO</h3>
-          <p>Cofundador com 30% das quotas. Responsável pela arquitetura tecnológica: o produto só existe porque ele existe. Detém o know-how mais crítico da empresa e está no centro dos conflitos societários. Sua saída seria tecnicamente irreparável no curto prazo.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> controle tecnológico, participação na empresa e direção do produto.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1581094488379-6a10d04c0f04?auto=format&fit=crop&w=320&h=320&q=75" alt="Dois técnicos de uniforme azul examinando um equipamento" loading="lazy" /></div>
-          <div><div class="rel">Colaboradores</div><h3>Equipe técnica sênior</h3>
-          <p>Oito engenheiros que carregam o conhecimento operacional do produto. A alta rotatividade do mercado de TI gaúcho (28% ao ano) faz com que sejam assediados por concorrentes constantemente. Individualmente têm pouca influência formal, mas uma saída coletiva comprometeria projetos inteiros.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> carreira, remuneração e ambiente de trabalho.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=320&h=320&q=75" alt="Pessoas trabalhando em mesas num escritório aberto" loading="lazy" /></div>
-          <div><div class="rel">Colaboradores</div><h3>Funcionários operacionais</h3>
-          <p>34 pessoas em suporte técnico, vendas, financeiro e logística. A SensorTech representa o emprego e a renda familiar de todas elas. Individualmente têm baixo poder de barganha e poucas alternativas no mercado regional. Mas são as primeiras a sentir, e a comentar, quando a cultura falha.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> estabilidade de emprego e condições de trabalho.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1782338938777-908f4e1db3be?auto=format&fit=crop&w=320&h=320&q=75" alt="Placa de circuito com microchip" loading="lazy" /></div>
-          <div><div class="rel">Fornecedor crítico</div><h3>ChipBrasil</h3>
-          <p>Único fornecedor qualificado dos microcontroladores usados nos sensores. Uma ruptura no fornecimento pararia a produção da SensorTech em semanas. No entanto, a SensorTech é apenas uma fração do portfólio da ChipBrasil, que atende dezenas de empresas de médio porte em todo o Brasil.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> a receita de um cliente de porte médio entre muitos.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=320&h=320&q=75" alt="Caixas de papelão em prateleiras de um depósito" loading="lazy" /></div>
-          <div><div class="rel">Fornecedores</div><h3>Demais fornecedores</h3>
-          <p>Componentes, embalagens e logística. São substituíveis: há alternativas no mercado para cada categoria. A SensorTech é um cliente pequeno na carteira de cada um deles. A relação é transacional, entrega e pagamento, sem dependência mútua relevante.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> receita pontual de um cliente pequeno.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1676781316568-feffeb4ab4e5?auto=format&fit=crop&w=320&h=320&q=75" alt="Torre de telecomunicações com antenas" loading="lazy" /></div>
-          <div><div class="rel">Regulador</div><h3>ANATEL</h3>
-          <p>Regulador federal de telecomunicações. A homologação dos sensores IoT é obrigatória: sem ela, nenhum produto pode ser comercializado. A ANATEL pode suspender certificações e impor multas severas. Contudo, a SensorTech é apenas uma entre milhares de empresas reguladas, sem relação diferenciada.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> a conformidade regulatória de um agente entre milhares.</div></div>
-        </article>
-        <article class="file">
-          <div class="duo live"><img src="https://images.unsplash.com/photo-1775314054195-85f31de0c944?auto=format&fit=crop&w=320&h=320&q=75" alt="Salão de exposições com estandes" loading="lazy" /></div>
-          <div><div class="rel">Associação setorial</div><h3>ABIoT</h3>
-          <p>Associação Brasileira de IoT. Representa o setor junto a órgãos públicos e dá acesso a editais de P&amp;D (EMBRAPII, FINEP). A SensorTech é um entre centenas de membros. A entidade não tem poder direto sobre as operações da empresa, e para ela cada membro tem peso semelhante.</p>
-          <div class="stake"><strong>O que está em jogo:</strong> um membro entre centenas, com contribuição associativa regular.</div></div>
-        </article>
-      </div>
+<div class="dossier">
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=320&h=320&q=75" alt="Aperto de mãos numa reunião de negócios" loading="lazy" /></div>
+<div><div class="rel">Sócio comercial</div><h3>Marcelo Fagundes</h3>
+<p>Detém um terço da empresa e controla toda a área comercial. Os contratos com a Rede Pampa e com a maioria dos bares passaram por ele, e boa parte dessas relações é pessoal: os compradores atendem o telefone porque é ele quem liga. Investiu R$ 150 mil em 2016 e hoje vê a Arroio como o negócio que vai lhe garantir uma boa venda futura.</p>
+<div class="stake"><strong>O que está em jogo:</strong> retorno financeiro e o valor da sua participação numa eventual venda.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1551837818-f52fc6991b70?auto=format&fit=crop&w=320&h=320&q=75" alt="Mulher trabalhando dentro de uma fábrica" loading="lazy" /></div>
+<div><div class="rel">Sócia cervejeira</div><h3>Luana Becker</h3>
+<p>Detém um terço da empresa e é a responsável por todas as receitas e pelo controle de qualidade. Nenhuma cerveja da Arroio foi criada sem ela, e parte do processo nunca foi documentada. Deixou uma carreira estável para fundar a cervejaria, que é hoje sua única fonte de renda.</p>
+<div class="stake"><strong>O que está em jogo:</strong> o padrão do produto, a renda e o projeto de vida.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1626320290598-03656e931a31?auto=format&fit=crop&w=320&h=320&q=75" alt="Latas de cerveja com rótulos variados sobre uma mesa" loading="lazy" /></div>
+<div><div class="rel">Sócio de marca</div><h3>Diego Sartori</h3>
+<p>Detém um terço da empresa e é responsável pelo nome, pelos rótulos, pelas redes e pelos eventos. A identidade “cerveja de Porto Alegre, feita por gente de Porto Alegre” é criação dele, e a comunidade reconhece nele o rosto da marca. Está cursando o MBA para profissionalizar a gestão.</p>
+<div class="stake"><strong>O que está em jogo:</strong> a marca que criou, a renda e a coerência entre o que a empresa diz e o que faz.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=320&h=320&q=75" alt="Corredor de supermercado" loading="lazy" /></div>
+<div><div class="rel">Varejo</div><h3>Rede Pampa Supermercados</h3>
+<p>Responde por 35% da receita da Arroio. Tirar as latas das gôndolas é uma decisão que um comprador toma numa reunião de meia hora, e não há outra rede regional capaz de absorver esse volume. Para a Rede Pampa, a Arroio é uma entre mais de 200 marcas de cerveja no sortimento, e a categoria artesanal é uma fatia pequena das vendas.</p>
+<div class="stake"><strong>O que está em jogo:</strong> margem e giro de uma marca entre centenas.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=320&h=320&q=75" alt="Chope sendo servido na torneira" loading="lazy" /></div>
+<div><div class="rel">Canal</div><h3>Bares e restaurantes parceiros</h3>
+<p>Cerca de 120 estabelecimentos em Porto Alegre e na região metropolitana, a maioria no Bom Fim, na Cidade Baixa e no 4º Distrito. Juntos, somam 30% da receita, mas nenhum passa de 2% individualmente. Muitos operam com chopeiras e equipamentos emprestados pela Arroio, e alguns construíram o cardápio e a clientela em torno da marca.</p>
+<div class="stake"><strong>O que está em jogo:</strong> o chope que atrai a clientela e o equipamento que sustenta a operação.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1532634740-6837b2a21d39?auto=format&fit=crop&w=320&h=320&q=75" alt="Trabalhador transportando barris numa cervejaria" loading="lazy" /></div>
+<div><div class="rel">Colaboradores</div><h3>Equipe da fábrica</h3>
+<p>Quinze pessoas entre cervejeiros, auxiliares de produção e logística. Vários foram formados pela própria Luana, num mercado em que mão de obra cervejeira qualificada é rara no estado. Para a maioria, a Arroio é o primeiro emprego formal na área.</p>
+<div class="stake"><strong>O que está em jogo:</strong> emprego, renda e formação profissional.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1647776112336-72f4c30fafc1?auto=format&fit=crop&w=320&h=320&q=75" alt="Bartender preparando uma bebida no balcão" loading="lazy" /></div>
+<div><div class="rel">Colaboradores</div><h3>Equipe do bar-fábrica</h3>
+<p>Vinte e três garçons, bartenders e cozinheiros, a maioria com menos de 30 anos, alguns em contrato temporário. Rotatividade alta e salários de mercado. São os primeiros a ouvir as reclamações dos clientes e a perceber quando algo dá errado na casa. Quase todos têm perfis ativos nas redes.</p>
+<div class="stake"><strong>O que está em jogo:</strong> renda, condições de trabalho e o ambiente da casa.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1656918828529-345b77bb06e9?auto=format&fit=crop&w=320&h=320&q=75" alt="Saco aberto de grãos" loading="lazy" /></div>
+<div><div class="rel">Fornecedor</div><h3>Maltaria Planalto</h3>
+<p>Maltaria de Passo Fundo, único fornecedor regional dos maltes especiais que dão à Floresta e às outras receitas o seu perfil. Importar o mesmo malte custaria três vezes mais e levaria meses. A Arroio é um cliente pequeno para a Planalto, que abastece as grandes cervejarias do Sul.</p>
+<div class="stake"><strong>O que está em jogo:</strong> a receita de um cliente pequeno entre muitos.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1767701480265-20178b569e1e?auto=format&fit=crop&w=320&h=320&q=75" alt="Canal estreito atravessando uma área urbana" loading="lazy" /></div>
+<div><div class="rel">Regulador</div><h3>Fiscalização ambiental municipal</h3>
+<p>Concede e renova a licença de operação da fábrica e fiscaliza o descarte de efluentes. Sem licença, a produção para. Para a fiscalização, a Arroio é uma entre milhares de empresas licenciadas na cidade. Em 2017, um fiscal questionou o descarte da água de lavagem dos tanques; o assunto ficou com Marcelo.</p>
+<div class="stake"><strong>O que está em jogo:</strong> o cumprimento das normas ambientais de um empreendimento entre milhares.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1545692770-f0029a91f3ba?auto=format&fit=crop&w=320&h=320&q=75" alt="Casas de alvenaria simples" loading="lazy" /></div>
+<div><div class="rel">Comunidade</div><h3>Moradores do 4º Distrito</h3>
+<p>Vizinhos do galpão, entre eles moradores de uma vila no entorno que existia muito antes da revitalização do bairro. Convivem com os caminhões de entrega, com o cheiro da brassagem e com o movimento do bar até tarde. A Arroio não depende deles para vender nada, mas eles convivem todos os dias com o que a empresa faz.</p>
+<div class="stake"><strong>O que está em jogo:</strong> a qualidade de vida no lugar onde moram.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1641631366865-8f7aa9fbc584?auto=format&fit=crop&w=320&h=320&q=75" alt="Grupo de amigos com copos de cerveja" loading="lazy" /></div>
+<div><div class="rel">Consumidores</div><h3>Clube Arroio</h3>
+<p>A comunidade de fãs da marca: 45 mil seguidores, um grupo de mensagens com 1.200 membros e frequentadores fiéis das quintas no bar-fábrica. Defendem a marca como coisa da cidade. Mas há dezenas de cervejarias artesanais em Porto Alegre, e trocar de cerveja custa a eles o preço de uma lata.</p>
+<div class="stake"><strong>O que está em jogo:</strong> uma cerveja de que gostam e uma marca com a qual se identificam.</div></div>
+</article>
+<article class="file">
+<div class="duo live"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=320&h=320&q=75" alt="Microfone de estúdio" loading="lazy" /></div>
+<div><div class="rel">Imprensa e influência</div><h3>Pedro Lúpulo</h3>
+<p>Criador do podcast e do perfil “Lúpulo Gaúcho”, com 80 mil seguidores, a principal referência de cerveja artesanal no estado. Suas avaliações movem as vendas de lançamentos e esvaziam ou lotam festivais. Não tem contrato com nenhuma cervejaria, e a Arroio é uma das muitas marcas que ele comenta.</p>
+<div class="stake"><strong>O que está em jogo:</strong> a própria credibilidade como crítico independente.</div></div>
+</article>
+</div>
 
-      <a href="#" class="next" onclick="return show('envelopes')">
-        <div>
-          <div class="kicker">Depois do mapa</div>
-          <h3>Os envelopes</h3>
-          <p>Com os onze posicionados na matriz, cada grupo recebe um acontecimento. O mapa que parecia pronto pode não servir mais.</p>
-        </div>
-        <span class="go">Ir para os envelopes</span>
-      </a>
+<a href="#" class="next" onclick="return show('envelopes')">
+<div>
+<div class="kicker">Depois do mapa</div>
+<h3>Os envelopes</h3>
+<p>Com os doze posicionados na matriz, cada grupo recebe um acontecimento. Quem parecia não ter poder nenhum pode ter algo mais forte: voz.</p>
+</div>
+<span class="go">Ir para os envelopes</span>
+</a>
 
-      <div class="key-link"><a href="#" onclick="return show('gabarito')">Gabarito da matriz</a></div>
-    </div>
-  </section>
+<div class="key-link"><a href="#" onclick="return show('gabarito')">Gabarito da matriz</a></div>
+</div>
+</section>
 </main>
 
 <!-- ═════════ ENVELOPES ═════════ -->
 <main id="envelopes" class="page">
-  <header class="opening">
-    <div class="duo"><img src="https://images.unsplash.com/photo-1620203853151-496c7228306c?auto=format&fit=crop&w=2000&q=75" alt="" /></div>
-    <div class="wrap">
-      <div class="place">Depois do mapa</div>
-      <h1>Os envelopes</h1>
-      <p class="sub">Vocês posicionaram os onze stakeholders na matriz. Agora, algo acontece. E um stakeholder que parecia estar no seu lugar pode surpreender.</p>
-    </div>
-  </header>
+<header class="opening">
+<div class="duo"><img src="https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&w=2000&q=75" alt="" /></div>
+<div class="wrap">
+<div class="place">Depois do mapa</div>
+<h1>Os envelopes</h1>
+<p class="sub">Vocês posicionaram os doze stakeholders na matriz. Agora, algo acontece. E alguém que estava num canto do mapa pega o megafone.</p>
+</div>
+</header>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="task">
-        <h2>Abram só o envelope do seu grupo</h2>
-        <div>
-          <p>Esperem a autorização do professor. Para abrir, toquem duas vezes no envelope do grupo.</p>
-          <p>Cada envelope traz um acontecimento e três perguntas. O grupo discute, refaz a matriz se for preciso e apresenta a resposta à turma em dois minutos.</p>
-        </div>
-      </div>
+<section class="block">
+<div class="wrap">
+<div class="task">
+<h2>Abram só o envelope do seu grupo</h2>
+<div>
+<p>Esperem a autorização do professor. Para abrir, toquem duas vezes no envelope do grupo.</p>
+<p>Cada envelope traz um acontecimento, a proposta de Marcelo e três perguntas. O grupo discute, refaz a matriz se for preciso e apresenta a resposta à turma em dois minutos.</p>
+</div>
+</div>
 
-      <div class="envs">
-        <button type="button" class="env" data-env="1" aria-controls="ev-1" aria-expanded="false">
-          <span class="flap" aria-hidden="true"></span>
-          <span class="seal" aria-hidden="true">1</span>
-          <span class="env-label">Grupo 1</span>
-          <span class="env-state">Fechado</span>
-        </button>
-        <button type="button" class="env" data-env="2" aria-controls="ev-2" aria-expanded="false">
-          <span class="flap" aria-hidden="true"></span>
-          <span class="seal" aria-hidden="true">2</span>
-          <span class="env-label">Grupo 2</span>
-          <span class="env-state">Fechado</span>
-        </button>
-        <button type="button" class="env" data-env="3" aria-controls="ev-3" aria-expanded="false">
-          <span class="flap" aria-hidden="true"></span>
-          <span class="seal" aria-hidden="true">3</span>
-          <span class="env-label">Grupo 3</span>
-          <span class="env-state">Fechado</span>
-        </button>
-        <button type="button" class="env" data-env="4" aria-controls="ev-4" aria-expanded="false">
-          <span class="flap" aria-hidden="true"></span>
-          <span class="seal" aria-hidden="true">4</span>
-          <span class="env-label">Grupo 4</span>
-          <span class="env-state">Fechado</span>
-        </button>
-        <button type="button" class="env" data-env="5" aria-controls="ev-5" aria-expanded="false">
-          <span class="flap" aria-hidden="true"></span>
-          <span class="seal" aria-hidden="true">5</span>
-          <span class="env-label">Grupo 5</span>
-          <span class="env-state">Fechado</span>
-        </button>
-      </div>
+<div class="envs">
+<button type="button" class="env" data-env="1" aria-controls="ev-1" aria-expanded="false"><span class="flap" aria-hidden="true"></span><span class="seal" aria-hidden="true">1</span><span class="env-label">Grupo 1</span><span class="env-state">Fechado</span></button>
+<button type="button" class="env" data-env="2" aria-controls="ev-2" aria-expanded="false"><span class="flap" aria-hidden="true"></span><span class="seal" aria-hidden="true">2</span><span class="env-label">Grupo 2</span><span class="env-state">Fechado</span></button>
+<button type="button" class="env" data-env="3" aria-controls="ev-3" aria-expanded="false"><span class="flap" aria-hidden="true"></span><span class="seal" aria-hidden="true">3</span><span class="env-label">Grupo 3</span><span class="env-state">Fechado</span></button>
+<button type="button" class="env" data-env="4" aria-controls="ev-4" aria-expanded="false"><span class="flap" aria-hidden="true"></span><span class="seal" aria-hidden="true">4</span><span class="env-label">Grupo 4</span><span class="env-state">Fechado</span></button>
+<button type="button" class="env" data-env="5" aria-controls="ev-5" aria-expanded="false"><span class="flap" aria-hidden="true"></span><span class="seal" aria-hidden="true">5</span><span class="env-label">Grupo 5</span><span class="env-state">Fechado</span></button>
+</div>
 
-      <div class="events">
-        <article class="event" id="ev-1" hidden>
-          <div>
-            <div class="ev-group">Envelope do Grupo 1</div>
-            <h3>A carta dos cinco</h3>
-          </div>
-          <div>
-            <div class="ev-body">
-              <p>Uma multinacional alemã de automação industrial abre um centro de engenharia em Porto Alegre. Em um único mês, contrata três dos oito engenheiros seniores da SensorTech, com salários 40% maiores e sem pedir aviso prévio.</p>
-              <p>Numa segunda-feira de manhã, os cinco que ficaram entregam a Rafael uma carta assinada por todos. Pedem reajuste, participação nos resultados e uma condição que ninguém esperava: que o código do firmware, hoje só na cabeça de Thiago, seja documentado e compartilhado com a equipe. Dão duas semanas para uma resposta.</p>
-              <p>A atualização de firmware que a REFAP aguarda para o mês que vem depende inteiramente deles.</p>
-            </div>
-          <div class="ev-q">
-            <h4>Diante do acontecimento</h4>
-            <ol>
-              <li>Algum stakeholder muda de quadrante? Qual, para onde, e por quê?</li>
-              <li>Quem a SensorTech precisa procurar primeiro, e o que diz a ele nas próximas 24 horas?</li>
-              <li>Que outro stakeholder vai sentir o efeito, mesmo sem ter sido citado?</li>
-            </ol>
-          </div>
-          </div>
-        </article>
-        <article class="event" id="ev-2" hidden>
-          <div>
-            <div class="ev-group">Envelope do Grupo 2</div>
-            <h3>As 36 horas</h3>
-          </div>
-          <div>
-            <div class="ev-body">
-              <p>Numa sexta-feira à noite, a plataforma em nuvem que recebe os dados dos sensores fica 36 horas fora do ar. Os alertas não chegam a ninguém.</p>
-              <p>Numa metalúrgica de Caxias do Sul, cliente há seis anos e responsável por 6% da receita da SensorTech, um redutor superaquece sem aviso e a linha de produção para por quatro dias. O dono publica no LinkedIn: “Pagamos por monitoramento preditivo e descobrimos a falha pelo cheiro de queimado.” O post passa de 50 mil visualizações.</p>
-              <p>Na terça-feira, nove dos 17 clientes de pequeno e médio porte já estão num mesmo grupo de mensagens. Pedem uma reunião conjunta com uma pauta de dois itens: multa por indisponibilidade da plataforma e direito de rescindir o contrato sem custo.</p>
-            </div>
-          <div class="ev-q">
-            <h4>Diante do acontecimento</h4>
-            <ol>
-              <li>Algum stakeholder muda de quadrante? Qual, para onde, e por quê?</li>
-              <li>Quem a SensorTech precisa procurar primeiro, e o que diz a ele nas próximas 24 horas?</li>
-              <li>Que outro stakeholder vai sentir o efeito, mesmo sem ter sido citado?</li>
-            </ol>
-          </div>
-          </div>
-        </article>
-        <article class="event" id="ev-3" hidden>
-          <div>
-            <div class="ev-group">Envelope do Grupo 3</div>
-            <h3>A suspensão</h3>
-          </div>
-          <div>
-            <div class="ev-body">
-              <p>Uma operadora de telefonia registra na ANATEL uma denúncia de interferência em sua rede na região de Guaíba. A origem é rastreada até os gateways da SensorTech instalados numa fábrica de celulose, cliente da empresa.</p>
-              <p>A ANATEL abre um processo de fiscalização e suspende, em caráter cautelar, a homologação do modelo de gateway usado em 70% das instalações da SensorTech. Enquanto a suspensão durar, a empresa não pode vender nem instalar nenhum equipamento novo desse modelo. O prazo para apresentar um laudo técnico independente é de 30 dias.</p>
-              <p>Três clientes têm expansões programadas para o mês que vem, entre eles a própria REFAP.</p>
-            </div>
-          <div class="ev-q">
-            <h4>Diante do acontecimento</h4>
-            <ol>
-              <li>Algum stakeholder muda de quadrante? Qual, para onde, e por quê?</li>
-              <li>Quem a SensorTech precisa procurar primeiro, e o que diz a ele nas próximas 24 horas?</li>
-              <li>Que outro stakeholder vai sentir o efeito, mesmo sem ter sido citado?</li>
-            </ol>
-          </div>
-          </div>
-        </article>
-        <article class="event" id="ev-4" hidden>
-          <div>
-            <div class="ev-group">Envelope do Grupo 4</div>
-            <h3>A palestra</h3>
-          </div>
-          <div>
-            <div class="ev-body">
-              <p>No congresso anual da ABIoT, em São Paulo, um pesquisador independente de segurança digital apresenta uma palestra lotada. O exemplo central é um sensor da SensorTech: segundo ele, quem tiver acesso à rede sem fio de uma fábrica consegue ler os dados do equipamento e silenciar os alertas.</p>
-              <p>Ao fim da apresentação, ele mostra na tela um e-mail enviado à SensorTech quatro meses antes, descrevendo o problema. Ninguém respondeu.</p>
-              <p>No dia seguinte, a ABIoT anuncia que o caso estará no seu relatório anual de segurança e que empresas sem plano de correção apresentado não terão a indicação da associação para o próximo edital de pesquisa e desenvolvimento. Dois clientes da SensorTech estavam na plateia.</p>
-            </div>
-          <div class="ev-q">
-            <h4>Diante do acontecimento</h4>
-            <ol>
-              <li>Algum stakeholder muda de quadrante? Qual, para onde, e por quê?</li>
-              <li>Quem a SensorTech precisa procurar primeiro, e o que diz a ele nas próximas 24 horas?</li>
-              <li>Que outro stakeholder vai sentir o efeito, mesmo sem ter sido citado?</li>
-            </ol>
-          </div>
-          </div>
-        </article>
-        <article class="event" id="ev-5" hidden>
-          <div>
-            <div class="ev-group">Envelope do Grupo 5</div>
-            <h3>O fim do fundo</h3>
-          </div>
-          <div>
-            <div class="ev-body">
-              <p>Numa reunião sem pauta, o gestor do Criatec3 dá a notícia: o fundo entra no último ano do seu prazo e precisa devolver o dinheiro aos cotistas. Para isso, tem de vender sua participação de 40% na SensorTech.</p>
-              <p>Já existe um interessado: uma multinacional alemã de automação industrial que concorre com a SensorTech no Sul. A proposta valoriza bem a empresa, mas o comprador quer o controle, a migração do produto para a plataforma dele e a saída de um dos fundadores. Pelo acordo de sócios, o Criatec3 pode exigir que Rafael e Thiago vendam junto.</p>
-              <p>Rafael acha que pode ser a melhor saída para todos. Thiago diz que prefere fechar a empresa a entregá-la a um concorrente.</p>
-            </div>
-          <div class="ev-q">
-            <h4>Diante do acontecimento</h4>
-            <ol>
-              <li>Algum stakeholder muda de quadrante? Qual, para onde, e por quê?</li>
-              <li>Quem a SensorTech precisa procurar primeiro, e o que diz a ele nas próximas 24 horas?</li>
-              <li>Que outro stakeholder vai sentir o efeito, mesmo sem ter sido citado?</li>
-            </ol>
-          </div>
-          </div>
-        </article>
-      </div>
+<div class="events">
+<article class="event" id="ev-1" hidden>
+<div>
+<div class="ev-group">Envelope do Grupo 1</div>
+<h3>A água escura</h3>
+</div>
+<div>
+<div class="ev-body">
+<p>Numa terça-feira de brassagem, uma moradora da vila ao lado do galpão filma a boca de uma galeria pluvial despejando água escura e espumosa no arroio. O cheiro de malte não deixa dúvida. Ela posta o vídeo com uma legenda curta: “Cerveja de Porto Alegre, feita no arroio de Porto Alegre.”</p>
+<p>Em seis horas, o vídeo está no grupo do Clube Arroio. Alguns fãs defendem a marca, outros cobram explicação. Um vereador compartilha e marca a fiscalização ambiental. Ninguém mais lembra que o assunto tinha sido “acertado” em 2017.</p>
+</div>
+<div class="ev-marcelo"><h4>Marcelo propõe</h4><p>Negar. “Ninguém consegue provar que essa água é nossa. Diego, solta uma nota dizendo que seguimos todas as normas.”</p></div>
+<div class="ev-q">
+<h4>Diante do acontecimento</h4>
+<ol>
+<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
+<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
+<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+</ol>
+</div>
+</div>
+</article>
+<article class="event" id="ev-2" hidden>
+<div>
+<div class="ev-group">Envelope do Grupo 2</div>
+<h3>O print</h3>
+</div>
+<div>
+<div class="ev-body">
+<p>Uma garçonete temporária do bar-fábrica, de 22 anos, publica nos stories prints de mensagens do gerente da casa: convites insistentes, comentários sobre a roupa dela e a ameaça velada de não renovar o contrato. Em uma hora, duas ex-funcionárias respondem dizendo que passaram pelo mesmo.</p>
+<p>O gerente foi contratado por Marcelo e é amigo dele há vinte anos. A equipe do bar, que nunca tinha reclamado formalmente, começa a falar entre si. Na quinta, dia de música ao vivo, três bartenders avisam que não vão trabalhar se ele estiver na casa.</p>
+</div>
+<div class="ev-marcelo"><h4>Marcelo propõe</h4><p>Não renovar o contrato da garçonete “por quebra de confiança” e pedir ao advogado um texto sobre “exposição indevida da empresa”.</p></div>
+<div class="ev-q">
+<h4>Diante do acontecimento</h4>
+<ol>
+<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
+<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
+<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+</ol>
+</div>
+</div>
+</article>
+<article class="event" id="ev-3" hidden>
+<div>
+<div class="ev-group">Envelope do Grupo 3</div>
+<h3>O fundo da lata</h3>
+</div>
+<div>
+<div class="ev-body">
+<p>Para dar conta da demanda da Rede Pampa, Marcelo fechou sem alarde um contrato com uma fábrica em Santa Catarina, que passou a produzir parte das latas da Floresta. A receita é a mesma. O rótulo continua dizendo “feita em Porto Alegre”. Luana soube depois. Diego não sabia.</p>
+<p>Pedro Lúpulo estranha o sabor de um lote e confere o código de produção gravado no fundo da lata. Grava um episódio inteiro sobre o assunto, “A Floresta não é mais de Porto Alegre”, mostrando os códigos, a fábrica catarinense e o rótulo.</p>
+</div>
+<div class="ev-marcelo"><h4>Marcelo propõe</h4><p>Oferecer a Pedro uma parceria paga para “apresentar o novo momento da marca” e, se ele recusar, ignorá-lo. “Daqui a duas semanas ninguém lembra.”</p></div>
+<div class="ev-q">
+<h4>Diante do acontecimento</h4>
+<ol>
+<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
+<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
+<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+</ol>
+</div>
+</div>
+</article>
+<article class="event" id="ev-4" hidden>
+<div>
+<div class="ev-group">Envelope do Grupo 4</div>
+<h3>O tapume</h3>
+</div>
+<div>
+<div class="ev-body">
+<p>A Arroio quer ampliar o bar-fábrica. Marcelo encontra o terreno ideal: um lote vizinho cujo dono está disposto a vender, assim que o terreno for “liberado”. Ali vivem há quinze anos oito famílias da vila.</p>
+<p>Numa manhã de segunda, uma reintegração de posse retira as famílias com apoio da Brigada Militar. À tarde, um tapume é erguido ao redor do lote, com o logotipo da Arroio e a frase “Em breve: mais espaço para Porto Alegre”. Um coletivo de moradores publica a foto de uma criança sentada sobre um colchão, na calçada, em frente ao tapume.</p>
+</div>
+<div class="ev-marcelo"><h4>Marcelo propõe</h4><p>Uma nota dizendo que a Arroio “não tem qualquer relação com a reintegração, que é um assunto entre o proprietário e os ocupantes”.</p></div>
+<div class="ev-q">
+<h4>Diante do acontecimento</h4>
+<ol>
+<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
+<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
+<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+</ol>
+</div>
+</div>
+</article>
+<article class="event" id="ev-5" hidden>
+<div>
+<div class="ev-group">Envelope do Grupo 5</div>
+<h3>As chopeiras</h3>
+</div>
+<div>
+<div class="ev-body">
+<p>Para fechar uma campanha de volume com a Rede Pampa, Marcelo decide que os bares parceiros precisam aumentar as compras e deixar de servir outras cervejas artesanais nas torneiras emprestadas pela Arroio. Quem não aceitar perde o equipamento.</p>
+<p>Numa sexta-feira às oito da noite, com a casa cheia, uma equipe da Arroio recolhe as chopeiras de um bar tradicional da Cidade Baixa que recusou a exclusividade. O dono filma a cena e publica: “Dez anos vendendo Arroio. Foi assim que eles agradeceram.” Em dois dias, 31 bares assinam uma carta conjunta e anunciam que vão tirar a Arroio do cardápio.</p>
+</div>
+<div class="ev-marcelo"><h4>Marcelo propõe</h4><p>Processar o dono do bar por danos à imagem e “dar o exemplo para os outros”.</p></div>
+<div class="ev-q">
+<h4>Diante do acontecimento</h4>
+<ol>
+<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
+<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
+<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+</ol>
+</div>
+</div>
+</article>
+</div>
 
-      <div class="key-link"><button type="button" class="reset" id="env-reset">Fechar todos os envelopes</button></div>
-    </div>
-  </section>
+<div class="key-link"><button type="button" class="reset" id="env-reset">Fechar todos os envelopes</button></div>
+</div>
+</section>
 </main>
 
 <!-- ═════════ GABARITO (fora do menu: uso do professor) ═════════ -->
 <main id="gabarito" class="page">
-  <header class="opening">
-    <div class="duo"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=2000&q=75" alt="" /></div>
-    <div class="wrap">
-      <div class="place">Gabarito</div>
-      <h1>Matriz Poder × Interesse</h1>
-      <p class="sub">Onde cada um dos onze stakeholders da SensorTech se posiciona, e por quê.</p>
-    </div>
-  </header>
+<header class="opening">
+<div class="duo"><img src="https://images.unsplash.com/photo-1584225064536-d0fbc0a10f18?auto=format&fit=crop&w=2000&q=75" alt="" /></div>
+<div class="wrap">
+<div class="place">Gabarito</div>
+<h1>Matriz Poder × Interesse</h1>
+<p class="sub">Poder: quanto a Arroio depende do stakeholder. Interesse: quanto o stakeholder depende da Arroio.</p>
+</div>
+</header>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="matrix-wrap">
-        <div class="matrix">
-          <div class="axis-y">Poder ↑</div>
-          <div class="quads">
-            <div class="quad q-hl"><h4>Alto poder, baixo interesse</h4><ul><li>ChipBrasil</li><li>ANATEL</li></ul></div>
-            <div class="quad q-hh"><h4>Alto poder, alto interesse</h4><ul><li>REFAP</li><li>Criatec3</li><li>Rafael Costa</li><li>Thiago Mendes</li></ul></div>
-            <div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4><ul><li>Demais fornecedores</li><li>ABIoT</li></ul></div>
-            <div class="quad q-lh"><h4>Baixo poder, alto interesse</h4><ul><li>17 clientes PME</li><li>Equipe técnica sênior</li><li>Funcionários operacionais</li></ul></div>
-          </div>
-        </div>
-        <div class="axis-x">Interesse →</div>
-      </div>
+<section class="block">
+<div class="wrap">
+<div class="matrix-wrap">
+<div class="matrix">
+<div class="axis-y">Poder ↑</div>
+<div class="quads">
+<div class="quad q-hl"><h4>Alto poder, baixo interesse</h4><ul><li>Rede Pampa</li><li>Maltaria Planalto</li><li>Fiscalização ambiental</li></ul></div>
+<div class="quad q-hh"><h4>Alto poder, alto interesse</h4><ul><li>Marcelo Fagundes</li><li>Luana Becker</li><li>Diego Sartori</li></ul></div>
+<div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4><ul><li>Clube Arroio 📣</li><li>Pedro Lúpulo 📣</li></ul></div>
+<div class="quad q-lh"><h4>Baixo poder, alto interesse</h4><ul><li>Bares parceiros</li><li>Equipe da fábrica</li><li>Equipe do bar-fábrica 📣</li><li>Moradores do 4º Distrito 📣</li></ul></div>
+</div>
+</div>
+<div class="axis-x">Interesse →</div>
+<p class="legend">📣 Tem megafone: voz pública capaz de levar a história para fora da empresa.</p>
+</div>
 
-      <h2 class="sec">Justificativas</h2>
-      <ul class="why">
-        <li><div class="who">REFAP<small>Alto poder, alto interesse</small></div><p>Representa 40% da receita. Seu cancelamento seria potencialmente fatal para a SensorTech (alto poder). Para a REFAP, os sensores monitoram equipamentos críticos em refinaria: substituir o fornecedor levaria meses e exporia a empresa a riscos regulatórios (NR-13), portanto tem alto interesse na continuidade do serviço.</p></li>
-        <li><div class="who">Criatec3<small>Alto poder, alto interesse</small></div><p>Detém 40% da empresa, com direito de veto em contratos acima de R$ 200 mil (alto poder). O retorno do fundo depende integralmente do sucesso da SensorTech: há interesse financeiro direto e contínuo em cada decisão da empresa.</p></li>
-        <li><div class="who">Rafael Costa<small>Alto poder, alto interesse</small></div><p>Cofundador com 30% das quotas e controle operacional. A empresa é sua principal fonte de renda e projeto de vida. Máximo poder e máximo interesse.</p></li>
-        <li><div class="who">Thiago Mendes<small>Alto poder, alto interesse</small></div><p>Cofundador com 30% das quotas e detentor do know-how tecnológico central. Sua saída seria tecnicamente irreparável no curto prazo (alto poder). A empresa é também seu projeto de vida (alto interesse).</p></li>
-        <li><div class="who">ChipBrasil<small>Alto poder, baixo interesse</small></div><p>Único fornecedor qualificado dos microcontroladores: uma ruptura pararia a produção em semanas (alto poder). Contudo, a SensorTech é uma fração pequena do portfólio da ChipBrasil, que atende dezenas de empresas. Interesse baixo: é mais um cliente de porte médio.</p></li>
-        <li><div class="who">ANATEL<small>Alto poder, baixo interesse</small></div><p>Pode suspender a homologação dos sensores e inviabilizar as vendas (alto poder). Para a ANATEL, a SensorTech é apenas uma entre milhares de empresas reguladas: não há interesse diferenciado nem relação próxima.</p></li>
-        <li><div class="who">17 clientes PME<small>Baixo poder, alto interesse</small></div><p>Individualmente, nenhum representa mais de 8% da receita e a base é diversificada (baixo poder individual). Mas dependem do monitoramento IoT para eficiência operacional e redução de paradas, sem alternativa local equivalente no curto prazo (alto interesse).</p></li>
-        <li><div class="who">Equipe técnica sênior<small>Baixo poder, alto interesse</small></div><p>Individualmente têm baixo poder formal na estrutura de decisão. Mas a empresa é sua principal fonte de renda num mercado de alta rotatividade (28% ao ano): alto interesse na estabilidade e nas condições de trabalho.</p></li>
-        <li><div class="who">Funcionários operacionais<small>Baixo poder, alto interesse</small></div><p>Baixo poder de barganha individual e poucas alternativas no mercado regional. A SensorTech representa emprego e renda familiar: alto interesse nos resultados e na saúde da empresa.</p></li>
-        <li><div class="who">Demais fornecedores<small>Baixo poder, baixo interesse</small></div><p>Substituíveis por alternativas de mercado (baixo poder). A SensorTech é um cliente pequeno entre muitos: relação puramente transacional, sem dependência relevante de nenhum dos lados.</p></li>
-        <li><div class="who">ABIoT<small>Baixo poder, baixo interesse</small></div><p>Sem poder executivo sobre as operações da empresa. A SensorTech é um membro entre centenas, com contribuição associativa regular: sem protagonismo nem dependência diferenciada.</p></li>
-      </ul>
+<h2 class="sec">Justificativas</h2>
+<ul class="why">
+<li><div class="who">Marcelo, Luana e Diego<small>Alto poder, alto interesse</small></div><p>A empresa depende de cada um: Marcelo carrega as relações comerciais, Luana as receitas não documentadas, Diego a marca e a comunidade. E cada um depende inteiramente da empresa, que é patrimônio, renda e projeto de vida.</p></li>
+<li><div class="who">Rede Pampa<small>Alto poder, baixo interesse</small></div><p>A Arroio depende dela para 35% da receita, sem substituto regional. A Rede Pampa não depende da Arroio: é uma marca entre mais de 200 numa categoria pequena.</p></li>
+<li><div class="who">Maltaria Planalto<small>Alto poder, baixo interesse</small></div><p>Único fornecedor regional dos maltes que definem o produto; trocar custaria três vezes mais e meses. Para a Planalto, a Arroio é um cliente pequeno.</p></li>
+<li><div class="who">Fiscalização ambiental<small>Alto poder, baixo interesse</small></div><p>Sem licença, a fábrica para. Para o órgão, a Arroio é uma entre milhares de empresas licenciadas, sem relação diferenciada.</p></li>
+<li><div class="who">Bares parceiros<small>Baixo poder, alto interesse</small></div><p>Nenhum passa de 2% da receita. Mas muitos dependem do chope e do equipamento emprestado pela Arroio para operar.</p></li>
+<li><div class="who">Equipe da fábrica<small>Baixo poder, alto interesse</small></div><p>Individualmente substituíveis, ainda que com algum custo de formação. Dependem da Arroio para emprego, renda e carreira na área.</p></li>
+<li><div class="who">Equipe do bar-fábrica<small>Baixo poder, alto interesse</small></div><p>Alta rotatividade e funções de reposição rápida. Mas o emprego e a renda dependem da casa, e quase todos têm voz ativa nas redes.</p></li>
+<li><div class="who">Moradores do 4º Distrito<small>Baixo poder, alto interesse</small></div><p>A Arroio não depende deles para vender. Eles dependem do que a empresa faz no bairro: barulho, cheiro, trânsito e o que vai para o arroio.</p></li>
+<li><div class="who">Clube Arroio<small>Baixo poder, baixo interesse</small></div><p>Nenhum fã individual move a receita, e trocar de cerveja custa o preço de uma lata. Mas é a comunidade que mais amplifica, para o bem ou para o mal.</p></li>
+<li><div class="who">Pedro Lúpulo<small>Baixo poder, baixo interesse</small></div><p>Sem contrato nem dependência de nenhum lado. Mas controla a agenda do setor no estado: decide o que 80 mil pessoas vão saber.</p></li>
+</ul>
 
-      <h2 class="sec" style="margin-top:96px">Os envelopes</h2>
-      <ul class="why">
-        <li><div class="who">Grupo 1: A carta dos cinco<small>Equipe técnica sênior: de baixo para alto poder</small></div><p>O poder depende do contexto. A rotatividade de 28% ao ano já estava na ficha; a escassez transformou oito pessoas sem cargo de direção em quem decide se a REFAP recebe a atualização. Note também o pedido de documentar o código: a equipe expõe a dependência de Thiago.</p></li>
-        <li><div class="who">Grupo 2: As 36 horas<small>17 clientes PME: de baixo para alto poder, juntos</small></div><p>Dispersos, nenhum cliente move o ponteiro. Organizados, nove deles somam parte relevante da receita e ganham voz pública. A crise começa num post, não num contrato, e desmente justamente a promessa da empresa: monitoramento preditivo.</p></li>
-        <li><div class="who">Grupo 3: A suspensão<small>ANATEL: de baixo para alto interesse</small></div><p>O regulador distante passa a olhar para a SensorTech, e o poder que estava parado vira ação. Efeito em cadeia: REFAP e clientes com expansões travadas, equipe comercial sem o que vender. A ausência de relação, que parecia neutra, vira desvantagem.</p></li>
-        <li><div class="who">Grupo 4: A palestra<small>ABIoT: de baixo para alto poder e interesse</small></div><p>Uma entidade sem poder sobre a operação ganha poder de agenda: decide o que o setor vai saber. O detalhe decisivo é o e-mail sem resposta há quatro meses. A crise não é a falha técnica, é o aviso ignorado.</p></li>
-        <li><div class="who">Grupo 5: O fim do fundo<small>Criatec3: continua com alto poder e alto interesse, mas o interesse muda de direção</small></div><p>A matriz mede intensidade, não direção. O fundo, que empurrava o crescimento, agora precisa vender, e Rafael e Thiago deixam de estar do mesmo lado. Além de poder e interesse, é preciso perguntar se cada stakeholder apoia ou se opõe, e isso pode mudar de uma reunião para outra.</p></li>
-      </ul>
-      <p class="prof-note">Para a plenária: a multinacional alemã de automação aparece nos envelopes 1 e 5 e não está no mapa. Um concorrente também é stakeholder? Quem mais ficou de fora?</p>
-    </div>
-  </section>
+<h2 class="sec" style="margin-top:96px">Os envelopes</h2>
+<ul class="why">
+<li><div class="who">Grupo 1: A água escura<small>Moradora e Clube Arroio: o megafone. Fiscalização passa a ter alto interesse.</small></div><p>O problema “acertado” em 2017 não sumiu: ficou guardado até alguém filmar. Negar algo que está em vídeo transforma um erro ambiental numa mentira, e é a mentira que a comunidade não perdoa.</p></li>
+<li><div class="who">Grupo 2: O print<small>Equipe do bar-fábrica: de baixo para alto poder, por voz e por recusa coletiva</small></div><p>Proteger o agressor e punir quem denuncia é a forma mais rápida de perder a equipe e o público ao mesmo tempo. A proposta de Marcelo transforma uma denúncia num caso de retaliação.</p></li>
+<li><div class="who">Grupo 3: O fundo da lata<small>Pedro Lúpulo: de baixo poder para alto poder de agenda</small></div><p>A crise não é produzir fora: é o rótulo continuar dizendo “feita em Porto Alegre”. Tentar comprar o crítico confirma a acusação e atinge exatamente o que ele tem em jogo, a credibilidade.</p></li>
+<li><div class="who">Grupo 4: O tapume<small>Coletivo de moradores: de baixo para alto poder; a marca vira símbolo do despejo</small></div><p>“Não temos relação” não convence quando o logotipo está no tapume. A reputação responde pelo que a empresa aproveita, não só pelo que ela assina.</p></li>
+<li><div class="who">Grupo 5: As chopeiras<small>Bares parceiros: de baixo poder individual para alto poder coletivo</small></div><p>Stakeholders dispersos se organizam quando são humilhados em público. Processar o dono do bar transforma a vítima em mártir e dá aos outros 30 o motivo que faltava.</p></li>
+</ul>
+<p class="prof-note">Para a plenária: em todos os envelopes, a proposta de Marcelo trata a reputação como problema de comunicação, quando ela é um problema de conduta. E repare em quem aparece nos envelopes e não estava no mapa: o vereador, o coletivo de moradores, a fábrica de Santa Catarina, o gerente do bar. Quem mais ficou de fora?</p>
+</div>
+</section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>SensorTech POA é uma empresa fictícia, criada para fins de ensino.</span>
-    <span>MBA FGV, Porto Alegre, 2026</span>
-  </div>
+<div class="wrap">
+<span>A Cervejaria Arroio é uma empresa fictícia, criada para fins de ensino.</span>
+<span>MBA FGV, Porto Alegre, 2026</span>
+</div>
 </footer>
 
 <script>
@@ -643,7 +630,7 @@
   }
 
   (function () {
-    const KEY = 'sensortech-crise-envelopes';
+    const KEY = 'arroio-crise-envelopes';
     let opened = [];
     try { opened = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) {}
     const save = () => { try { localStorage.setItem(KEY, JSON.stringify(opened)); } catch (e) {} };
