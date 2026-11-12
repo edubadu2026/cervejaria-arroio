@@ -188,6 +188,13 @@
 .event .ev-marcelo h4 { font-size: 13.5px; font-weight: 600; color: #F0A08F; margin-bottom: 8px; letter-spacing: .02em; }
 .event .ev-marcelo p { font-family: var(--serif); font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.9); }
 .legend { margin-top: 18px; padding-left: 28px; font-size: 14.5px; color: var(--muted); }
+.chapters { padding: 0 0 112px; }
+.chapters .door { margin-bottom: 4px; }
+.door.chap.locked { cursor: default; }
+.door.chap.locked .duo img { filter: grayscale(1) contrast(1.1) brightness(.75); mix-blend-mode: multiply; }
+.door.chap.locked .duo::after { opacity: 1; }
+.door.chap.locked .go { color: rgba(255,255,255,0.6); font-weight: 500; text-decoration: none; }
+.door.chap.locked .go::before { content: '🔒 '; }
 footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14px; padding: 40px 0; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
@@ -243,8 +250,7 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <nav aria-label="Seções do case">
 <ul>
 <li><a href="#" class="link active" data-page="inicio" onclick="return show('inicio')">Início</a></li>
-<li><a href="#" class="link" data-page="stakeholders" onclick="return show('stakeholders')">Stakeholders</a></li>
-<li><a href="#" class="link" data-page="envelopes" onclick="return show('envelopes')">Envelopes</a></li>
+<li data-chapter="1" hidden><a href="#" class="link" data-page="stakeholders" onclick="return show('stakeholders')">Capítulo 1</a></li>
 </ul>
 </nav>
 </div>
@@ -258,7 +264,7 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="place">Porto Alegre, Rio Grande do Sul</div>
 <h1>Arroio <span>Cervejaria Artesanal</span></h1>
 <p class="sub">Uma cerveja que nasceu numa garagem do bairro Floresta, virou orgulho da cidade e cresceu mais rápido do que a sua capacidade de olhar para quem estava em volta.</p>
-<a href="#" class="cta" onclick="return show('stakeholders')">Conhecer a empresa e seus stakeholders</a>
+<a href="#capitulos" class="cta" onclick="document.getElementById('capitulos').scrollIntoView({behavior:'smooth'});return false;">Ver os capítulos</a>
 </div>
 </header>
 
@@ -274,15 +280,27 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 </div>
 </section>
 
-<a href="#" class="door" onclick="return show('stakeholders')">
+<section class="chapters" id="capitulos">
+<div class="wrap"><h2 class="sec">Capítulos</h2></div>
+<a href="#" class="door chap" data-chapter="1" data-go="stakeholders">
 <div class="duo"><img src="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy" /></div>
 <div class="txt">
-<div class="kicker">Por onde começar</div>
+<div class="kicker">Capítulo 1</div>
 <h3>Gerenciando os stakeholders</h3>
 <p>Da garagem no Floresta ao bar-fábrica no 4º Distrito e às gôndolas do supermercado, e os doze atores de quem depende a reputação da marca.</p>
-<span class="go">Abrir</span>
+<span class="go" data-open="Abrir o capítulo">Disponível em 18 de novembro</span>
 </div>
 </a>
+<a href="#" class="door chap" data-chapter="2">
+<div class="duo"><img src="https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy" /></div>
+<div class="txt">
+<div class="kicker">Capítulo 2</div>
+<h3>Em breve</h3>
+<p>A história da Arroio continua.</p>
+<span class="go" data-open="Abrir o capítulo">Disponível em 19 de novembro</span>
+</div>
+</a>
+</section>
 </main>
 
 <!-- ═════════ STAKEHOLDERS ═════════ -->
@@ -290,7 +308,7 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <header class="opening">
 <div class="duo"><img src="https://images.unsplash.com/photo-1632516654640-adc4c3681255?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
 <div class="wrap">
-<div class="place">Porto Alegre, de 2014 a 2023</div>
+<div class="place">Capítulo 1 · Porto Alegre, de 2014 a 2023</div>
 <h1>Gerenciando os stakeholders da Arroio</h1>
 <p class="sub">Nove anos de crescimento, uma rede de supermercados que vale 35% da receita, três sócios com um terço cada e um deles sempre com uma solução rápida.</p>
 </div>
@@ -423,7 +441,7 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <header class="opening">
 <div class="duo"><img src="https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&w=2000&q=75" alt="" /></div>
 <div class="wrap">
-<div class="place">Depois do mapa</div>
+<div class="place">Capítulo 1 · Depois do mapa</div>
 <h1>Os envelopes</h1>
 <p class="sub">Vocês posicionaram os doze stakeholders na matriz. Agora, algo acontece. E alguém que estava num canto do mapa pega o megafone.</p>
 </div>
@@ -622,12 +640,30 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 </footer>
 
 <script>
+  /* Liberação dos capítulos: data/hora de Porto Alegre. Para conferir antes, abra o site com ?prof no fim do endereço. */
+  const RELEASE = { 1: '2026-11-18T00:00:00-03:00', 2: '2026-11-19T00:00:00-03:00' };
+  const PAGE_CHAPTER = { stakeholders: 1, envelopes: 1, gabarito: 1 };
+  const PROF = new URLSearchParams(location.search).has('prof');
+  const isOpen = n => PROF || (RELEASE[n] && Date.now() >= Date.parse(RELEASE[n]));
   function show(pageId) {
+    const ch = PAGE_CHAPTER[pageId];
+    if (ch && !isOpen(ch)) pageId = 'inicio';
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === pageId));
     document.querySelectorAll('.topnav a.link').forEach(a => a.classList.toggle('active', a.dataset.page === pageId));
     window.scrollTo(0, 0);
     return false;
   }
+
+  (function () {
+    document.querySelectorAll('[data-chapter]').forEach(el => {
+      const open = isOpen(+el.dataset.chapter);
+      if (el.tagName === 'LI') { el.hidden = !open; return; }
+      el.classList.toggle('locked', !open);
+      const go = el.querySelector('.go');
+      if (open && go) go.textContent = go.dataset.open;
+      el.addEventListener('click', e => { e.preventDefault(); if (open && el.dataset.go) show(el.dataset.go); });
+    });
+  })();
 
   (function () {
     const KEY = 'arroio-crise-envelopes';
