@@ -198,6 +198,16 @@
 .crit p { font-family: var(--serif); font-size: 21px; line-height: 1.4; color: var(--ink); margin-top: 6px; }
 .matrix.blank .quad { min-height: 170px; }
 @media (max-width: 640px) { .crit { grid-template-columns: 1fr; } .crit p { font-size: 18px; } }
+.quad .strat { font-family: var(--serif); font-style: italic; font-size: 22px; margin-top: -6px; opacity: .85; }
+.steps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
+.step { position: relative; background: var(--page); padding: 26px 28px 26px 72px; border-left: 3px solid var(--signal); }
+.step .n { position: absolute; left: 24px; top: 22px; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: #fff; font-family: var(--serif); font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.step h4 { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.step p, .step li { font-size: 16px; line-height: 1.6; }
+.step ul { padding-left: 18px; }
+.step li + li { margin-top: 6px; }
+.compare { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink); margin-top: 40px; }
+@media (max-width: 1000px) { .steps { grid-template-columns: 1fr; } }
 footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14px; padding: 40px 0; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
@@ -344,73 +354,73 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="dossier">
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=320&h=320&q=75" alt="Aperto de mãos numa reunião de negócios" loading="lazy" /></div>
-<div><div class="rel">Sócio comercial</div><h3>Marcelo Fagundes</h3>
+<div><div class="rel">Acionista · sócio comercial</div><h3>Marcelo Fagundes</h3>
 <p>Detém um terço da empresa e controla toda a área comercial. Os contratos com a Rede Pampa e com a maioria dos bares passaram por ele, e boa parte dessas relações é pessoal: os compradores atendem o telefone porque é ele quem liga. Investiu R$ 150 mil em 2016 e hoje vê a Arroio como o negócio que vai lhe garantir uma boa venda futura.</p>
 <div class="stake"><strong>O que está em jogo:</strong> retorno financeiro e o valor da sua participação numa eventual venda.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1551837818-f52fc6991b70?auto=format&fit=crop&w=320&h=320&q=75" alt="Mulher trabalhando dentro de uma fábrica" loading="lazy" /></div>
-<div><div class="rel">Sócia cervejeira</div><h3>Luana Becker</h3>
+<div><div class="rel">Acionista · sócia cervejeira</div><h3>Luana Becker</h3>
 <p>Detém um terço da empresa e é a responsável por todas as receitas e pelo controle de qualidade. Nenhuma cerveja da Arroio foi criada sem ela, e parte do processo nunca foi documentada. Deixou uma carreira estável para fundar a cervejaria, que é hoje sua única fonte de renda.</p>
 <div class="stake"><strong>O que está em jogo:</strong> o padrão do produto, a renda e o projeto de vida.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1626320290598-03656e931a31?auto=format&fit=crop&w=320&h=320&q=75" alt="Latas de cerveja com rótulos variados sobre uma mesa" loading="lazy" /></div>
-<div><div class="rel">Sócio de marca</div><h3>Diego Sartori</h3>
+<div><div class="rel">Acionista · sócio de marca</div><h3>Diego Sartori</h3>
 <p>Detém um terço da empresa e é responsável pelo nome, pelos rótulos, pelas redes e pelos eventos. A identidade “cerveja de Porto Alegre, feita por gente de Porto Alegre” é criação dele, e a comunidade reconhece nele o rosto da marca. Está cursando o MBA para profissionalizar a gestão.</p>
 <div class="stake"><strong>O que está em jogo:</strong> a marca que criou, a renda e a coerência entre o que a empresa diz e o que faz.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=320&h=320&q=75" alt="Corredor de supermercado" loading="lazy" /></div>
-<div><div class="rel">Varejo</div><h3>Rede Pampa Supermercados</h3>
+<div><div class="rel">Cliente · varejo</div><h3>Rede Pampa Supermercados</h3>
 <p>Responde por 35% da receita da Arroio. Tirar as latas das gôndolas é uma decisão que um comprador toma numa reunião de meia hora, e não há outra rede regional capaz de absorver esse volume. Para a Rede Pampa, a Arroio é uma entre mais de 200 marcas de cerveja no sortimento, e a categoria artesanal é uma fatia pequena das vendas.</p>
 <div class="stake"><strong>O que está em jogo:</strong> margem e giro de uma marca entre centenas.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=320&h=320&q=75" alt="Chope sendo servido na torneira" loading="lazy" /></div>
-<div><div class="rel">Canal</div><h3>Bares e restaurantes parceiros</h3>
+<div><div class="rel">Clientes · bares e restaurantes</div><h3>Bares e restaurantes parceiros</h3>
 <p>Cerca de 120 estabelecimentos em Porto Alegre e na região metropolitana, a maioria no Bom Fim, na Cidade Baixa e no 4º Distrito. Juntos, somam 30% da receita, mas nenhum passa de 2% individualmente. Muitos operam com chopeiras e equipamentos emprestados pela Arroio, e alguns construíram o cardápio e a clientela em torno da marca.</p>
 <div class="stake"><strong>O que está em jogo:</strong> o chope que atrai a clientela e o equipamento que sustenta a operação.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1532634740-6837b2a21d39?auto=format&fit=crop&w=320&h=320&q=75" alt="Trabalhador transportando barris numa cervejaria" loading="lazy" /></div>
-<div><div class="rel">Colaboradores</div><h3>Equipe da fábrica</h3>
+<div><div class="rel">Funcionários · fábrica</div><h3>Equipe da fábrica</h3>
 <p>Quinze pessoas entre cervejeiros, auxiliares de produção e logística. Vários foram formados pela própria Luana, num mercado em que mão de obra cervejeira qualificada é rara no estado. Para a maioria, a Arroio é o primeiro emprego formal na área.</p>
 <div class="stake"><strong>O que está em jogo:</strong> emprego, renda e formação profissional.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1647776112336-72f4c30fafc1?auto=format&fit=crop&w=320&h=320&q=75" alt="Bartender preparando uma bebida no balcão" loading="lazy" /></div>
-<div><div class="rel">Colaboradores</div><h3>Equipe do bar-fábrica</h3>
+<div><div class="rel">Funcionários · bar-fábrica</div><h3>Equipe do bar-fábrica</h3>
 <p>Vinte e três garçons, bartenders e cozinheiros, a maioria com menos de 30 anos, alguns em contrato temporário. Rotatividade alta e salários de mercado. São os primeiros a ouvir as reclamações dos clientes e a perceber quando algo dá errado na casa. Quase todos têm perfis ativos nas redes.</p>
 <div class="stake"><strong>O que está em jogo:</strong> renda, condições de trabalho e o ambiente da casa.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1656918828529-345b77bb06e9?auto=format&fit=crop&w=320&h=320&q=75" alt="Saco aberto de grãos" loading="lazy" /></div>
-<div><div class="rel">Fornecedor</div><h3>Maltaria Planalto</h3>
+<div><div class="rel">Fornecedor · malte</div><h3>Maltaria Planalto</h3>
 <p>Maltaria de Passo Fundo, único fornecedor regional dos maltes especiais que dão à Floresta e às outras receitas o seu perfil. Importar o mesmo malte custaria três vezes mais e levaria meses. A Arroio é um cliente pequeno para a Planalto, que abastece as grandes cervejarias do Sul.</p>
 <div class="stake"><strong>O que está em jogo:</strong> a receita de um cliente pequeno entre muitos.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1767701480265-20178b569e1e?auto=format&fit=crop&w=320&h=320&q=75" alt="Canal estreito atravessando uma área urbana" loading="lazy" /></div>
-<div><div class="rel">Regulador</div><h3>Fiscalização ambiental municipal</h3>
+<div><div class="rel">Governo · regulador</div><h3>Fiscalização ambiental municipal</h3>
 <p>Concede e renova a licença de operação da fábrica e fiscaliza o descarte de efluentes. Sem licença, a produção para. Para a fiscalização, a Arroio é uma entre milhares de empresas licenciadas na cidade. Em 2017, um fiscal questionou o descarte da água de lavagem dos tanques; o assunto ficou com Marcelo.</p>
 <div class="stake"><strong>O que está em jogo:</strong> o cumprimento das normas ambientais de um empreendimento entre milhares.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1545692770-f0029a91f3ba?auto=format&fit=crop&w=320&h=320&q=75" alt="Casas de alvenaria simples" loading="lazy" /></div>
-<div><div class="rel">Comunidade</div><h3>Moradores do 4º Distrito</h3>
+<div><div class="rel">Comunidade · vizinhança</div><h3>Moradores do 4º Distrito</h3>
 <p>Vizinhos do galpão, entre eles moradores de uma vila no entorno que existia muito antes da revitalização do bairro. Convivem com os caminhões de entrega, com o cheiro da brassagem e com o movimento do bar até tarde. A Arroio não depende deles para vender nada, mas eles convivem todos os dias com o que a empresa faz.</p>
 <div class="stake"><strong>O que está em jogo:</strong> a qualidade de vida no lugar onde moram.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1641631366865-8f7aa9fbc584?auto=format&fit=crop&w=320&h=320&q=75" alt="Grupo de amigos com copos de cerveja" loading="lazy" /></div>
-<div><div class="rel">Consumidores</div><h3>Clube Arroio</h3>
+<div><div class="rel">Clientes · consumidores finais</div><h3>Clube Arroio</h3>
 <p>A comunidade de fãs da marca: 45 mil seguidores, um grupo de mensagens com 1.200 membros e frequentadores fiéis das quintas no bar-fábrica. Defendem a marca como coisa da cidade. Mas há dezenas de cervejarias artesanais em Porto Alegre, e trocar de cerveja custa a eles o preço de uma lata.</p>
 <div class="stake"><strong>O que está em jogo:</strong> uma cerveja de que gostam e uma marca com a qual se identificam.</div></div>
 </article>
 <article class="file">
 <div class="duo live"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=320&h=320&q=75" alt="Microfone de estúdio" loading="lazy" /></div>
-<div><div class="rel">Imprensa e influência</div><h3>Pedro Lúpulo</h3>
+<div><div class="rel">Influenciador · imprensa especializada</div><h3>Pedro Lúpulo</h3>
 <p>Criador do podcast e do perfil “Lúpulo Gaúcho”, com 80 mil seguidores, a principal referência de cerveja artesanal no estado. Suas avaliações movem as vendas de lançamentos e esvaziam ou lotam festivais. Não tem contrato com nenhuma cervejaria, e a Arroio é uma das muitas marcas que ele comenta.</p>
 <div class="stake"><strong>O que está em jogo:</strong> a própria credibilidade como crítico independente.</div></div>
 </article>
@@ -420,8 +430,8 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="task">
 <h2>A classificação</h2>
 <div>
-<p>A turma se divide em cinco grupos. Cada grupo posiciona os doze stakeholders na Matriz Poder × Interesse e anota, para cada um, uma frase que justifique a posição.</p>
-<p>Depois, os grupos comparam suas matrizes. Onde vocês discordaram, e por quê?</p>
+<p>A turma se divide em cinco grupos, e cada grupo percorre três passos. O primeiro: posicionar os doze stakeholders na Matriz Poder × Interesse, com uma frase de justificativa para cada um.</p>
+<p>Avaliem cada stakeholder como ele age hoje. Quem ainda não age em conjunto, como os bares, os fãs e os funcionários, é avaliado individualmente.</p>
 </div>
 </div>
 <div class="crit">
@@ -431,13 +441,21 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="matrix blank">
 <div class="axis-y">Poder ↑</div>
 <div class="quads">
-<div class="quad q-hl"><h4>Alto poder, baixo interesse</h4></div>
-<div class="quad q-hh"><h4>Alto poder, alto interesse</h4></div>
-<div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4></div>
-<div class="quad q-lh"><h4>Baixo poder, alto interesse</h4></div>
+<div class="quad q-hl"><h4>Alto poder, baixo interesse</h4><p class="strat">Satisfazer</p></div>
+<div class="quad q-hh"><h4>Alto poder, alto interesse</h4><p class="strat">Gerenciar</p></div>
+<div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4><p class="strat">Monitorar</p></div>
+<div class="quad q-lh"><h4>Baixo poder, alto interesse</h4><p class="strat">Informar</p></div>
 </div>
 </div>
 <div class="axis-x">Interesse →</div>
+
+<div class="steps">
+<div class="step"><span class="n">2</span><h4>Quem avisar primeiro</h4>
+<p>Cada quadrante pede uma estratégia. Se uma crise estourasse amanhã, quem a Arroio deveria avisar primeiro? Ordenem os cinco primeiros e expliquem a ordem.</p></div>
+<div class="step"><span class="n">3</span><h4>Quem lucra, quem paga, o que freia</h4>
+<ul><li>Quem lucra com o crescimento da Arroio?</li><li>Quem paga os custos que esse lucro não reconhece?</li><li>O que freia a Arroio hoje?</li></ul></div>
+</div>
+<p class="compare">Por fim, os grupos comparam suas matrizes. Onde vocês discordaram, e por quê?</p>
 </div>
 
 <a href="#" class="next" onclick="return show('envelopes')">
@@ -498,9 +516,9 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="ev-q">
 <h4>Diante do acontecimento</h4>
 <ol>
-<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
-<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
-<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+<li>Quem pegou o megafone, e para que quadrante ele foi?</li>
+<li>Quem paga o custo que o lucro da Arroio não mostra?</li>
+<li>A proposta de Marcelo é legal? Isso basta? Que estratégia a Arroio deveria ter tido com esse stakeholder antes da crise?</li>
 </ol>
 </div>
 </div>
@@ -519,9 +537,9 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="ev-q">
 <h4>Diante do acontecimento</h4>
 <ol>
-<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
-<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
-<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+<li>Quem pegou o megafone, e para que quadrante ele foi?</li>
+<li>Quem paga o custo que o lucro da Arroio não mostra?</li>
+<li>A proposta de Marcelo é legal? Isso basta? Que estratégia a Arroio deveria ter tido com esse stakeholder antes da crise?</li>
 </ol>
 </div>
 </div>
@@ -540,9 +558,9 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="ev-q">
 <h4>Diante do acontecimento</h4>
 <ol>
-<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
-<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
-<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+<li>Quem pegou o megafone, e para que quadrante ele foi?</li>
+<li>Quem paga o custo que o lucro da Arroio não mostra?</li>
+<li>A proposta de Marcelo é legal? Isso basta? Que estratégia a Arroio deveria ter tido com esse stakeholder antes da crise?</li>
 </ol>
 </div>
 </div>
@@ -561,9 +579,9 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="ev-q">
 <h4>Diante do acontecimento</h4>
 <ol>
-<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
-<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
-<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+<li>Quem pegou o megafone, e para que quadrante ele foi?</li>
+<li>Quem paga o custo que o lucro da Arroio não mostra?</li>
+<li>A proposta de Marcelo é legal? Isso basta? Que estratégia a Arroio deveria ter tido com esse stakeholder antes da crise?</li>
 </ol>
 </div>
 </div>
@@ -582,9 +600,9 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="ev-q">
 <h4>Diante do acontecimento</h4>
 <ol>
-<li>Quem é o stakeholder com o megafone, e para que quadrante ele foi?</li>
-<li>Se a Arroio seguir a proposta de Marcelo, o que acontece nas próximas 72 horas?</li>
-<li>Qual seria a sua resposta, e quem precisa ouvi-la primeiro?</li>
+<li>Quem pegou o megafone, e para que quadrante ele foi?</li>
+<li>Quem paga o custo que o lucro da Arroio não mostra?</li>
+<li>A proposta de Marcelo é legal? Isso basta? Que estratégia a Arroio deveria ter tido com esse stakeholder antes da crise?</li>
 </ol>
 </div>
 </div>
@@ -613,10 +631,10 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="matrix">
 <div class="axis-y">Poder ↑</div>
 <div class="quads">
-<div class="quad q-hl"><h4>Alto poder, baixo interesse</h4><ul><li>Rede Pampa</li><li>Maltaria Planalto</li><li>Fiscalização ambiental</li></ul></div>
-<div class="quad q-hh"><h4>Alto poder, alto interesse</h4><ul><li>Marcelo Fagundes</li><li>Luana Becker</li><li>Diego Sartori</li></ul></div>
-<div class="quad q-ll"><h4>Baixo poder, baixo interesse</h4><ul><li>Clube Arroio 📣</li><li>Pedro Lúpulo 📣</li></ul></div>
-<div class="quad q-lh"><h4>Baixo poder, alto interesse</h4><ul><li>Bares parceiros</li><li>Equipe da fábrica</li><li>Equipe do bar-fábrica 📣</li><li>Moradores do 4º Distrito 📣</li></ul></div>
+<div class="quad q-hl"><h4>Alto poder, baixo interesse · Satisfazer</h4><ul><li>Rede Pampa</li><li>Maltaria Planalto</li><li>Fiscalização ambiental</li></ul></div>
+<div class="quad q-hh"><h4>Alto poder, alto interesse · Gerenciar</h4><ul><li>Marcelo Fagundes</li><li>Luana Becker</li><li>Diego Sartori</li></ul></div>
+<div class="quad q-ll"><h4>Baixo poder, baixo interesse · Monitorar</h4><ul><li>Clube Arroio 📣</li><li>Pedro Lúpulo 📣</li></ul></div>
+<div class="quad q-lh"><h4>Baixo poder, alto interesse · Informar</h4><ul><li>Bares parceiros</li><li>Equipe da fábrica</li><li>Equipe do bar-fábrica 📣</li><li>Moradores do 4º Distrito 📣</li></ul></div>
 </div>
 </div>
 <div class="axis-x">Interesse →</div>
@@ -637,15 +655,32 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <li><div class="who">Pedro Lúpulo<small>Baixo poder, baixo interesse</small></div><p>Sem contrato nem dependência de nenhum lado. Mas controla a agenda do setor no estado: decide o que 80 mil pessoas vão saber.</p></li>
 </ul>
 
+<h2 class="sec" style="margin-top:96px">Quem avisar primeiro</h2>
+<ul class="why">
+<li><div class="who">1. Os três sócios<small>Gerenciar</small></div><p>Antes de falar com qualquer pessoa de fora, a Arroio precisa falar com uma voz só. Luana e Diego não sabiam do “acerto” de 2017. Sócio desalinhado na crise é crise dobrada.</p></li>
+<li><div class="who">2. Rede Pampa<small>Satisfazer</small></div><p>Um terço da receita. O comprador precisa ouvir da Arroio, e não do jornal, antes de decidir se as latas ficam na gôndola.</p></li>
+<li><div class="who">3. Fiscalização ambiental<small>Satisfazer</small></div><p>Sempre que a crise tocar a licença. Procurar o órgão antes da denúncia muda a conversa.</p></li>
+<li><div class="who">4. Equipe do bar-fábrica<small>Informar</small></div><p>São os primeiros a ouvir os clientes e têm voz nas redes. Equipe sem informação vira fonte da imprensa.</p></li>
+<li><div class="who">5. Bares parceiros<small>Informar</small></div><p>Servem a Arroio todas as noites e respondem pela marca no balcão.</p></li>
+</ul>
+<p class="prof-note">A ordem muda conforme a crise, e essa é a discussão. O que não muda é o princípio do slide 22: a matriz se monta antes da crise, e não durante.</p>
+
+<h2 class="sec" style="margin-top:96px">Quem lucra, quem paga, o que freia</h2>
+<ul class="why">
+<li><div class="who">Quem lucra</div><p>Os três sócios, e em especial Marcelo, que vê na Arroio uma boa venda futura. Em segundo plano, a Rede Pampa e os bares, que vendem a marca.</p></li>
+<li><div class="who">Quem paga</div><p>Os moradores do 4º Distrito, com o cheiro, os caminhões e o barulho, e o arroio, que recebe a água de lavagem dos tanques desde 2017. O arroio não é stakeholder, porque não tem desejo nem pode ser medido em poder e interesse. Mas é quem paga, como a Mata Atlântica no pau-brasil, e só ganha voz quando os moradores falam por ele.</p></li>
+<li><div class="who">O que freia</div><p>O freio formal era a fiscalização, e Marcelo o neutralizou com o “acerto”. Sobra o freio do capitalismo 4.0: o julgamento dos stakeholders, que ainda não chegou. É ele que chega nos envelopes.</p></li>
+</ul>
+
 <h2 class="sec" style="margin-top:96px">Os envelopes</h2>
 <ul class="why">
-<li><div class="who">Grupo 1: A água escura<small>Moradora e Clube Arroio: o megafone. Fiscalização passa a ter alto interesse.</small></div><p>O problema “acertado” em 2017 não sumiu: ficou guardado até alguém filmar. Negar algo que está em vídeo transforma um erro ambiental numa mentira, e é a mentira que a comunidade não perdoa.</p></li>
-<li><div class="who">Grupo 2: O print<small>Equipe do bar-fábrica: de baixo para alto poder, por voz e por recusa coletiva</small></div><p>Proteger o agressor e punir quem denuncia é a forma mais rápida de perder a equipe e o público ao mesmo tempo. A proposta de Marcelo transforma uma denúncia num caso de retaliação.</p></li>
-<li><div class="who">Grupo 3: O fundo da lata<small>Pedro Lúpulo: de baixo poder para alto poder de agenda</small></div><p>A crise não é produzir fora: é o rótulo continuar dizendo “feita em Porto Alegre”. Tentar comprar o crítico confirma a acusação e atinge exatamente o que ele tem em jogo, a credibilidade.</p></li>
-<li><div class="who">Grupo 4: O tapume<small>Coletivo de moradores: de baixo para alto poder; a marca vira símbolo do despejo</small></div><p>“Não temos relação” não convence quando o logotipo está no tapume. A reputação responde pelo que a empresa aproveita, não só pelo que ela assina.</p></li>
-<li><div class="who">Grupo 5: As chopeiras<small>Bares parceiros: de baixo poder individual para alto poder coletivo</small></div><p>Stakeholders dispersos se organizam quando são humilhados em público. Processar o dono do bar transforma a vítima em mártir e dá aos outros 30 o motivo que faltava.</p></li>
+<li><div class="who">Grupo 1: A água escura<small>Moradora e Clube Arroio pegam o megafone; a fiscalização passa a ter alto interesse</small></div><p><strong>Quem paga:</strong> o arroio e os vizinhos, desde 2017. <strong>Legal basta?</strong> A nota “seguimos todas as normas” é falsa, e o “acerto” pode nem ser legal. Negar o que está em vídeo transforma um erro ambiental numa mentira. <strong>Estratégia que faltou:</strong> satisfazer a fiscalização com adequação real, não com acerto, e informar os moradores.</p></li>
+<li><div class="who">Grupo 2: O print<small>A equipe do bar-fábrica pega o megafone: de baixo para alto poder, por voz e por recusa coletiva</small></div><p><strong>Quem paga:</strong> a garçonete e as ex-funcionárias. <strong>Legal basta?</strong> Não renovar um contrato temporário é legal, mas, como retaliação a uma denúncia de assédio, não se sustenta diante de ninguém. <strong>Estratégia que faltou:</strong> informar a equipe e dar a ela um canal de denúncia que não passe pelo amigo do sócio.</p></li>
+<li><div class="who">Grupo 3: O fundo da lata<small>Pedro Lúpulo pega o megafone: de baixo poder para alto poder de agenda</small></div><p><strong>Quem paga:</strong> o consumidor, que paga por “feita em Porto Alegre” e não recebe. <strong>Legal basta?</strong> Produzir fora é legal; o rótulo que continua dizendo outra coisa, não. Tentar comprar o crítico confirma a acusação. <strong>Estratégia que faltou:</strong> monitorar não é ignorar. A mudança deveria ter sido contada aos fãs antes de ser descoberta.</p></li>
+<li><div class="who">Grupo 4: O tapume<small>O coletivo de moradores pega o megafone; a marca vira símbolo do despejo</small></div><p><strong>Quem paga:</strong> as oito famílias. <strong>Legal basta?</strong> A reintegração é legal, e mesmo assim não basta: a reputação responde pelo que a empresa aproveita, não só pelo que ela assina. É a Valeant do slide 22. <strong>Estratégia que faltou:</strong> informar e ouvir a comunidade antes de comprar o terreno.</p></li>
+<li><div class="who">Grupo 5: As chopeiras<small>O dono do bar pega o megafone, e depois os 31 bares: de baixo poder individual para alto poder coletivo</small></div><p><strong>Quem paga:</strong> os bares, que montaram a operação em torno do equipamento emprestado. <strong>Legal basta?</strong> Recolher o próprio equipamento é legal. Fazer isso em público, numa sexta à noite, e processar quem reclama transforma a vítima em mártir. <strong>Estratégia que faltou:</strong> informar os bares e conversar a mudança de regra antes de impô-la.</p></li>
 </ul>
-<p class="prof-note">Para a plenária: em todos os envelopes, a proposta de Marcelo trata a reputação como problema de comunicação, quando ela é um problema de conduta. E repare em quem aparece nos envelopes e não estava no mapa: o vereador, o coletivo de moradores, a fábrica de Santa Catarina, o gerente do bar. Quem mais ficou de fora?</p>
+<p class="prof-note">Para a plenária: em todos os envelopes, a proposta de Marcelo trata a reputação como problema de comunicação, quando ela é um problema de conduta. E repare em quem aparece nos envelopes e não estava no mapa: o vereador, o coletivo de moradores, a fábrica de Santa Catarina, o gerente do bar. Quem mais ficou de fora? É o slide “O freio mudou de lugar” acontecendo: quem paga ganhou voz para cobrar.</p>
 </div>
 </section>
 </main>
