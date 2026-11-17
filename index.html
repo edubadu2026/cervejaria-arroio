@@ -188,7 +188,7 @@
 .event .ev-marcelo h4 { font-size: 13.5px; font-weight: 600; color: #F0A08F; margin-bottom: 8px; letter-spacing: .02em; }
 .event .ev-marcelo p { font-family: var(--serif); font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.9); }
 .legend { margin-top: 18px; padding-left: 28px; font-size: 14.5px; color: var(--muted); }
-.chapters { padding: 0 0 112px; }
+.chapters { padding: 96px 0 112px; }
 .chapters .door { margin-bottom: 4px; }
 .classify { margin-top: 96px; padding-top: 56px; border-top: 2px solid var(--ink); }
 .classify .task { margin-bottom: 40px; }
@@ -263,6 +263,7 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <nav aria-label="Seções do case">
 <ul>
 <li><a href="#" class="link active" data-page="inicio" onclick="return show('inicio')">Início</a></li>
+<li><a href="#" class="link" data-page="historia" onclick="return show('historia')">A história</a></li>
 <li><a href="#" class="link" data-page="stakeholders" onclick="return show('stakeholders')">Capítulo 1</a></li>
 </ul>
 </nav>
@@ -276,22 +277,11 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 <div class="wrap">
 <div class="place">Porto Alegre, Rio Grande do Sul</div>
 <h1>Arroio <span>Cervejaria Artesanal</span></h1>
-<p class="sub">Uma cerveja que nasceu numa garagem do bairro Floresta, virou orgulho da cidade e cresceu mais rápido do que a sua capacidade de olhar para quem estava em volta.</p>
-<a href="#capitulos" class="cta" onclick="document.getElementById('capitulos').scrollIntoView({behavior:'smooth'});return false;">Ver os capítulos</a>
+<p class="sub">Uma cerveja que nasceu numa garagem do bairro Floresta e virou orgulho da cidade.</p>
+<a href="#" class="cta" onclick="return show('historia')">Conhecer a história</a>
 </div>
 </header>
 
-<section class="block">
-<div class="wrap statement">
-<h2>Uma garagem, três sócios e uma cerveja chamada Floresta.</h2>
-<div class="prose">
-<p>Tudo começou em 2014, numa garagem da rua Voluntários da Pátria, no bairro Floresta, a poucas quadras do Guaíba. Luana Becker era engenheira de alimentos formada pela UFRGS e trabalhava no controle de qualidade de um frigorífico em Montenegro. Nos fins de semana, fazia cerveja em panelas de 50 litros, com a obsessão de quem passou anos medindo pH e temperatura de linha de produção. Diego Sartori, amigo dos tempos de faculdade, era designer e não entendia nada de malte. Mas entendia de gente: criou o nome, desenhou os rótulos e transformou cada nova receita num pequeno evento para amigos, vizinhos e conhecidos de conhecidos. A primeira cerveja, uma American Pale Ale batizada de Floresta, rodava de mão em mão em garrafas sem registro. Começou a ser pedida por gente que os dois nunca tinham visto.</p>
-<p>Durante dois anos, a Arroio foi mais hobby do que empresa. O que mudou o rumo foi a chegada de Marcelo Fagundes, cunhado de um cliente fiel, com quinze anos de experiência como gerente comercial de uma distribuidora de bebidas. Marcelo provou a Floresta numa dessas noites de garagem e fez as contas em voz alta: com uma fábrica pequena, licença do Ministério da Agricultura e três pontos de venda bem escolhidos, aquilo se pagava em dezoito meses. Entrou com R$ 150 mil, a carteira de contatos e um terço da sociedade. Luana ficou com a produção, Diego com a marca e Marcelo com tudo o que envolvesse vender, negociar e cobrar. Em 2016, a cervejaria ganhou CNPJ, uma pequena fábrica alugada no bairro São Geraldo e seus primeiros cinco funcionários.</p>
-<p>Os primeiros anos foram de crescimento lento e orgulhoso. A Arroio entrou em bares do Bom Fim e da Cidade Baixa, apareceu em festivais de cerveja na Serra e virou presença garantida nas feiras do 4º Distrito. Diego cultivava uma comunidade fiel nas redes, que tratava a marca como coisa da cidade: “cerveja de Porto Alegre, feita por gente de Porto Alegre”. Luana recusava atalhos na produção, mesmo quando custavam caro. Marcelo, que ninguém desgostava, tinha um jeito próprio de resolver problemas. Quando a fiscalização municipal questionou o descarte da água de lavagem dos tanques, que escorria para o pluvial e daí para o arroio, ele disse aos sócios que tinha “acertado com o pessoal” e que não precisavam se preocupar. Quando um bar atrasou pagamentos, cortou o fornecimento no meio de um festival e deixou o dono exposto diante do público. Luana e Diego estranharam, mas a empresa crescia, as contas fechavam e ninguém queria ser o sócio que atrapalha.</p>
-<p class="ask">Quando a crise chegar, a Arroio saberá de quem depende, e quem depende dela?</p>
-</div>
-</div>
-</section>
 
 <section class="chapters" id="capitulos">
 <div class="wrap"><h2 class="sec">Capítulos</h2></div>
@@ -305,6 +295,38 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 </div>
 </a>
 </section>
+</main>
+
+<!-- ═════════ HISTÓRIA ═════════ -->
+<main id="historia" class="page">
+<header class="opening">
+<div class="duo"><img src="https://images.unsplash.com/photo-1644940642314-a310d49a4750?auto=format&fit=crop&w=2000&q=80" alt="" /></div>
+<div class="wrap">
+<div class="place">Porto Alegre, de 2014 a 2019</div>
+<h1>A história da Arroio</h1>
+</div>
+</header>
+
+<section class="block">
+<div class="wrap statement">
+<h2>Uma garagem, três sócios e uma cerveja chamada Floresta.</h2>
+<div class="prose">
+<p>Tudo começou em 2014, numa garagem da rua Voluntários da Pátria, no bairro Floresta, a poucas quadras do Guaíba. Luana Becker era engenheira de alimentos formada pela UFRGS e trabalhava no controle de qualidade de um frigorífico em Montenegro. Nos fins de semana, fazia cerveja em panelas de 50 litros, com a obsessão de quem passou anos medindo pH e temperatura de linha de produção. Diego Sartori, amigo dos tempos de faculdade, era designer e não entendia nada de malte. Mas entendia de gente: criou o nome, desenhou os rótulos e transformou cada nova receita num pequeno evento para amigos, vizinhos e conhecidos de conhecidos. A primeira cerveja, uma American Pale Ale batizada de Floresta, rodava de mão em mão em garrafas sem registro. Começou a ser pedida por gente que os dois nunca tinham visto.</p>
+<p>Durante dois anos, a Arroio foi mais hobby do que empresa. O que mudou o rumo foi a chegada de Marcelo Fagundes, cunhado de um cliente fiel, com quinze anos de experiência como gerente comercial de uma distribuidora de bebidas. Marcelo provou a Floresta numa dessas noites de garagem e fez as contas em voz alta: com uma fábrica pequena, licença do Ministério da Agricultura e três pontos de venda bem escolhidos, aquilo se pagava em dezoito meses. Entrou com R$ 150 mil, a carteira de contatos e um terço da sociedade. Luana ficou com a produção, Diego com a marca e Marcelo com tudo o que envolvesse vender, negociar e cobrar. Em 2016, a cervejaria ganhou CNPJ, uma pequena fábrica alugada no bairro São Geraldo e seus primeiros cinco funcionários.</p>
+<p>Os primeiros anos foram de crescimento lento e orgulhoso. A Arroio entrou em bares do Bom Fim e da Cidade Baixa, apareceu em festivais de cerveja na Serra e virou presença garantida nas feiras do 4º Distrito. Diego cultivava uma comunidade fiel nas redes, que tratava a marca como coisa da cidade: “cerveja de Porto Alegre, feita por gente de Porto Alegre”.</p>
+</div>
+</div>
+</section>
+
+<div class="wrap" style="padding-bottom:112px">
+<a href="#" class="next" style="margin-top:0" onclick="return show('stakeholders')">
+<div>
+<div class="kicker">Capítulo 1</div>
+<h3>Gerenciando os stakeholders</h3>
+</div>
+<span class="go">Abrir o capítulo</span>
+</a>
+</div>
 </main>
 
 <!-- ═════════ STAKEHOLDERS ═════════ -->
