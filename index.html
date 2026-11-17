@@ -208,6 +208,14 @@
 .step li + li { margin-top: 6px; }
 .compare { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink); margin-top: 40px; }
 @media (max-width: 1000px) { .steps { grid-template-columns: 1fr; } }
+.envelopes-inline { margin-top: 96px; padding-top: 56px; border-top: 2px solid var(--ink); }
+.env-lock { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 20px 24px; background: var(--page); border-left: 3px solid var(--signal); }
+.env-lock[hidden] { display: none; }
+.env-lock label { font-weight: 600; color: var(--ink); font-size: 15px; }
+.env-lock input { font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 2px; min-width: 180px; background: #fff; }
+.env-lock button { font: inherit; font-weight: 600; font-size: 15px; padding: 10px 18px; border: 0; border-radius: 2px; background: var(--ink); color: #fff; cursor: pointer; }
+.env-lock button:hover { background: var(--blue); }
+.env-err { color: #B3261E; font-size: 14px; }
 footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14px; padding: 40px 0; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
@@ -473,41 +481,7 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 
 </div>
 
-<a href="#" class="next" onclick="return show('envelopes')">
-<div>
-<div class="kicker">Depois do mapa</div>
-<h3>Os envelopes</h3>
-<p>Com os doze posicionados na matriz, cada grupo recebe um acontecimento.</p>
-</div>
-<span class="go">Ir para os envelopes</span>
-</a>
-
-<div class="key-link"><a href="#" onclick="return show('gabarito')">Gabarito da matriz</a></div>
-</div>
-</section>
-</main>
-
-<!-- ═════════ ENVELOPES ═════════ -->
-<main id="envelopes" class="page">
-<header class="opening">
-<div class="duo"><img src="https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&w=2000&q=75" alt="" /></div>
-<div class="wrap">
-<div class="place">Capítulo 1 · Depois do mapa</div>
-<h1>Os envelopes</h1>
-<p class="sub">Vocês posicionaram os doze stakeholders na matriz. Agora, algo acontece. E alguém que estava num canto do mapa pega o megafone.</p>
-</div>
-</header>
-
-<section class="block">
-<div class="wrap">
-<div class="task">
-<h2>Abram só o envelope do seu grupo</h2>
-<div>
-<p>Esperem a autorização do professor. Para abrir, toquem duas vezes no envelope do grupo.</p>
-<p>Cada envelope traz um acontecimento, a proposta de Marcelo e três perguntas. O grupo discute, refaz a matriz se for preciso e apresenta a resposta à turma em dois minutos.</p>
-</div>
-</div>
-
+<div class="envelopes-inline">
 <div class="envs">
 <button type="button" class="env" data-env="1" aria-controls="ev-1" aria-expanded="false"><span class="flap" aria-hidden="true"></span><span class="seal" aria-hidden="true">1</span><span class="env-label">Grupo 1</span><span class="env-state">Fechado</span></button>
 <button type="button" class="env" data-env="2" aria-controls="ev-2" aria-expanded="false"><span class="flap" aria-hidden="true"></span><span class="seal" aria-hidden="true">2</span><span class="env-label">Grupo 2</span><span class="env-state">Fechado</span></button>
@@ -624,7 +598,15 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
 </article>
 </div>
 
-<div class="key-link"><button type="button" class="reset" id="env-reset">Fechar todos os envelopes</button></div>
+<form class="env-lock" id="env-lock" hidden autocomplete="off">
+<label for="env-pw">Senha do envelope <span id="env-n"></span></label>
+<input id="env-pw" type="password" inputmode="text" autocapitalize="none" />
+<button type="submit">Abrir</button>
+<span class="env-err" id="env-err" role="status"></span>
+</form>
+</div>
+
+<div class="key-link"><button type="button" class="reset" id="env-reset">Fechar todos os envelopes</button> · <a href="#" onclick="return show('gabarito')">Gabarito da matriz</a></div>
 </div>
 </section>
 </main>
@@ -717,27 +699,37 @@ footer { background: var(--night); color: rgba(255,255,255,0.55); font-size: 14p
         const n = b.dataset.env, isOpen = opened.includes(n);
         b.classList.toggle('open', isOpen);
         b.setAttribute('aria-expanded', isOpen);
-        b.querySelector('.env-state').textContent = isOpen ? 'Aberto' : (b.classList.contains('armed') ? 'Toque de novo para abrir' : 'Fechado');
+        b.querySelector('.env-state').textContent = isOpen ? 'Aberto' : (b.classList.contains('armed') ? 'Digite a senha' : 'Fechado');
         document.getElementById('ev-' + n).hidden = !isOpen;
       });
     }
+    const HASH = {"1": "b5a985923cfe6ea92c6c2457dbc99e6903edb39e9f1e3957b7673daa2af6e030", "2": "d8d00c9902a2a9fb3996441a642a59d938625cf5e883f930a81c78b45dc20629", "3": "8c3a6eeaa561ac3a09dfe6f3cfaf537210b77bd87a51dd84152c93c3529cc972", "4": "f2fe1c951a49af7ae3615048812a4d3646080e497b95a5f4097126c4814d83f1", "5": "1dc5ada59665f7745f2589d32f80323ee04c9cdd095455c35d98ffdbe9c516bd"};
+    const lock = document.getElementById('env-lock'), pw = document.getElementById('env-pw'), err = document.getElementById('env-err');
+    let current = null;
+    async function sha(t) { const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(d)].map(x => x.toString(16).padStart(2, '0')).join(''); }
     envs.forEach(b => {
-      let timer;
       b.addEventListener('click', () => {
         const n = b.dataset.env, ev = document.getElementById('ev-' + n);
         if (opened.includes(n)) { ev.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
-        if (b.classList.contains('armed')) {
-          clearTimeout(timer); b.classList.remove('armed');
-          opened.push(n); opened.sort(); save(); paint();
-          setTimeout(() => ev.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }), reduce ? 0 : 650);
-          return;
-        }
         envs.forEach(o => o.classList.remove('armed'));
-        b.classList.add('armed'); paint();
-        timer = setTimeout(() => { b.classList.remove('armed'); paint(); }, 4000);
+        b.classList.add('armed'); current = n;
+        document.getElementById('env-n').textContent = n;
+        lock.hidden = false; err.textContent = ''; pw.value = ''; pw.focus();
+        paint();
       });
     });
-    document.getElementById('env-reset').addEventListener('click', () => { opened = []; save(); paint(); });
+    lock.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!current) return;
+      const n = current, h = await sha('arroio-' + n + ':' + pw.value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+      if (h !== HASH[n]) { err.textContent = 'Senha incorreta.'; pw.select(); return; }
+      lock.hidden = true; current = null;
+      envs.forEach(o => o.classList.remove('armed'));
+      opened.push(n); opened.sort(); save(); paint();
+      const ev = document.getElementById('ev-' + n);
+      setTimeout(() => ev.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }), reduce ? 0 : 650);
+    });
+    document.getElementById('env-reset').addEventListener('click', () => { opened = []; save(); lock.hidden = true; envs.forEach(o => o.classList.remove('armed')); paint(); });
     paint();
   })();
 </script>
